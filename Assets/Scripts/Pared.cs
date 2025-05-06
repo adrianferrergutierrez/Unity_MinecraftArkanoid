@@ -1,25 +1,28 @@
 using UnityEngine;
 
-public class Paddle : MonoBehaviour
+public class Pared : MonoBehaviour
 {
-    public float speed = 10f;
-    public float limit = 7f;
     public float fuerza = 10.0f;
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
     void Update()
     {
-        float move = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-        Vector3 newPos = transform.position + new Vector3(move, 0, 0);
-        newPos.x = Mathf.Clamp(newPos.x, -limit, limit);
-        transform.position = newPos;
+        
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Pelota")) {
+        /*if (collision.gameObject.CompareTag("Player"))
+        {
             Vector3 direccion = collision.gameObject.transform.position - transform.position;
 
             Rigidbody player = collision.gameObject.GetComponent<Rigidbody>();
             player.AddForce(fuerza * direccion, ForceMode.Impulse); //impulso para hacer la fuerza de forma inmediata.
-        }
+        }*/
     }
 }
