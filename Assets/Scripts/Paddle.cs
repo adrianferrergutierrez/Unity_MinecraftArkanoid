@@ -6,11 +6,17 @@ public class Paddle : MonoBehaviour
     public float limit = 7f;
     public float fuerza = 10.0f;
     private GameManager gameManager;
+    public GameObject cristalPrefab;
+    public int cantidadBloquesMuro = 15; // Cantidad de bloques para cubrir la línea
+    public float espacioEntreBloques = 1.01f; // Ajusta ligeramente para evitar huecos
+    public float distanciaDelantePala = 0.5f;
+
+    private Vector3 initialPaddlePosition;
 
     private void Start()
     {
         gameManager = FindFirstObjectByType<GameManager>();
-
+        initialPaddlePosition = transform.position;
     }
 
     void Update()
@@ -20,34 +26,59 @@ public class Paddle : MonoBehaviour
         newPos.x = Mathf.Clamp(newPos.x, -limit, limit);
         transform.position = newPos;
     }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Pelota")) {
+        if (collision.gameObject.CompareTag("Pelota"))
+        {
             Vector3 direccion = collision.gameObject.transform.position - transform.position;
-
             Rigidbody player = collision.gameObject.GetComponent<Rigidbody>();
-            player.AddForce(fuerza * direccion, ForceMode.Impulse); //impulso para hacer la fuerza de forma inmediata.
+            player.AddForce(fuerza * direccion, ForceMode.Impulse);
         }
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
-        //aplicamos powerup manzana
         if (other.gameObject.CompareTag("Manzana"))
         {
             gameManager.ActivateMultiball();
         }
+        else if (other.gameObject.CompareTag("CristalPowerUp"))
+        {
+            crearMuro();
+        }
         Destroy(other.gameObject);
     }
 
-    //las  corutinas seran para los powerups que requieran de un tiempo , este de multibola es instantaneo
-    /*  IEnumerator CountDownSecondsManzana()
-      {
-          yield return new WaitForSeconds(7); //hacemos una espera de x segundos
-          tienep = false; //ponemos a false cuando pasemos los 7 segundos que sera cuando salgamos el wait 
-          powerUpIndicator.SetActive(false); //hacemos que el indiicador se ponga en desactivado para no verlo
+    private void crearMuro()
+    {
+        if (cristalPrefab != null)
+        {
+            Vector3 spawnPositionPala = initialPaddlePosition;
+            Vector3 direccionMuro = Vector3.forward;
 
-      }
-    */
+            // Calcula la posición inicial del primer bloque del muro
+            // Asumimos que queremos cubrir desde -limit hasta +limit en el eje X
+            float inicioX = -limit;
+
+            for (int i = 0; i < cantidadBloquesMuro; i++)
+            {
+                // Calcula la posición de cada bloque a lo largo del eje X
+                Vector3 posicionBloque = new Vector3(
+                    inicioX + i * espacioEntreBloques,
+                    spawnPositionPala.y,
+                    spawnPositionPala.z + distanciaDelantePala // Ajusta la profundidad si es necesario
+                );
+                Instantiate(cristalPrefab, posicionBloque, Quaternion.identity);
+
+                // Incrementa inicioX para el siguiente bloque (esto podría causar superposición)
+                // Una mejor manera es calcular la posición directamente usando el índice y el espacio
+                // inicioX += espacioEntreBloques; // No es necesario aquí
+            }
+        }
+        else
+        {
+            Debug.LogError("No se ha asignado el Prefab del bloque de cristal al Paddle.");
+        }
+    }
 }
