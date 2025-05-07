@@ -12,6 +12,7 @@ public class Ball3D : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
     }
 
     void Update()
@@ -31,12 +32,12 @@ public class Ball3D : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Endline"))
-        {
+       // if (collision.gameObject.CompareTag("Endline"))
+        //{
             // Reiniciar escena o vida
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-        }
-        else if (collision.gameObject.CompareTag("Pared") || collision.gameObject.CompareTag("Pala") || collision.gameObject.CompareTag("Bloque") || collision.gameObject.CompareTag("Hoja"))
+          //  UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        //}
+       if (collision.gameObject.CompareTag("Pared") || collision.gameObject.CompareTag("Pala") || collision.gameObject.CompareTag("Bloque") || collision.gameObject.CompareTag("Hoja"))
         {
             float velocidad = ultima_velocidad.magnitude;
             Vector3 direccion = Vector3.Reflect(ultima_velocidad.normalized, collision.contacts[0].normal);
@@ -50,5 +51,9 @@ public class Ball3D : MonoBehaviour
         }
         
     }
-    
+
+  
+
+  
+
 }

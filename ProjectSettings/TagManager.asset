@@ -10,6 +10,7 @@ TagManager:
   - Pala
   - Suelo
   - Hoja
+  - Manzana
   layers:
   - Default
   - TransparentFX
