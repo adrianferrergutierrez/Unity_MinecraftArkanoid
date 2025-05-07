@@ -11,6 +11,8 @@ TagManager:
   - Suelo
   - Hoja
   - Manzana
+  - CristalPowerUp
+  - Cristal
   layers:
   - Default
   - TransparentFX

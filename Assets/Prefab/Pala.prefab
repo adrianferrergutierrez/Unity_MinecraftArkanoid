@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a654d33ed662f8144a5ea4b1c3856009, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -22.227
+      value: -21.97
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a654d33ed662f8144a5ea4b1c3856009, type: 3}
       propertyPath: m_LocalRotation.w
@@ -135,6 +135,10 @@ MonoBehaviour:
   speed: 10
   limit: 7
   fuerza: 0
+  cristalPrefab: {fileID: 7867265982512607928, guid: c41c58984dc26a34db81e1f5dd999d93, type: 3}
+  cantidadBloquesMuro: 15
+  espacioEntreBloques: 1.1
+  distanciaDelantePala: 1
 --- !u!135 &6138731382331296202
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -154,8 +158,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.42
-  m_Center: {x: -0.44, y: 1.17, z: -3.46}
+  m_Radius: 0.65
+  m_Center: {x: -0.44, y: 1.17, z: -3.4}
 --- !u!65 &5864746242590652731
 BoxCollider:
   m_ObjectHideFlags: 0
