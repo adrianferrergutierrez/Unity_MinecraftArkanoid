@@ -8,6 +8,8 @@ TagManager:
   - Bloque
   - Pared
   - Pala
+  - Suelo
+  - Hoja
   layers:
   - Default
   - TransparentFX
