@@ -46,6 +46,8 @@
         // Método llamado por el script de la manzana para activar la multibola (IGUAL QUE ANTES)
         public void ActivateMultiball()
         {
+        if (activeBalls.Count <= 5)
+        {
             Debug.LogError("¡Holaaa!");
 
             List<Vector3> positionsToSpawn = new List<Vector3>();
@@ -67,6 +69,7 @@
             {
                 InstantiateNewBall(spawnPos); // Reutilizamos el método auxiliar
             }
+        }
         }
 
         // Método auxiliar para instanciar una sola bola y añadirla al seguimiento (IGUAL QUE ANTES)
