@@ -121,13 +121,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidas: 1
-  manzanaPowerUp: {fileID: 0}
-  cristalPowerUp: {fileID: 0}
-  redstonePowerup: {fileID: 0}
   powerups:
   - {fileID: 1075407149815071947, guid: dd0b04bcec4eba64c9e64094abbca344, type: 3}
   - {fileID: 1168960774798359845, guid: cb410f8ea66c1e94abf9b5a7e9a8a34c, type: 3}
   - {fileID: 9047881310053280188, guid: 827dc2242f441d6499bcfe696b07668b, type: 3}
+  clips:
+  - {fileID: 8300000, guid: f5fe0fb4bbe19b84c9ebf2715448b922, type: 3}
+  - {fileID: 8300000, guid: 9d4352f7bec777b43b12887e10af14c3, type: 3}
+  - {fileID: 8300000, guid: 019406a8c96641a40b139382bcb1ba78, type: 3}
+  - {fileID: 8300000, guid: ec9b2acb5363f764398709a060c0e6ab, type: 3}
+  sistema_particulas: {fileID: 6478523988130181653, guid: 69d0fa381e3298445a041cd9959a6f6f, type: 3}
 --- !u!54 &1508873855674900673
 Rigidbody:
   m_ObjectHideFlags: 0

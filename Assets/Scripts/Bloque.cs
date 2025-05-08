@@ -9,7 +9,11 @@ public class Bloque : MonoBehaviour
     public GameObject[] powerups;
     //power up 0 -> manzana
     //power up 1 -> cristal
-    //power up 2-> redstone
+    //power up 2-> redstone aunque realmente o hace falta hacerlo asi, si solo dropea un item se le puede poner en el item 0 y ya, lo he pensado  tarde
+
+    public AudioClip[] clips;
+    //sistema de particulas
+    public GameObject sistema_particulas;
 
 
     // Probabilidades
@@ -56,11 +60,24 @@ public class Bloque : MonoBehaviour
                 {
                     InstanciarPowerUpAleatorio();
                 }
-                else if (CompareTag("Bloque") && Random.value < probabilidad_drop_bloque)
+                else if (CompareTag("Bloque")&& Random.value < probabilidad_drop_bloque)
                 {
                     InstanciarPowerUpAleatorio();
                 }
 
+             
+                GameObject particlesInstance = Instantiate(sistema_particulas, transform.position, Quaternion.identity);
+                AudioSource audio = particlesInstance.GetComponent<AudioSource>();
+                ParticleSystem particulas = particlesInstance.GetComponent<ParticleSystem>();
+                particulas.Play();
+
+                //haremos que se escuche el sonido
+
+                AudioClip clip_que_sonara;
+                int randomIndex = Random.Range(0, clips.Length);
+                clip_que_sonara = clips[randomIndex];
+                audio.PlayOneShot(clip_que_sonara);
+                Destroy(particlesInstance, particulas.main.duration);
                 Destroy(gameObject);
             }
         }
