@@ -46,7 +46,8 @@ public class Ball3D : MonoBehaviour
             // Reiniciar escena o vida
           //  UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         //}
-       if (collision.gameObject.CompareTag("Pared") || collision.gameObject.CompareTag("Pala") || collision.gameObject.CompareTag("Bloque") || collision.gameObject.CompareTag("Hoja") || collision.gameObject.CompareTag("Cristal") || collision.gameObject.CompareTag("Cofre") || collision.gameObject.CompareTag("Redstone"))
+       if (collision.gameObject.CompareTag("Pared") || collision.gameObject.CompareTag("Pala") || collision.gameObject.CompareTag("Bloque") || collision.gameObject.CompareTag("Hoja")
+            || collision.gameObject.CompareTag("Cristal") || collision.gameObject.CompareTag("Cofre") || collision.gameObject.CompareTag("Redstone") || collision.gameObject.CompareTag("GlassNoDrop") || collision.gameObject.CompareTag("Pelota"))
         {
             float velocidad = ultima_velocidad.magnitude;
             Vector3 direccion = Vector3.Reflect(ultima_velocidad.normalized, collision.contacts[0].normal);
