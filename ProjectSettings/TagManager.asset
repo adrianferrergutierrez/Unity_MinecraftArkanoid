@@ -17,6 +17,8 @@ TagManager:
   - Redstonepowerup
   - GlassNoDrop
   - Cofre
+  - Tronco
+  - Paja
   layers:
   - Default
   - TransparentFX
