@@ -9,11 +9,13 @@ public class Ball3D : MonoBehaviour
     private Vector3 ultima_velocidad;
     public float velocidad_actual;
     private float velocidad_minima = 20.0f;
+    private AudioSource audio;
+    public AudioClip clip;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        audio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -44,7 +46,7 @@ public class Ball3D : MonoBehaviour
             // Reiniciar escena o vida
           //  UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         //}
-       if (collision.gameObject.CompareTag("Pared") || collision.gameObject.CompareTag("Pala") || collision.gameObject.CompareTag("Bloque") || collision.gameObject.CompareTag("Hoja"))
+       if (collision.gameObject.CompareTag("Pared") || collision.gameObject.CompareTag("Pala") || collision.gameObject.CompareTag("Bloque") || collision.gameObject.CompareTag("Hoja") || collision.gameObject.CompareTag("Cristal") || collision.gameObject.CompareTag("Cofre") || collision.gameObject.CompareTag("Redstone"))
         {
             float velocidad = ultima_velocidad.magnitude;
             Vector3 direccion = Vector3.Reflect(ultima_velocidad.normalized, collision.contacts[0].normal);
@@ -55,6 +57,7 @@ public class Ball3D : MonoBehaviour
             {
                 rb.linearVelocity = rb.linearVelocity.normalized * velocidad_minima;
             }
+            audio.PlayOneShot(clip);
         }
 
 
