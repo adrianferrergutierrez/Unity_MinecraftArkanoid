@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Paddle : MonoBehaviour
@@ -11,20 +12,46 @@ public class Paddle : MonoBehaviour
     public float espacioEntreBloques = 1.01f; // Ajusta ligeramente para evitar huecos
     public float distanciaDelantePala = 0.5f;
 
+
+    //cosas powerup redstone
+    private bool redstone_powerup;
+    public GameObject redstone_powerUpIndicator;
+
+    public GameObject cabeza_pico; //cojo el gameobject yno directamenteelmesh render porque por alguna  razon se borraba
+    private Renderer render_diamante_pico; //esto lo hago para coger el render  de solola partede diamante delpico para  cmbiarla de color durante el tiempo quedure el powerup
+    private Color color_original;
+
+
+
     private Vector3 initialPaddlePosition;
 
     private void Start()
     {
-        gameManager = FindFirstObjectByType<GameManager>();
-        initialPaddlePosition = transform.position;
-    }
 
-    void Update()
+        gameManager = FindFirstObjectByType<GameManager>();
+        render_diamante_pico = cabeza_pico.GetComponent<Renderer>();
+        color_original = render_diamante_pico.material.color;
+        initialPaddlePosition = transform.position;
+        redstone_powerup = false;
+
+}
+
+void Update()
     {
-        float move = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        float move;
+        if (redstone_powerup)
+        {
+            move = Input.GetAxis("Horizontal") * speed * 2 * Time.deltaTime;
+        }
+        else
+        {
+            move = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        }
         Vector3 newPos = transform.position + new Vector3(move, 0, 0);
         newPos.x = Mathf.Clamp(newPos.x, -limit, limit);
         transform.position = newPos;
+        //redstone_powerUpIndicator.transform.position = transform.position + new Vector3(0.0f, -0.5f, 0.0f);
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -47,9 +74,28 @@ public class Paddle : MonoBehaviour
         {
             crearMuro();
         }
+        else if (other.gameObject.CompareTag("Redstonepowerup"))
+        {
+            redstone_powerup = true;
+            //el powerup indicator deberiamos ponerlo en true aqui
+            render_diamante_pico.material.color = Color.red;
+
+            StartCoroutine(CountDownSeconds());
+
+
+        }
         Destroy(other.gameObject);
     }
 
+    IEnumerator CountDownSeconds()
+    {
+        yield return new WaitForSeconds(7); //hacemos lo que seria un waitpid o parecido
+        redstone_powerup = false; //ponemos a false cuando pasemos los 7 segundos que sera cuando salgamos el wait 
+        render_diamante_pico.material.color = Color.white;
+
+        // powerUpIndicator.SetActive(false); //hacemos que el indiicador se ponga en desactivado para no verlo
+
+    }
     private void crearMuro()
     {
         if (cristalPrefab != null)

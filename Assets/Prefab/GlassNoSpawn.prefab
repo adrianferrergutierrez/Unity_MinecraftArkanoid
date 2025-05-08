@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bbb27f133290e374e9a90f03e416de8c, type: 3}
       propertyPath: m_TagString
-      value: Bloque
+      value: GlassNoDrop
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -150,3 +150,5 @@ MonoBehaviour:
   vidas: 1
   manzanaPowerUp: {fileID: 0}
   cristalPowerUp: {fileID: 1168960774798359845, guid: cb410f8ea66c1e94abf9b5a7e9a8a34c, type: 3}
+  redstonePowerup: {fileID: 0}
+  powerups: []

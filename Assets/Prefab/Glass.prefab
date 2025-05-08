@@ -150,3 +150,8 @@ MonoBehaviour:
   vidas: 1
   manzanaPowerUp: {fileID: 0}
   cristalPowerUp: {fileID: 1168960774798359845, guid: cb410f8ea66c1e94abf9b5a7e9a8a34c, type: 3}
+  redstonePowerup: {fileID: 0}
+  powerups:
+  - {fileID: 1075407149815071947, guid: dd0b04bcec4eba64c9e64094abbca344, type: 3}
+  - {fileID: 1168960774798359845, guid: cb410f8ea66c1e94abf9b5a7e9a8a34c, type: 3}
+  - {fileID: 9047881310053280188, guid: 827dc2242f441d6499bcfe696b07668b, type: 3}

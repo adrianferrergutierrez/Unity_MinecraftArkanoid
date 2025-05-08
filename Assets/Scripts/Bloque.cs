@@ -4,10 +4,22 @@ public class Bloque : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public int vidas = 3;
-    public GameObject manzanaPowerUp;//lo enlazamos por unity
-    public GameObject cristalPowerUp;
+ 
+
+    public GameObject[] powerups;
+    //power up 0 -> manzana
+    //power up 1 -> cristal
+    //power up 2-> redstone
+
+
+    // Probabilidades
     private float probabilidad_powerup_manzana_de_hoja = 0.33f;
     private float probabilidad_powerup_cristal = 0.5f;
+    private float probabilidad_powerup_redstone = 1f; // Redstone siempre suelta
+
+    private float probabilidad_drop_bloque = 0.1f; // 10%
+    private float probabilidad_drop_cofre = 1.0f;  // 100%
+
     void Start()
     {
     }
@@ -20,34 +32,54 @@ public class Bloque : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Pelota")) {
+        if (collision.gameObject.CompareTag("Pelota"))
+        {
             vidas--;
+
             if (vidas == 0)
             {
                 float random = Random.value;
 
-                if (gameObject.CompareTag("Hoja"))
+                if (CompareTag("Hoja") && random < probabilidad_powerup_manzana_de_hoja)
                 {
-                    if (random < probabilidad_powerup_manzana_de_hoja)
-                    {
-                        Instantiate(manzanaPowerUp, transform.position, manzanaPowerUp.transform.rotation);
-                    }
-
+                    InstanciarPowerUp(0); // manzana
                 }
-                else if (gameObject.CompareTag("Cristal")) {
-                    if (random < probabilidad_powerup_cristal)
-                    {
-                        Instantiate(cristalPowerUp, transform.position, cristalPowerUp.transform.rotation);
-                    }
+                else if (CompareTag("Cristal") && random < probabilidad_powerup_cristal)
+                {
+                    InstanciarPowerUp(1); // cristal
                 }
-               // else if (gameObject.CompareTag("Cofre"))//para el cofre  pondremos que de un item 100 x 100, pero uno aleatorio
-                //else if(gameObject.CompareTag("Bloque"))//para el resto de bloques que no tienen un powerup especifico
+                else if (CompareTag("Redstone") && random < probabilidad_powerup_redstone)
+                {
+                    InstanciarPowerUp(2); // redstone
+                }
+                else if (CompareTag("Cofre") && Random.value < probabilidad_drop_cofre)
+                {
+                    InstanciarPowerUpAleatorio();
+                }
+                else if (CompareTag("Bloque") && Random.value < probabilidad_drop_bloque)
+                {
+                    InstanciarPowerUpAleatorio();
+                }
 
                 Destroy(gameObject);
             }
-            
         }
-     
     }
- 
+
+    private void InstanciarPowerUp(int index)
+    {
+        if (index >= 0 && index < powerups.Length && powerups[index] != null)
+        {
+            Instantiate(powerups[index], transform.position, powerups[index].transform.rotation);
+        }
+    }
+
+    private void InstanciarPowerUpAleatorio()
+    {
+        if (powerups.Length == 0) return;
+
+        int index = Random.Range(0, powerups.Length);
+        InstanciarPowerUp(index);
+    }
+
 }
