@@ -9,6 +9,7 @@ public class Ball3D : MonoBehaviour
     private Vector3 ultima_velocidad;
     public float velocidad_actual;
     private float velocidad_minima = 20.0f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -30,6 +31,12 @@ public class Ball3D : MonoBehaviour
         velocidad_actual = ultima_velocidad.magnitude;
     }
 
+    public void launch()
+    {
+        rb.AddForce(Vector3.forward * launchForce);
+
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
        // if (collision.gameObject.CompareTag("Endline"))
@@ -49,6 +56,8 @@ public class Ball3D : MonoBehaviour
                 rb.linearVelocity = rb.linearVelocity.normalized * velocidad_minima;
             }
         }
+
+
         
     }
 

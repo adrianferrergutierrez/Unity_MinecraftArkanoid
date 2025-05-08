@@ -1,5 +1,5 @@
     using UnityEngine;
-    using System.Collections.Generic; // Necesario para usar List
+    using System.Collections.Generic; 
 
     public class GameManager : MonoBehaviour
     {
@@ -9,14 +9,25 @@
         // Referencia a la pala para saber dónde spawnear la primera bola (opcional)
         private GameObject pala;
 
+        //numero de vidas que tenemos, se mostrará en la ui a partir de este numero
+        private int vidas_player = 3;
+
+             private Vector3 initialSpawnPosition;
         // ** Método que se ejecuta al inicio del juego/escena **
         void Start()
         {
-       
             pala = GameObject.FindGameObjectWithTag("Pala");
-            Vector3 initialSpawnPosition = pala.transform.position + Vector3.forward * 2.5f + Vector3.up * 1.0f + Vector3.right * 0.25f;
+            initialSpawnPosition = pala.transform.position + Vector3.forward * 3.0f + Vector3.up * 1.0f + Vector3.right * 0.25f;
             InstantiateNewBall(initialSpawnPosition); // Llama al método auxiliar para crear y registrar la bola
         }
+
+    //Inicializamos la bola en su sitio otra vez
+        void Start2()
+          {
+        InstantiateNewBall(initialSpawnPosition); 
+         }
+
+
 
     
         public void AddBall(GameObject newBall)
@@ -46,8 +57,7 @@
         // Método llamado por el script de la manzana para activar la multibola (IGUAL QUE ANTES)
         public void ActivateMultiball()
         {
-        if (activeBalls.Count <= 5)
-        {
+        if (activeBalls.Count <= 5) { 
             Debug.LogError("¡Holaaa!");
 
             List<Vector3> positionsToSpawn = new List<Vector3>();
@@ -68,8 +78,7 @@
             foreach (Vector3 spawnPos in positionsToSpawn)
             {
                 InstantiateNewBall(spawnPos); // Reutilizamos el método auxiliar
-            }
-        }
+            }}
         }
 
         // Método auxiliar para instanciar una sola bola y añadirla al seguimiento (IGUAL QUE ANTES)
@@ -85,12 +94,32 @@
                 Rigidbody rb = newBall.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
-                   //   rb.AddForce(Vector3.,ForceMode.Impulse)
+                
+
+                if (activeBalls.Count > 1) newBall.GetComponent<Ball3D>().launch();
+                
                 }
             }
             else
             {
                 Debug.LogError("¡Prefab de Bola no asignado en el GameManager!");
             }
+        }
+    
+    /// <summary>
+    /// Funciíon llamada por la bola cuando colisiona/ se detectaque esta fuera del mapa y borra del vector de bolas ese objeto, si era la ultima en ser borrada, se quita 1 vida y se pone la bola en el punto inicial.
+    /// </summary>
+    /// <param name="bola"> el parametro bola sera el propio gameobject que se pasará a si mismo desde Ball.cs al game manager para poder borrar este elemento y ver si era la ultima o no</param>
+    public void destruccion_bola(GameObject bola) {
+        activeBalls.Remove(bola); //borramos el objeto
+        Destroy(bola);
+
+        //era la ultima
+        if (activeBalls.Count == 0) {
+            vidas_player--; //lo usaremos para gestionar la ui y estados del juego
+            Start2();
+        }
+    
+    
         }
     }
