@@ -14,6 +14,8 @@ public class Bloque : MonoBehaviour
     public AudioClip[] clips;
     //sistema de particulas
     public GameObject sistema_particulas;
+    public Transform upperStructureParent;
+
 
 
     // Probabilidades
@@ -24,8 +26,10 @@ public class Bloque : MonoBehaviour
     private float probabilidad_drop_bloque = 0.1f; // 10%
     private float probabilidad_drop_cofre = 1.0f;  // 100%
 
+
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -42,43 +46,94 @@ public class Bloque : MonoBehaviour
 
             if (vidas == 0)
             {
-                float random = Random.value;
+                if (CompareTag("BloqueCentralNether"))
+                {
+                    Debug.Log("Bloque Central Nether destruido. Liberando estructura superior.");
 
-                if (CompareTag("Hoja") && random < probabilidad_powerup_manzana_de_hoja)
-                {
-                    InstanciarPowerUp(0); // manzana
-                }
-                else if (CompareTag("Cristal") && random < probabilidad_powerup_cristal)
-                {
-                    InstanciarPowerUp(1); // cristal
-                }
-                else if (CompareTag("Redstone") && random < probabilidad_powerup_redstone)
-                {
-                    InstanciarPowerUp(2); // redstone
-                }
-                else if (CompareTag("Cofre") && Random.value < probabilidad_drop_cofre)
-                {
-                    InstanciarPowerUpAleatorio();
-                }
-                else if (CompareTag("Bloque")&& Random.value < probabilidad_drop_bloque)
-                {
-                    InstanciarPowerUpAleatorio();
-                }
+                    // Verifica si tenemos la referencia al padre de la estructura superior
+                    if (upperStructureParent != null)
+                    {
+                        // Itera a través de TODOS los GameObjects hijos del padre "Parte de Arriba".
+                        // Iterar hacia atrás es CRUCIAL al desvincular para no perder referencias.
+                        for (int i = upperStructureParent.childCount - 1; i >= 0; i--)
+                        {
+                            Transform child = upperStructureParent.GetChild(i);
 
-             
-                GameObject particlesInstance = Instantiate(sistema_particulas, transform.position, Quaternion.identity);
-                AudioSource audio = particlesInstance.GetComponent<AudioSource>();
-                ParticleSystem particulas = particlesInstance.GetComponent<ParticleSystem>();
-                particulas.Play();
+                            // 1. Desvincula el hijo de su padre "Parte de Arriba"
+                            child.parent = null; // Establece el padre a null
 
-                //haremos que se escuche el sonido
+                            // 2. Asegúrate de que la física se active en este hijo ahora desvinculado
+                            Rigidbody childRigidbody = child.GetComponent<Rigidbody>();
+                            if (childRigidbody != null)
+                            {
+                                // Si el Rigidbody estaba marcado como Kinematic (para mantenerlo fijo)
+                                if (childRigidbody.isKinematic)
+                                {
+                                    childRigidbody.isKinematic = false; // Desactiva Kinematic para que la física lo controle
+                                    Debug.Log("Liberando física en: " + child.name);
 
-                AudioClip clip_que_sonara;
-                int randomIndex = Random.Range(0, clips.Length);
-                clip_que_sonara = clips[randomIndex];
-                audio.PlayOneShot(clip_que_sonara);
-                Destroy(particlesInstance, particulas.main.duration);
-                Destroy(gameObject);
+                                    // Opcional: Añade una pequeña fuerza para que se separen un poco
+                                    // childRigidbody.AddExplosionForce(50f, transform.position, 5f);
+                                    childRigidbody.AddForce(Random.insideUnitSphere * 1f, ForceMode.Impulse); // Pequeño empujón aleatorio
+                                }
+                                // Asegúrate de que la gravedad está activada
+                                childRigidbody.useGravity = true;
+                            }
+                            else
+                            {
+                                Debug.LogWarning("¡El bloque hijo " + child.name + " no tiene un componente Rigidbody! No podrá caer.");
+                            }
+
+                            // Opcional: Habilitar otros scripts en los hijos si es necesario al liberarse
+                        }
+                        Destroy(upperStructureParent.gameObject);
+                        Destroy(gameObject);
+                    }
+
+                    else
+                    {
+                        float random = Random.value;
+
+                        if (CompareTag("Hoja") && random < probabilidad_powerup_manzana_de_hoja)
+                        {
+                            InstanciarPowerUp(0); // manzana
+                        }
+                        else if (CompareTag("Cristal") && random < probabilidad_powerup_cristal)
+                        {
+                            InstanciarPowerUp(1); // cristal
+                        }
+                        else if (CompareTag("Redstone") && random < probabilidad_powerup_redstone)
+                        {
+                            InstanciarPowerUp(2); // redstone
+                        }
+                        else if (CompareTag("Cofre") && Random.value < probabilidad_drop_cofre)
+                        {
+                            InstanciarPowerUpAleatorio();
+                        }
+                        else if (CompareTag("Bloque") && Random.value < probabilidad_drop_bloque)
+                        {
+                            InstanciarPowerUpAleatorio();
+                        }
+
+                        Destroy(gameObject);
+
+                        return;
+
+                        GameObject particlesInstance = Instantiate(sistema_particulas, transform.position, Quaternion.identity);
+                        AudioSource audio = particlesInstance.GetComponent<AudioSource>();
+                        ParticleSystem particulas = particlesInstance.GetComponent<ParticleSystem>();
+                        particulas.Play();
+
+                        //haremos que se escuche el sonido
+
+                        AudioClip clip_que_sonara;
+                        int randomIndex = Random.Range(0, clips.Length);
+                        clip_que_sonara = clips[randomIndex];
+                        audio.PlayOneShot(clip_que_sonara);
+                        Destroy(particlesInstance, particulas.main.duration);
+                        Destroy(gameObject);
+                    }
+                }
             }
         }
     }

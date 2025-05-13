@@ -19,6 +19,8 @@ TagManager:
   - Cofre
   - Tronco
   - Paja
+  - BloqueCentralNether
+  - Destroy
   layers:
   - Default
   - TransparentFX
