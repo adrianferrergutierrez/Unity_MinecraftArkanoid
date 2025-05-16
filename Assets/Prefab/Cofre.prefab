@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 931cdfdf6e8b672418dc9442b91dd6cd, type: 3}
       propertyPath: m_TagString
-      value: Cofre
+      value: Bloque_powerup_random
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -110,6 +110,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 019406a8c96641a40b139382bcb1ba78, type: 3}
   - {fileID: 8300000, guid: ec9b2acb5363f764398709a060c0e6ab, type: 3}
   sistema_particulas: {fileID: 2708937309271553704, guid: c926e3853747f1246b7d08310966f28c, type: 3}
+  upperStructureParent: {fileID: 0}
+  probabilidad_powerup: 1
 --- !u!54 &8533413330251664505
 Rigidbody:
   m_ObjectHideFlags: 0

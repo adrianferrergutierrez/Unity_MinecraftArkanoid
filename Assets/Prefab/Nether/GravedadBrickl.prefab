@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 85d2765cce5f2244a94ea18e18886b53, type: 3}
       propertyPath: m_TagString
-      value: Bloque
+      value: Bloque_powerup_random
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -125,6 +125,8 @@ MonoBehaviour:
   - {fileID: 9047881310053280188, guid: 827dc2242f441d6499bcfe696b07668b, type: 3}
   clips: []
   sistema_particulas: {fileID: 0}
+  upperStructureParent: {fileID: 0}
+  probabilidad_powerup: 0
 --- !u!54 &6833650854829100479
 Rigidbody:
   m_ObjectHideFlags: 0

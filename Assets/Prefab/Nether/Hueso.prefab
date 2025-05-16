@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hueso
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 85e0b4f4c3d5c6f48b1e905785571429, type: 3}
+      propertyPath: m_TagString
+      value: Bloque_powerup_random
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -120,6 +124,8 @@ MonoBehaviour:
   powerups: []
   clips: []
   sistema_particulas: {fileID: 0}
+  upperStructureParent: {fileID: 0}
+  probabilidad_powerup: 0
 --- !u!54 &-4340068498748572520
 Rigidbody:
   m_ObjectHideFlags: 0

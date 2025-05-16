@@ -7,9 +7,7 @@ public class Bloque : MonoBehaviour
  
 
     public GameObject[] powerups;
-    //power up 0 -> manzana
-    //power up 1 -> cristal
-    //power up 2-> redstone aunque realmente o hace falta hacerlo asi, si solo dropea un item se le puede poner en el item 0 y ya, lo he pensado  tarde
+    //para los objetos que solo tienen un drop ponemos el unico item y hacemos que se dopee el item [0]. Si queremos aleatorio hacemos que se haga random entre el numero de items que tiene el array.
 
     public AudioClip[] clips;
     //sistema de particulas
@@ -19,12 +17,9 @@ public class Bloque : MonoBehaviour
 
 
     // Probabilidades
-    private float probabilidad_powerup_manzana_de_hoja = 0.33f;
-    private float probabilidad_powerup_cristal = 0.5f;
-    private float probabilidad_powerup_redstone = 1f; // Redstone siempre suelta
+    public float probabilidad_powerup;
 
-    private float probabilidad_drop_bloque = 0.1f; // 10%
-    private float probabilidad_drop_cofre = 1.0f;  // 100%
+    
 
 
     void Start()
@@ -46,6 +41,7 @@ public class Bloque : MonoBehaviour
 
             if (vidas == 0)
             {
+                //comportamiento especifico de los bloques centrales, donde primero hacen que los hijos dejen de ser sus hijos para no ser eliminados todos juntos
                 if (CompareTag("BloqueCentralNether"))
                 {
                     Debug.Log("Bloque Central Nether destruido. Liberando estructura superior.");
@@ -87,6 +83,7 @@ public class Bloque : MonoBehaviour
                             // Opcional: Habilitar otros scripts en los hijos si es necesario al liberarse
                         }
                         Destroy(upperStructureParent.gameObject);
+                        //Eliminacion(); DESCOMENTAR CUANDO FUNCIONEN LAS PARTICULASS DE DESTRUCCION PARA TODOS
                         Destroy(gameObject);
                     }
                 }
@@ -95,48 +92,27 @@ public class Bloque : MonoBehaviour
                 {
                     float random = Random.value;
 
-                    if (CompareTag("Hoja") && random < probabilidad_powerup_manzana_de_hoja)
+                    if (CompareTag("Bloque_powerup_especifico") && random < probabilidad_powerup)
                     {
-                        InstanciarPowerUp(0); // manzana
+                        InstanciarPowerUp(0);
                     }
-                    else if (CompareTag("Cristal") && random < probabilidad_powerup_cristal)
-                    {
-                        InstanciarPowerUp(1); // cristal
-                    }
-                    else if (CompareTag("Redstone") && random < probabilidad_powerup_redstone)
-                    {
-                        InstanciarPowerUp(2); // redstone
-                    }
-                    else if (CompareTag("Cofre") && Random.value < probabilidad_drop_cofre)
+                    else if (CompareTag("Bloque_powerup_random") && random < probabilidad_powerup)
                     {
                         InstanciarPowerUpAleatorio();
                     }
-                    else if (CompareTag("Bloque") && Random.value < probabilidad_drop_bloque)
-                    {
-                        InstanciarPowerUpAleatorio();
+                        //destroy game object provisional,esto se quitara cuando todos los bloques tengan ya las particulas y sonidos, si no da error
+
+                        Destroy(gameObject);
+
+                        return;
+
+                        Eliminacion();
                     }
-
-                    Destroy(gameObject);
-
-                    return;
-
-                    GameObject particlesInstance = Instantiate(sistema_particulas, transform.position, Quaternion.identity);
-                    AudioSource audio = particlesInstance.GetComponent<AudioSource>();
-                    ParticleSystem particulas = particlesInstance.GetComponent<ParticleSystem>();
-                    particulas.Play();
-
-                    //haremos que se escuche el sonido
-
-                    AudioClip clip_que_sonara;
-                    int randomIndex = Random.Range(0, clips.Length);
-                    clip_que_sonara = clips[randomIndex];
-                    audio.PlayOneShot(clip_que_sonara);
-                    Destroy(particlesInstance, particulas.main.duration);
-                    Destroy(gameObject);
                 }
             }
         }
-    }
+    
+    
         
     
 
@@ -156,4 +132,22 @@ public class Bloque : MonoBehaviour
         InstanciarPowerUp(index);
     }
 
+    //funcion que se usara cuando tengamos todas las particulas funcionando
+    private void Eliminacion()
+    {
+        GameObject particlesInstance = Instantiate(sistema_particulas, transform.position, Quaternion.identity);
+        AudioSource audio = particlesInstance.GetComponent<AudioSource>();
+        ParticleSystem particulas = particlesInstance.GetComponent<ParticleSystem>();
+        particulas.Play();
+
+        //haremos que se escuche el sonido
+
+        AudioClip clip_que_sonara;
+        int randomIndex = Random.Range(0, clips.Length);
+        clip_que_sonara = clips[randomIndex];
+        audio.PlayOneShot(clip_que_sonara);
+        Destroy(particlesInstance, particulas.main.duration);
+        Destroy(gameObject);
+
+    }
 }

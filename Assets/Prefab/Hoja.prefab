@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a46b675ae65d5a74dbdf18e0c0a7f4da, type: 3}
       propertyPath: m_TagString
-      value: Hoja
+      value: Bloque_powerup_especifico
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -123,14 +123,14 @@ MonoBehaviour:
   vidas: 1
   powerups:
   - {fileID: 1075407149815071947, guid: dd0b04bcec4eba64c9e64094abbca344, type: 3}
-  - {fileID: 1168960774798359845, guid: cb410f8ea66c1e94abf9b5a7e9a8a34c, type: 3}
-  - {fileID: 9047881310053280188, guid: 827dc2242f441d6499bcfe696b07668b, type: 3}
   clips:
   - {fileID: 8300000, guid: 4944f3aec1b01e9479896f13b6429bca, type: 3}
   - {fileID: 8300000, guid: 2f0a716f53cd42547b55b962ef5d93a1, type: 3}
   - {fileID: 8300000, guid: ef993c846697f6f4b8afaf6a2b601fce, type: 3}
   - {fileID: 8300000, guid: f00e397cf7dc5e447a95fb439566951c, type: 3}
   sistema_particulas: {fileID: 5088295112563875973, guid: d68ae2436eddc1346b9aac2ce0d00885, type: 3}
+  upperStructureParent: {fileID: 0}
+  probabilidad_powerup: 0.1
 --- !u!54 &8960892088304297431
 Rigidbody:
   m_ObjectHideFlags: 0

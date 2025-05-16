@@ -21,6 +21,8 @@ TagManager:
   - Paja
   - BloqueCentralNether
   - Destroy
+  - Bloque_powerup_random
+  - Bloque_powerup_especifico
   layers:
   - Default
   - TransparentFX
