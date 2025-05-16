@@ -89,54 +89,56 @@ public class Bloque : MonoBehaviour
                         Destroy(upperStructureParent.gameObject);
                         Destroy(gameObject);
                     }
+                }
 
-                    else
+                else
+                {
+                    float random = Random.value;
+
+                    if (CompareTag("Hoja") && random < probabilidad_powerup_manzana_de_hoja)
                     {
-                        float random = Random.value;
-
-                        if (CompareTag("Hoja") && random < probabilidad_powerup_manzana_de_hoja)
-                        {
-                            InstanciarPowerUp(0); // manzana
-                        }
-                        else if (CompareTag("Cristal") && random < probabilidad_powerup_cristal)
-                        {
-                            InstanciarPowerUp(1); // cristal
-                        }
-                        else if (CompareTag("Redstone") && random < probabilidad_powerup_redstone)
-                        {
-                            InstanciarPowerUp(2); // redstone
-                        }
-                        else if (CompareTag("Cofre") && Random.value < probabilidad_drop_cofre)
-                        {
-                            InstanciarPowerUpAleatorio();
-                        }
-                        else if (CompareTag("Bloque") && Random.value < probabilidad_drop_bloque)
-                        {
-                            InstanciarPowerUpAleatorio();
-                        }
-
-                        Destroy(gameObject);
-
-                        return;
-
-                        GameObject particlesInstance = Instantiate(sistema_particulas, transform.position, Quaternion.identity);
-                        AudioSource audio = particlesInstance.GetComponent<AudioSource>();
-                        ParticleSystem particulas = particlesInstance.GetComponent<ParticleSystem>();
-                        particulas.Play();
-
-                        //haremos que se escuche el sonido
-
-                        AudioClip clip_que_sonara;
-                        int randomIndex = Random.Range(0, clips.Length);
-                        clip_que_sonara = clips[randomIndex];
-                        audio.PlayOneShot(clip_que_sonara);
-                        Destroy(particlesInstance, particulas.main.duration);
-                        Destroy(gameObject);
+                        InstanciarPowerUp(0); // manzana
                     }
+                    else if (CompareTag("Cristal") && random < probabilidad_powerup_cristal)
+                    {
+                        InstanciarPowerUp(1); // cristal
+                    }
+                    else if (CompareTag("Redstone") && random < probabilidad_powerup_redstone)
+                    {
+                        InstanciarPowerUp(2); // redstone
+                    }
+                    else if (CompareTag("Cofre") && Random.value < probabilidad_drop_cofre)
+                    {
+                        InstanciarPowerUpAleatorio();
+                    }
+                    else if (CompareTag("Bloque") && Random.value < probabilidad_drop_bloque)
+                    {
+                        InstanciarPowerUpAleatorio();
+                    }
+
+                    Destroy(gameObject);
+
+                    return;
+
+                    GameObject particlesInstance = Instantiate(sistema_particulas, transform.position, Quaternion.identity);
+                    AudioSource audio = particlesInstance.GetComponent<AudioSource>();
+                    ParticleSystem particulas = particlesInstance.GetComponent<ParticleSystem>();
+                    particulas.Play();
+
+                    //haremos que se escuche el sonido
+
+                    AudioClip clip_que_sonara;
+                    int randomIndex = Random.Range(0, clips.Length);
+                    clip_que_sonara = clips[randomIndex];
+                    audio.PlayOneShot(clip_que_sonara);
+                    Destroy(particlesInstance, particulas.main.duration);
+                    Destroy(gameObject);
                 }
             }
         }
     }
+        
+    
 
     private void InstanciarPowerUp(int index)
     {
