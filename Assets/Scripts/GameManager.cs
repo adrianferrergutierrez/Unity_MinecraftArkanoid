@@ -1,7 +1,8 @@
     using UnityEngine;
-    using System.Collections.Generic; 
+    using System.Collections.Generic;
+using System.Collections;
 
-    public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour
     {
         public GameObject ballPrefab; 
         private List<GameObject> activeBalls = new List<GameObject>();
@@ -122,4 +123,17 @@
     
     
         }
-    }
+
+
+    public void powerball_change_state(bool estado)
+    {
+        foreach (GameObject ball in activeBalls) {
+            Ball3D scriptball = ball.GetComponent<Ball3D>();
+            scriptball.change_powerball_state(estado);
+        }
+
+}
+
+
+
+}

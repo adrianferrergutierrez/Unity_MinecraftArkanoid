@@ -13,6 +13,7 @@ public class Bloque : MonoBehaviour
     //sistema de particulas
     public GameObject sistema_particulas;
     public Transform upperStructureParent;
+    private bool powerball;
 
 
 
@@ -37,7 +38,9 @@ public class Bloque : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Pelota"))
         {
-            vidas--;
+            Ball3D pelota_script = collision.gameObject.GetComponent<Ball3D>();
+            if (pelota_script.get_state_powerball()) vidas = 0;
+            else vidas--;
 
             if (vidas == 0)
             {
@@ -150,4 +153,7 @@ public class Bloque : MonoBehaviour
         Destroy(gameObject);
 
     }
+
+
+
 }

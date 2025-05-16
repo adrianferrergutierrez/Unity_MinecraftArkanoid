@@ -7,6 +7,7 @@ public class Paddle : MonoBehaviour
     public float limit = 7f;
     public float fuerza = 10.0f;
     private GameManager gameManager;
+    
     public GameObject cristalPrefab;
     public int cantidadBloquesMuro = 15; // Cantidad de bloques para cubrir la línea
     public float espacioEntreBloques = 1.01f; // Ajusta ligeramente para evitar huecos
@@ -15,12 +16,17 @@ public class Paddle : MonoBehaviour
 
     //cosas powerup redstone
     private bool redstone_powerup;
+    private bool oro_powerup;
+
     public GameObject redstone_powerUpIndicator;
 
     public GameObject cabeza_pico; //cojo el gameobject yno directamenteelmesh render porque por alguna  razon se borraba
     private Renderer render_diamante_pico; //esto lo hago para coger el render  de solola partede diamante delpico para  cmbiarla de color durante el tiempo quedure el powerup
     private Color color_original;
 
+
+    //el indice 0 es la nueva, y la 1 la vieja
+    public Texture[] powerUpTextures;
 
 
     private Vector3 initialPaddlePosition;
@@ -46,6 +52,10 @@ void Update()
         else
         {
             move = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        }
+
+        if (oro_powerup) { 
+        
         }
         Vector3 newPos = transform.position + new Vector3(move, 0, 0);
         newPos.x = Mathf.Clamp(newPos.x, -limit, limit);
@@ -84,6 +94,21 @@ void Update()
 
 
         }
+        else if (other.gameObject.CompareTag("Powerup_oro"))
+        {
+            oro_powerup = true;
+
+            //ponemos nueva textura
+            render_diamante_pico.material.mainTexture = powerUpTextures[0];
+            StartCoroutine(CountDownSecondsOro());
+
+        }
+        else if (other.gameObject.CompareTag("Powerup_magma")) {
+            gameManager.GetComponent<GameManager>().powerball_change_state(true);
+            StartCoroutine(CountDownSecondsMagma());
+        }
+
+
         Destroy(other.gameObject);
     }
 
@@ -96,6 +121,29 @@ void Update()
         // powerUpIndicator.SetActive(false); //hacemos que el indiicador se ponga en desactivado para no verlo
 
     }
+
+
+    IEnumerator CountDownSecondsOro()
+    {
+        yield return new WaitForSeconds(7); //hacemos lo que seria un waitpid o parecido
+        oro_powerup = false; //ponemos a false cuando pasemos los 7 segundos que sera cuando salgamos el wait 
+                             //quitamos la textura
+        render_diamante_pico.material.mainTexture = powerUpTextures[1];
+
+        // powerUpIndicator.SetActive(false); //hacemos que el indiicador se ponga en desactivado para no verlo
+
+    }
+
+    IEnumerator CountDownSecondsMagma()
+    {
+        yield return new WaitForSeconds(10); //hacemos lo que seria un waitpid o parecido
+        gameManager.GetComponent<GameManager>().powerball_change_state(false);
+
+        // powerUpIndicator.SetActive(false); //hacemos que el indiicador se ponga en desactivado para no verlo
+
+    }
+
+
     private void crearMuro()
     {
         if (cristalPrefab != null)

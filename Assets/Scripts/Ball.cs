@@ -11,6 +11,7 @@ public class Ball3D : MonoBehaviour
     private float velocidad_minima = 20.0f;
     private AudioSource audio;
     public AudioClip clip;
+    private bool power_ball = false;
 
     void Start()
     {
@@ -64,6 +65,14 @@ public class Ball3D : MonoBehaviour
         
     }
 
+    public bool get_state_powerball() {
+        return power_ball;
+    
+    }
+
+    public void change_powerball_state(bool estado) {
+        power_ball = estado;
+        }
   
 
   

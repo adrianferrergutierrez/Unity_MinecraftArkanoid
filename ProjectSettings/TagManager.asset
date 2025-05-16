@@ -23,6 +23,8 @@ TagManager:
   - Destroy
   - Bloque_powerup_random
   - Bloque_powerup_especifico
+  - Powerup_oro
+  - Powerup_magma
   layers:
   - Default
   - TransparentFX
