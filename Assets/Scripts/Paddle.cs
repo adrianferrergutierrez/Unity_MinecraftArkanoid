@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Paddle : MonoBehaviour
@@ -6,7 +7,6 @@ public class Paddle : MonoBehaviour
     public float speed = 10f;
     public float limit = 7f;
     public float fuerza = 10.0f;
-    private GameManager gameManager;
     
     public GameObject cristalPrefab;
     public int cantidadBloquesMuro = 15; // Cantidad de bloques para cubrir la línea
@@ -29,12 +29,16 @@ public class Paddle : MonoBehaviour
     public Texture[] powerUpTextures;
 
 
+
+    //Powerup cuarzo, el funcionamiento del power up es que se va creando un muro de cuarzo en posiciones donde no se ha creado un muro antes
+    private int index_posicion_muro = 0;
+    public GameObject cuarzo_prefab;
+
     private Vector3 initialPaddlePosition;
 
     private void Start()
     {
 
-        gameManager = FindFirstObjectByType<GameManager>();
         render_diamante_pico = cabeza_pico.GetComponent<Renderer>();
         color_original = render_diamante_pico.material.color;
         initialPaddlePosition = transform.position;
@@ -44,6 +48,8 @@ public class Paddle : MonoBehaviour
 
 void Update()
     {
+        Debug.Log("Puntuación actual: " + GameManager.instance.puntuacion);
+
         float move;
         if (redstone_powerup)
         {
@@ -78,7 +84,7 @@ void Update()
     {
         if (other.gameObject.CompareTag("Manzana"))
         {
-            gameManager.ActivateMultiball();
+            GameManager.instance.ActivateMultiball();
         }
         else if (other.gameObject.CompareTag("CristalPowerUp"))
         {
@@ -100,12 +106,18 @@ void Update()
 
             //ponemos nueva textura
             render_diamante_pico.material.mainTexture = powerUpTextures[0];
+            GameManager.instance.change_oro_state(true);
+
             StartCoroutine(CountDownSecondsOro());
 
         }
         else if (other.gameObject.CompareTag("Powerup_magma")) {
-            gameManager.GetComponent<GameManager>().powerball_change_state(true);
+            GameManager.instance.powerball_change_state(true);
             StartCoroutine(CountDownSecondsMagma());
+        }
+        else if (other.gameObject.CompareTag("Powerup_cuarzo"))
+        {
+            crearCuarzoMuro();
         }
 
 
@@ -129,15 +141,15 @@ void Update()
         oro_powerup = false; //ponemos a false cuando pasemos los 7 segundos que sera cuando salgamos el wait 
                              //quitamos la textura
         render_diamante_pico.material.mainTexture = powerUpTextures[1];
-
+        GameManager.instance.change_oro_state(false);
         // powerUpIndicator.SetActive(false); //hacemos que el indiicador se ponga en desactivado para no verlo
 
     }
 
     IEnumerator CountDownSecondsMagma()
     {
-        yield return new WaitForSeconds(10); //hacemos lo que seria un waitpid o parecido
-        gameManager.GetComponent<GameManager>().powerball_change_state(false);
+        yield return new WaitForSeconds(5); //hacemos lo que seria un waitpid o parecido
+        GameManager.instance.powerball_change_state(false);
 
         // powerUpIndicator.SetActive(false); //hacemos que el indiicador se ponga en desactivado para no verlo
 
@@ -160,7 +172,7 @@ void Update()
                 // Calcula la posición de cada bloque a lo largo del eje X
                 Vector3 posicionBloque = new Vector3(
                     inicioX + i * espacioEntreBloques,
-                    spawnPositionPala.y,
+                    spawnPositionPala.y*1.1f,
                     spawnPositionPala.z + distanciaDelantePala // Ajusta la profundidad si es necesario
                 );
                 Instantiate(cristalPrefab, posicionBloque, Quaternion.identity);
@@ -174,5 +186,30 @@ void Update()
         {
             Debug.LogError("No se ha asignado el Prefab del bloque de cristal al Paddle.");
         }
+    }
+
+
+
+    private void crearCuarzoMuro()
+    {
+       
+            if (cuarzo_prefab != null)
+            {
+                Vector3 spawnPositionPala = initialPaddlePosition;
+                Vector3 direccionMuro = Vector3.forward;
+                float inicioX = -limit;
+                Vector3 posicionBloque = new Vector3(
+                        inicioX + index_posicion_muro * espacioEntreBloques,
+                        spawnPositionPala.y + 1.1f,
+                        spawnPositionPala.z + distanciaDelantePala // Ajusta la profundidad si es necesario
+                    );
+                Instantiate(cuarzo_prefab, posicionBloque, Quaternion.identity);
+                ++index_posicion_muro;
+            if (index_posicion_muro >= cantidadBloquesMuro) index_posicion_muro = 0; //reiniciamos la sequencia
+
+                  
+                }
+            
+ 
     }
 }

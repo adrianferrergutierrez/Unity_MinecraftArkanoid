@@ -25,6 +25,9 @@ TagManager:
   - Bloque_powerup_especifico
   - Powerup_oro
   - Powerup_magma
+  - Powerup_cuarzo
+  - Bloque_nodrop
+  - Wither
   layers:
   - Default
   - TransparentFX

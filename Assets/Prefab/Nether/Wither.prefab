@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7c004d824079e0244b3bf7525289ac0c, type: 3}
       propertyPath: m_TagString
-      value: Bloque_powerup_especifico
+      value: Wither
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfd0fe888eaf964e9aa05eb3052c1de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vidas: 3
+  vidas: 1
   powerups: []
   clips: []
   sistema_particulas: {fileID: 0}

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Bloque : MonoBehaviour
@@ -23,6 +25,7 @@ public class Bloque : MonoBehaviour
     
 
 
+
     void Start()
     {
 
@@ -44,6 +47,9 @@ public class Bloque : MonoBehaviour
 
             if (vidas == 0)
             {
+                //si tenemos el powerup de oro, sumamos por bloque destruido 400 puntos
+                if (GameManager.instance.get_state_oro()) GameManager.instance.SumarPuntos(400);
+                else GameManager.instance.SumarPuntos(100);
                 //comportamiento especifico de los bloques centrales, donde primero hacen que los hijos dejen de ser sus hijos para no ser eliminados todos juntos
                 if (CompareTag("BloqueCentralNether"))
                 {
@@ -103,6 +109,10 @@ public class Bloque : MonoBehaviour
                     {
                         InstanciarPowerUpAleatorio();
                     }
+                    else if (CompareTag("Wither")) {
+                       GameManager.instance.ActivarNiebla();
+                    
+                    }
                         //destroy game object provisional,esto se quitara cuando todos los bloques tengan ya las particulas y sonidos, si no da error
 
                         Destroy(gameObject);
@@ -114,10 +124,9 @@ public class Bloque : MonoBehaviour
                 }
             }
         }
-    
-    
-        
-    
+
+
+
 
     private void InstanciarPowerUp(int index)
     {

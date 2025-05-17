@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bbb27f133290e374e9a90f03e416de8c, type: 3}
       propertyPath: m_TagString
-      value: GlassNoDrop
+      value: Bloque_nodrop
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -154,3 +154,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 832e37ba3649ad646a07a81f8b093ee1, type: 3}
   - {fileID: 8300000, guid: 0232a527a89aa4341b8089fde6bf0a53, type: 3}
   sistema_particulas: {fileID: 8890605916001112805, guid: 14ea663b4cd89244a9624a5d664e5023, type: 3}
+  upperStructureParent: {fileID: 0}
+  probabilidad_powerup: 0

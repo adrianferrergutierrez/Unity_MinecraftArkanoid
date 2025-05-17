@@ -148,8 +148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidas: 3
-  powerups: []
+  powerups:
+  - {fileID: 2056165667348826043, guid: dab97bad6a1cc954886c94cc16391d85, type: 3}
   clips: []
   sistema_particulas: {fileID: 0}
   upperStructureParent: {fileID: 0}
-  probabilidad_powerup: 0
+  probabilidad_powerup: 1

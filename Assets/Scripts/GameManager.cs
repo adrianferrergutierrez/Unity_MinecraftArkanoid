@@ -4,7 +4,9 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
     {
-        public GameObject ballPrefab; 
+        public GameObject ballPrefab;
+        public static GameManager instance;
+
         private List<GameObject> activeBalls = new List<GameObject>();
 
         // Referencia a la pala para saber dónde spawnear la primera bola (opcional)
@@ -13,9 +15,48 @@ public class GameManager : MonoBehaviour
         //numero de vidas que tenemos, se mostrará en la ui a partir de este numero
         private int vidas_player = 3;
 
-             private Vector3 initialSpawnPosition;
-        // ** Método que se ejecuta al inicio del juego/escena **
-        void Start()
+         private Vector3 initialSpawnPosition;
+
+        public int puntuacion = 0;
+        private bool estado_oro = false;
+
+
+    //fog
+    private bool fogWasEnabled;
+    private Color originalFogColor;
+    private float originalFogDensity;
+
+
+    /// <summary>
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// </summary>
+    void Awake()
+    {
+        // Singleton: solo uno en toda la partida
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // No se destruye entre escenas
+        }
+        else
+        {
+            Destroy(gameObject); // Si ya hay uno, se destruye el duplicado
+        }
+    }
+
+    public void SumarPuntos(int puntos)
+    {
+        puntuacion += puntos;
+        Debug.Log("Puntuación actual: " + puntuacion);
+    }
+
+    public void ReiniciarPuntos()
+    {
+        puntuacion = 0;
+    }
+
+    // ** Método que se ejecuta al inicio del juego/escena **
+    void Start()
         {
             pala = GameObject.FindGameObjectWithTag("Pala");
             initialSpawnPosition = pala.transform.position + Vector3.forward * 3.0f + Vector3.up * 1.0f + Vector3.right * 0.25f;
@@ -133,6 +174,46 @@ public class GameManager : MonoBehaviour
         }
 
 }
+
+    //lo ponemos aqui para acceder de fiorma mas facil desde el scrpt de bloques para preguntar si tenemos que sumar mas puntos por tener el powerup del oro
+    public bool get_state_oro()
+    {
+        return estado_oro;
+
+    }
+
+    public void change_oro_state(bool estado)
+    {
+        estado_oro = estado;
+
+
+    }
+
+
+
+    public void ActivarNiebla()
+    {
+        // Guardar valores originales
+        fogWasEnabled = RenderSettings.fog;
+        originalFogColor = RenderSettings.fogColor;
+        originalFogDensity = RenderSettings.fogDensity;
+
+        // Activar niebla negra
+        RenderSettings.fog = true;
+        RenderSettings.fogColor = Color.black;
+        RenderSettings.fogDensity = 0.13f;
+
+        StartCoroutine(DesactivarNieblaTrasTiempo());
+    }
+
+    IEnumerator DesactivarNieblaTrasTiempo()
+    {
+        yield return new WaitForSeconds(5);
+        RenderSettings.fog = fogWasEnabled;
+        RenderSettings.fogColor = originalFogColor;
+        RenderSettings.fogDensity = originalFogDensity;
+
+    }
 
 
 

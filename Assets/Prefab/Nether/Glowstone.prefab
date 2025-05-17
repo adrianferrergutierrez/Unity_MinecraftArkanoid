@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfd0fe888eaf964e9aa05eb3052c1de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vidas: 3
+  vidas: 1
   powerups: []
   clips: []
   sistema_particulas: {fileID: 0}
