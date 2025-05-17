@@ -150,6 +150,6 @@ MonoBehaviour:
   vidas: 1
   powerups: []
   clips: []
-  sistema_particulas: {fileID: 0}
+  sistema_particulas: {fileID: 5789495929145003566, guid: 7c5c857d38c5caa418c2f0dd442b0718, type: 3}
   upperStructureParent: {fileID: 0}
   probabilidad_powerup: 0

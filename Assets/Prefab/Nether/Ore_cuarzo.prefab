@@ -124,7 +124,7 @@ MonoBehaviour:
   powerups:
   - {fileID: 3671894683712545777, guid: 88fcbebb82cbd4448afe7a1541a9b26e, type: 3}
   clips: []
-  sistema_particulas: {fileID: 0}
+  sistema_particulas: {fileID: 8058904319160968083, guid: 11f27d4a21ff36a45be29ec80093f0b7, type: 3}
   upperStructureParent: {fileID: 0}
   probabilidad_powerup: 0.7
 --- !u!54 &2720076602810180768

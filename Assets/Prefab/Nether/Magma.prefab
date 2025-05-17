@@ -151,6 +151,6 @@ MonoBehaviour:
   powerups:
   - {fileID: 6224043760082905517, guid: 00322ada00fee2e4eb8fefc1658cfa03, type: 3}
   clips: []
-  sistema_particulas: {fileID: 0}
+  sistema_particulas: {fileID: 4743478135826784481, guid: f2b9b5f7ffeb0ed4da235c265fa39ad9, type: 3}
   upperStructureParent: {fileID: 0}
   probabilidad_powerup: 0.65
