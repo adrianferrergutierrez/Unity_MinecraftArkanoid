@@ -153,6 +153,7 @@ MonoBehaviour:
   launchForce: 1000
   velocidad_actual: 0
   clip: {fileID: 8300000, guid: a8076718dc5649c468c905b3ac8fa591, type: 3}
+  textura_powerball: {fileID: 2800000, guid: e70541446b7d21e48a8b79ce822f83f0, type: 3}
 --- !u!82 &3048973696282663669
 AudioSource:
   m_ObjectHideFlags: 0

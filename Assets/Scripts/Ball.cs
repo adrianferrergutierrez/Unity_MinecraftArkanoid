@@ -12,10 +12,20 @@ public class Ball3D : MonoBehaviour
     private AudioSource audio;
     public AudioClip clip;
 
+
+    private bool power_ball = false;
+    public Texture textura_powerball;
+    private Texture textura_inicial;
+    private Renderer pelotaRender; //esto lo hago para coger el render  de solola partede diamante delpico para  cmbiarla de color durante el tiempo quedure el powerup
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         audio = GetComponent<AudioSource>();
+
+        pelotaRender = gameObject.GetComponent<Renderer>();
+        //guardamos la texutra inicial 
+        textura_inicial = pelotaRender.material.mainTexture;
     }
 
     void Update()
@@ -46,8 +56,7 @@ public class Ball3D : MonoBehaviour
             // Reiniciar escena o vida
           //  UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         //}
-       if (collision.gameObject.CompareTag("Pared") || collision.gameObject.CompareTag("Pala") || collision.gameObject.CompareTag("Bloque") || collision.gameObject.CompareTag("Hoja")
-            || collision.gameObject.CompareTag("Cristal") || collision.gameObject.CompareTag("Cofre") || collision.gameObject.CompareTag("Redstone") || collision.gameObject.CompareTag("GlassNoDrop") || collision.gameObject.CompareTag("Pelota"))
+       if ((collision.gameObject.CompareTag("Pared") || collision.gameObject.CompareTag("Bloque_powerup_random")|| collision.gameObject.CompareTag("Bloque_powerup_especifico")|| collision.gameObject.CompareTag("Bloque_nodrop") || collision.gameObject.CompareTag("Pelota")))
         {
             float velocidad = ultima_velocidad.magnitude;
             Vector3 direccion = Vector3.Reflect(ultima_velocidad.normalized, collision.contacts[0].normal);
@@ -64,9 +73,33 @@ public class Ball3D : MonoBehaviour
 
         
     }
+    
 
-  
+    public bool get_state_powerball() {
+        return power_ball;
+    
+    }
 
-  
+    public void change_powerball_state(bool estado) {
+        power_ball = estado;
+        if (estado) {
+            pelotaRender.material.mainTexture = textura_powerball;
+            pelotaRender.material.color = Color.white;
+        }
+
+        else
+        {
+            pelotaRender.material.mainTexture = textura_inicial;
+            pelotaRender.material.color = Color.red;
+
+        }
+
+    }
+
+ 
+
+
+
+
 
 }

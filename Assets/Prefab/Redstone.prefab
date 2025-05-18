@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 202672bb15cf7a94e9c123769293b0e6, type: 3}
       propertyPath: m_TagString
-      value: Redstone
+      value: Bloque_powerup_especifico
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -149,8 +149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vidas: 3
   powerups:
-  - {fileID: 1075407149815071947, guid: dd0b04bcec4eba64c9e64094abbca344, type: 3}
-  - {fileID: 1168960774798359845, guid: cb410f8ea66c1e94abf9b5a7e9a8a34c, type: 3}
   - {fileID: 9047881310053280188, guid: 827dc2242f441d6499bcfe696b07668b, type: 3}
   clips:
   - {fileID: 8300000, guid: 4f86d6953430f7a4abcd1a819517b5ca, type: 3}
@@ -158,3 +156,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 94371af5fb6b22141827a3b4940455f8, type: 3}
   - {fileID: 8300000, guid: b1499551325044643a80bb7351b98869, type: 3}
   sistema_particulas: {fileID: 3622291480414379353, guid: 9390099db6aac6f4a9cbc10dfd5ea8f5, type: 3}
+  upperStructureParent: {fileID: 0}
+  probabilidad_powerup: 1

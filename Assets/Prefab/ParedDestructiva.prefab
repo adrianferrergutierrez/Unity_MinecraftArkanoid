@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParedDestructiva
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 33a59868515ecdb4fbc9ca900013765b, type: 3}
+      propertyPath: m_TagString
+      value: Destroy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
