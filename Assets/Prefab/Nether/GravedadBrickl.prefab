@@ -120,13 +120,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfd0fe888eaf964e9aa05eb3052c1de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vidas: 1
+  vidas: 3
   powerups:
-  - {fileID: 9047881310053280188, guid: 827dc2242f441d6499bcfe696b07668b, type: 3}
-  clips: []
+  - {fileID: 6224043760082905517, guid: 00322ada00fee2e4eb8fefc1658cfa03, type: 3}
+  - {fileID: 3671894683712545777, guid: 88fcbebb82cbd4448afe7a1541a9b26e, type: 3}
+  - {fileID: 2056165667348826043, guid: dab97bad6a1cc954886c94cc16391d85, type: 3}
+  clips:
+  - {fileID: 8300000, guid: 9d96959442dfef047b79ded1c9a29d29, type: 3}
+  - {fileID: 8300000, guid: 51cfa9dcd8d2e6542949fa9d0b25e6b1, type: 3}
+  - {fileID: 8300000, guid: 147cc5c601dce54408336a4c8b03b2af, type: 3}
+  - {fileID: 8300000, guid: 8e84a0a3a63314546944fc8c619c3189, type: 3}
+  - {fileID: 8300000, guid: 2cfd3c913ccbeff4ca4971f4ebcb388b, type: 3}
+  - {fileID: 8300000, guid: a569a98a87889e04fb537e13ab5ded1a, type: 3}
   sistema_particulas: {fileID: 807234841506765618, guid: 146ee94970f6799499b77941ebefb0ab, type: 3}
   upperStructureParent: {fileID: 0}
-  probabilidad_powerup: 0
+  probabilidad_powerup: 0.1
 --- !u!54 &6833650854829100479
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -121,11 +121,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidas: 1
-  powerups: []
-  clips: []
+  powerups:
+  - {fileID: 6224043760082905517, guid: 00322ada00fee2e4eb8fefc1658cfa03, type: 3}
+  - {fileID: 3671894683712545777, guid: 88fcbebb82cbd4448afe7a1541a9b26e, type: 3}
+  - {fileID: 2056165667348826043, guid: dab97bad6a1cc954886c94cc16391d85, type: 3}
+  clips:
+  - {fileID: 8300000, guid: 4944f3aec1b01e9479896f13b6429bca, type: 3}
+  - {fileID: 8300000, guid: 832e37ba3649ad646a07a81f8b093ee1, type: 3}
+  - {fileID: 8300000, guid: 0232a527a89aa4341b8089fde6bf0a53, type: 3}
   sistema_particulas: {fileID: 4727175812912586951, guid: f543a4cbb3737dd4c817882b1493f1c7, type: 3}
   upperStructureParent: {fileID: 0}
-  probabilidad_powerup: 0
+  probabilidad_powerup: 0.1
 --- !u!54 &-465134948546146070
 Rigidbody:
   m_ObjectHideFlags: 0

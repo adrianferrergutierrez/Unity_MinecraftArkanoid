@@ -150,7 +150,11 @@ MonoBehaviour:
   vidas: 3
   powerups:
   - {fileID: 2056165667348826043, guid: dab97bad6a1cc954886c94cc16391d85, type: 3}
-  clips: []
+  clips:
+  - {fileID: 8300000, guid: 4f86d6953430f7a4abcd1a819517b5ca, type: 3}
+  - {fileID: 8300000, guid: 1c9677ef62b44544298587fcd1b9fac4, type: 3}
+  - {fileID: 8300000, guid: 94371af5fb6b22141827a3b4940455f8, type: 3}
+  - {fileID: 8300000, guid: b1499551325044643a80bb7351b98869, type: 3}
   sistema_particulas: {fileID: 2880452747025702333, guid: c9bfcc8c5925c3e43a0a057617c8381f, type: 3}
   upperStructureParent: {fileID: 0}
   probabilidad_powerup: 1

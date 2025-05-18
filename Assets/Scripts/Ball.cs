@@ -14,7 +14,6 @@ public class Ball3D : MonoBehaviour
 
 
     private bool power_ball = false;
-    private bool oro_activado = false;
     public Texture textura_powerball;
     private Texture textura_inicial;
     private Renderer pelotaRender; //esto lo hago para coger el render  de solola partede diamante delpico para  cmbiarla de color durante el tiempo quedure el powerup
@@ -76,7 +75,6 @@ public class Ball3D : MonoBehaviour
     }
     
 
-    //GESTION DE POWERUPS QUE AFECTAN A LA BOLA Y A LA PUNTUACION
     public bool get_state_powerball() {
         return power_ball;
     
@@ -98,18 +96,7 @@ public class Ball3D : MonoBehaviour
 
     }
 
-    public bool get_state_oro()
-    {
-        return power_ball;
-
-    }
-
-    public void change_oro_state(bool estado)
-    {
-       oro_activado = estado;
-       
-
-    }
+ 
 
 
 

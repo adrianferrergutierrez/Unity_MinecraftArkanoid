@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Quartz
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e16bce35c6ae79d408eadfc01f3196b9, type: 3}
+      propertyPath: m_TagString
+      value: Bloque_powerup_random
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -145,7 +149,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vidas: 3
   powerups: []
-  clips: []
+  clips:
+  - {fileID: 8300000, guid: 4f86d6953430f7a4abcd1a819517b5ca, type: 3}
+  - {fileID: 8300000, guid: 1c9677ef62b44544298587fcd1b9fac4, type: 3}
+  - {fileID: 8300000, guid: 94371af5fb6b22141827a3b4940455f8, type: 3}
+  - {fileID: 8300000, guid: b1499551325044643a80bb7351b98869, type: 3}
   sistema_particulas: {fileID: 7463931512946730270, guid: 1a18ea1287d99a04ea4e8055fb0cdb56, type: 3}
   upperStructureParent: {fileID: 0}
   probabilidad_powerup: 0
