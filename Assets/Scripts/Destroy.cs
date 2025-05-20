@@ -20,7 +20,7 @@ public class Destroy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Pelota") && gameObject.CompareTag("Destroy"))
         {
-            gameManager.destruccion_bola(collision.gameObject);
+            gameManager.HandleBallLost(collision.gameObject);
         }
         else {
             Destroy(collision.gameObject);
