@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 1d1b9501b42edb74cafbd3cda819e730, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d1b9501b42edb74cafbd3cda819e730, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d1b9501b42edb74cafbd3cda819e730, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d1b9501b42edb74cafbd3cda819e730, type: 3}
       propertyPath: m_LocalPosition.x
@@ -112,7 +112,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 380797570096727061}
   serializedVersion: 4
-  m_Mass: 400
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -147,3 +147,5 @@ MonoBehaviour:
   powerups: []
   clips: []
   sistema_particulas: {fileID: 0}
+  upperStructureParent: {fileID: 0}
+  probabilidad_powerup: 0
