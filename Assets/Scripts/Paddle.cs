@@ -9,6 +9,7 @@ public class Paddle : MonoBehaviour
     public float fuerza = 10.0f;
     
     public GameObject cristalPrefab;
+    public GameObject bedrock_Prefab;
     public int cantidadBloquesMuro = 15; // Cantidad de bloques para cubrir la línea
     public float espacioEntreBloques = 1.01f; // Ajusta ligeramente para evitar huecos
     public float distanciaDelantePala = 0.5f;
@@ -27,8 +28,8 @@ public class Paddle : MonoBehaviour
 
     //el indice 0 es la nueva, y la 1 la vieja
     public Texture[] powerUpTextures;
-
-
+    private bool god_mode = false;
+    private GameObject[] muro_god_mode;
 
     //Powerup cuarzo, el funcionamiento del power up es que se va creando un muro de cuarzo en posiciones donde no se ha creado un muro antes
     private int index_posicion_muro = 0;
@@ -43,6 +44,7 @@ public class Paddle : MonoBehaviour
         color_original = render_diamante_pico.material.color;
         initialPaddlePosition = transform.position;
         redstone_powerup = false;
+        muro_god_mode = new GameObject[cantidadBloquesMuro];
 
 }
 
@@ -60,9 +62,12 @@ void Update()
             move = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         }
 
-        if (oro_powerup) { 
-        
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            crearMuroGodMode();
+            god_mode = !god_mode;
         }
+
         Vector3 newPos = transform.position + new Vector3(move, 0, 0);
         newPos.x = Mathf.Clamp(newPos.x, -limit, limit);
         transform.position = newPos;
@@ -179,7 +184,40 @@ void Update()
                     spawnPositionPala.y*1.1f + 1.0f,
                     spawnPositionPala.z + distanciaDelantePala // Ajusta la profundidad si es necesario
                 );
-                Instantiate(cristalPrefab, posicionBloque, Quaternion.identity);
+                muro_god_mode[i] = Instantiate(cristalPrefab, posicionBloque, Quaternion.identity);
+
+                // Incrementa inicioX para el siguiente bloque (esto podría causar superposición)
+                // Una mejor manera es calcular la posición directamente usando el índice y el espacio
+                // inicioX += espacioEntreBloques; // No es necesario aquí
+            }
+        }
+        else
+        {
+            Debug.LogError("No se ha asignado el Prefab del bloque de cristal al Paddle.");
+        }
+    }
+
+    private void crearMuroGodMode()
+    {
+        if (bedrock_Prefab != null)
+        {
+            Vector3 spawnPositionPala = initialPaddlePosition;
+            Vector3 direccionMuro = Vector3.forward;
+
+            // Calcula la posición inicial del primer bloque del muro
+            // Asumimos que queremos cubrir desde -limit hasta +limit en el eje X
+            float inicioX = -limit;
+
+            for (int i = 0; i < cantidadBloquesMuro; i++)
+            {
+                // Calcula la posición de cada bloque a lo largo del eje X
+                Vector3 posicionBloque = new Vector3(
+                    inicioX + i * espacioEntreBloques,
+                    spawnPositionPala.y * 1.1f + 1.0f,
+                    spawnPositionPala.z + distanciaDelantePala // Ajusta la profundidad si es necesario
+                );
+                if (god_mode) muro_god_mode[i] = Instantiate(bedrock_Prefab, posicionBloque, Quaternion.identity);
+                else Destroy(muro_god_mode[i]);
 
                 // Incrementa inicioX para el siguiente bloque (esto podría causar superposición)
                 // Una mejor manera es calcular la posición directamente usando el índice y el espacio

@@ -10,20 +10,8 @@ public class ManagerScene : MonoBehaviour
     public int numero_bloques_destruibles_para_ganar;
     public int numero_bloques_destruidos_para_ganer;
     public int level_index;
-    // public TextMeshProUGUI blocksText; // Si quieres mostrar bloques restantes
 
 
-    //PREGUNTAR A CHAT POR ESTE ERROR, y mirar de poner mas fino el numero de bloques restantes y tal, solucionar el bug de que  destruye solo la bola e ordenar un poco el codigo
-   
-    /*Scene 'Scene3' couldn't be loaded because it has not been added to the active build profile or shared scene list or the AssetBundle has not been loaded.
-To add a scene to the active build profile or shared scene list use the menu File->Build Profiles
-UnityEngine.SceneManagement.SceneManager:LoadScene (string)
-GameManager:GoToNextLevel () (at Assets/Scripts/GameManager.cs:170)
-ManagerScene:add_numero_bloques_destruidos (int) (at Assets/Scripts/ManagerScene.cs:78)
-Bloque:OnCollisionEnter (UnityEngine.Collision) (at Assets/Scripts/Bloque.cs:126)
-UnityEngine.Physics:OnSceneContact (UnityEngine.PhysicsScene,intptr,int)
-
-*/
 
     void Start()
     {

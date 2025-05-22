@@ -44,9 +44,14 @@ public class GameManager : MonoBehaviour
     private bool primeraBolaLanzadaDelNivel = false; // Para la lógica del primer lanzamiento
 
 
+   // public AudioSource musicSource;     // Aquí se reproduce la música
+    public AudioClip[] musicClips;      // Lista de clips de música
+    public AudioClip main_menu;
+
 
     void Awake()
     {
+     
         // Singleton: solo uno en toda la partida
         if (instance == null)
         {
@@ -139,13 +144,15 @@ public class GameManager : MonoBehaviour
     public void GoToMainMenu()
     {
         SceneManager.LoadScene(mainMenuSceneName);
+      //  musicSource.clip = main_menu;
+        //musicSource.Play();
     }
 
     private void HandleGameOver()
     {
         Debug.Log("GAME OVER");
         SceneManager.LoadScene(gameOverSceneName);
-
+      //  musicSource.Pause();
    
     }
 
@@ -153,6 +160,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("¡HAS GANADO!");
         SceneManager.LoadScene(winSceneName);
+        //musicSource.Pause();
     }
 
     public void GoToNextLevel()
@@ -161,6 +169,8 @@ public class GameManager : MonoBehaviour
         if (levelSceneNames != null && currentLevelIndex < levelSceneNames.Length)
         {
             SceneManager.LoadScene(levelSceneNames[currentLevelIndex]);
+            //musicSource.clip = musicClips[currentLevelIndex];
+           // musicSource.Play();
         }
         else
         {
