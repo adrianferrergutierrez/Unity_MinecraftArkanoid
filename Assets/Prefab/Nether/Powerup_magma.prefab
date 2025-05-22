@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 84b72de7e65ff6840b4864f1725dc991, type: 3}
       propertyPath: m_Name
-      value: Magma 1
+      value: Powerup_magma
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 84b72de7e65ff6840b4864f1725dc991, type: 3}
       propertyPath: m_TagString
@@ -78,6 +78,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 84b72de7e65ff6840b4864f1725dc991, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8952486540169023854}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 84b72de7e65ff6840b4864f1725dc991, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1879522032823355750}
   m_SourcePrefab: {fileID: 100100000, guid: 84b72de7e65ff6840b4864f1725dc991, type: 3}
 --- !u!1 &6224043760082905517 stripped
 GameObject:
@@ -117,3 +120,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1578b52df04864f4bb4d594a87cd2f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &1879522032823355750
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6224043760082905517}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

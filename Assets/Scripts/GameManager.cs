@@ -7,34 +7,32 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
     {
-        public GameObject ballPrefab;
-        public static GameManager instance;
-        private List<GameObject> activeBalls = new List<GameObject>();
+     public GameObject ballPrefab;
+     public static GameManager instance;
+     private List<GameObject> activeBalls = new List<GameObject>();
 
-        // Referencia a la pala para saber dónde spawnear la primera bola (opcional)
-        private GameObject pala;
-        private Vector3 palaInitialSpawnOffset = new Vector3(0.5f, 1.0f, -3.0f); // Para calcular la posición de spawn de la bola
+     // Referencia a la pala para saber dónde spawnear la primera bola (opcional)
+     private GameObject pala;
+     private Vector3 palaInitialSpawnOffset = new Vector3(0.5f, 1.0f, -3.0f); // Para calcular la posición de spawn de la bola
 
 
     //numero de vidas que tenemos, se mostrará en la ui a partir de este numero
     private int vidas_player = 3;
-        private Vector3 initialSpawnPosition;
-        public int puntuacion = 0;
-        private bool estado_oro = false;
-
-
+    private Vector3 initialSpawnPosition;
+    public int puntuacion = 0;
+    private bool estado_oro = false;
 
 
     //fog
     private bool fogWasEnabled;
-        private Color originalFogColor;
-        private float originalFogDensity;
+    private Color originalFogColor;
+    private float originalFogDensity;
 
 
-        //eventos
-        public delegate void GameStateChanged(); // Un tipo de delegado para eventos simples
-        public event GameStateChanged OnScoreChanged;
-        public event GameStateChanged OnLivesChanged;
+    //eventos
+    public delegate void GameStateChanged(); // Un tipo de delegado para eventos simples
+    public event GameStateChanged OnScoreChanged;
+    public event GameStateChanged OnLivesChanged;
 
     //escenas
     private string[] levelSceneNames = { "Scene1", "Scene2", "Scene3", "Scene4", "Scene5" };
@@ -42,15 +40,11 @@ public class GameManager : MonoBehaviour
     private string gameOverSceneName = "SceneGameOver";
     private string winSceneName = "SceneWin";
 
-    private int bloquesRestantesEnNivel;
     private int currentLevelIndex = 0; // Para rastrear el nivel actual
     private bool primeraBolaLanzadaDelNivel = false; // Para la lógica del primer lanzamiento
 
 
 
-    /// <summary>
-    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /// </summary>
     void Awake()
     {
         // Singleton: solo uno en toda la partida
@@ -80,7 +74,7 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Escena cargada: " + scene.name);
+        Debug.LogError("Escena cargada: " + scene.name);
         //buscamios la pala para spawnear la bola delante de la pala
         pala = GameObject.FindGameObjectWithTag("Pala"); // Busca la pala en la nueva escena
 
@@ -94,9 +88,7 @@ public class GameManager : MonoBehaviour
         {
             activeBalls.Clear(); // Limpia bolas de niveles anteriores
             primeraBolaLanzadaDelNivel = false;
-            // Configurar el nivel (ej: contar bloques, posicionar elementos)
-            // SetupLevel(); // Podrías tener un método para esto
-
+          
             if (vidas_player > 0)
             {
                 RespawnBall(true); // True indica que es el spawn inicial del nivel
@@ -130,6 +122,12 @@ public class GameManager : MonoBehaviour
         }
         else Debug.LogError("No hay escenas de nivel configuradas!");
     }
+
+    public void updateCurrentIndex(int index)
+    {
+        currentLevelIndex = index;
+    }
+
     public void RetryCurrentLevel()
     {
         // Opcional: Resetea vidas si quieres que cada reintento cueste el total de vidas del nivel
@@ -190,12 +188,6 @@ public class GameManager : MonoBehaviour
         OnScoreChanged?.Invoke();
 
         //miramos si el numero de bloques que faltan del nivel esta completo o no
-        bloquesRestantesEnNivel--;
-        if (bloquesRestantesEnNivel <= 0 && IsCurrentSceneLevel())
-        {
-            Debug.Log("Todos los bloques destruidos!");
-            GoToNextLevel();
-        }
     }
 
     public void ReiniciarPuntos()
@@ -203,24 +195,6 @@ public class GameManager : MonoBehaviour
         puntuacion = 0;
 
     }
-
-    // ** Método que se ejecuta al inicio del juego/escena **
-    /*void Start()
-        {
-            pala = GameObject.FindGameObjectWithTag("Pala");
-            initialSpawnPosition = pala.transform.position + Vector3.forward * 3.0f + Vector3.up * 1.0f + Vector3.right * 0.25f;
-            InstantiateNewBall(initialSpawnPosition); // Llama al método auxiliar para crear y registrar la bola
-        }*/
-
-    //Inicializamos la bola en su sitio otra vez
-    /* void Start2()
-       {
-     InstantiateNewBall(initialSpawnPosition); 
-      }
-
- */
-
-
 
     public void AddBall(GameObject newBall)
         {
@@ -355,13 +329,7 @@ public class GameManager : MonoBehaviour
     }
 
     //el setup level solo calcula el numero de bloques HACE FALTA CAMBIAR EL TAAAAg
-    public void SetupLevel()
-    {
-        GameObject[] bloques = GameObject.FindGameObjectsWithTag("BloqueDestruible"); // Asegúrate que tus bloques tengan este tag
-        bloquesRestantesEnNivel = bloques.Length;
-        Debug.Log("Nivel iniciado con " + bloquesRestantesEnNivel + " bloques.");
-        // Podrías invocar un evento aquí si la UI necesita saber el total de bloques.
-    }
+   
     public void LaunchFirstBallIfReady()
     {
         if (IsCurrentSceneLevel() && !primeraBolaLanzadaDelNivel && activeBalls.Count == 1)

@@ -14,6 +14,9 @@ public class Bloque : MonoBehaviour
     public AudioClip[] clips;
     //sistema de particulas
     public GameObject sistema_particulas;
+
+    private ManagerScene manager_escena;
+
     public Transform upperStructureParent;
     private bool powerball;
 
@@ -28,7 +31,7 @@ public class Bloque : MonoBehaviour
 
     void Start()
     {
-
+        manager_escena = FindFirstObjectByType<ManagerScene>();
     }
 
     // Update is called once per frame
@@ -53,6 +56,8 @@ public class Bloque : MonoBehaviour
                 //comportamiento especifico de los bloques centrales, donde primero hacen que los hijos dejen de ser sus hijos para no ser eliminados todos juntos
                 if (CompareTag("BloqueCentralNether"))
                 {
+                    //le decimos al manager de la escena que lleva el contador de cuantos bloques se tienen que destruir en esta escena que hemos eliminado 1 
+
                     Debug.Log("Bloque Central Nether destruido. Liberando estructura superior.");
 
                     // Verifica si tenemos la referencia al padre de la estructura superior
@@ -103,23 +108,30 @@ public class Bloque : MonoBehaviour
 
                     if (CompareTag("Bloque_powerup_especifico") && random < probabilidad_powerup)
                     {
+                        //le decimos al manager de la escena que lleva el contador de cuantos bloques se tienen que destruir en esta escena que hemos eliminado 1 
                         InstanciarPowerUp(0);
                     }
                     else if (CompareTag("Bloque_powerup_random") && random < probabilidad_powerup)
                     {
+                        //le decimos al manager de la escena que lleva el contador de cuantos bloques se tienen que destruir en esta escena que hemos eliminado 1 
                         InstanciarPowerUpAleatorio();
                     }
                     else if (CompareTag("Wither")) {
-                       GameManager.instance.ActivarNiebla();
+                        //aqui no baajmos el numero de bloques destruidos porque es un bloque "malo" que no pasa nada si no se destruye
+                        GameManager.instance.SumarPuntos(-500);
+                        GameManager.instance.ActivarNiebla();
                     
                     }
-                        //destroy game object provisional,esto se quitara cuando todos los bloques tengan ya las particulas y sonidos, si no da error
+                    //ahora mismo tambien cuentan los bloques del muro
+                    manager_escena.add_numero_bloques_destruidos(1);
 
-                        Destroy(gameObject);
+                    //destroy game object provisional,esto se quitara cuando todos los bloques tengan ya las particulas y sonidos, si no da error
 
-                        return;
+                    // Destroy(gameObject);
 
-                        Eliminacion();
+                    //return;
+
+                    Eliminacion();
                     }
                 }
             }

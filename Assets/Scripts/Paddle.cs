@@ -85,6 +85,7 @@ void Update()
         if (other.gameObject.CompareTag("Manzana"))
         {
             GameManager.instance.ActivateMultiball();
+            
         }
         else if (other.gameObject.CompareTag("CristalPowerUp"))
         {
