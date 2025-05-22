@@ -84,8 +84,11 @@ void Update()
     {
         if (other.gameObject.CompareTag("Manzana"))
         {
+            Destroy(other.gameObject);
+
             GameManager.instance.ActivateMultiball();
-            
+           
+
         }
         else if (other.gameObject.CompareTag("CristalPowerUp"))
         {
@@ -173,7 +176,7 @@ void Update()
                 // Calcula la posición de cada bloque a lo largo del eje X
                 Vector3 posicionBloque = new Vector3(
                     inicioX + i * espacioEntreBloques,
-                    spawnPositionPala.y*1.1f,
+                    spawnPositionPala.y*1.1f + 1.0f,
                     spawnPositionPala.z + distanciaDelantePala // Ajusta la profundidad si es necesario
                 );
                 Instantiate(cristalPrefab, posicionBloque, Quaternion.identity);

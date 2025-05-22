@@ -120,10 +120,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfd0fe888eaf964e9aa05eb3052c1de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vidas: 3
+  vidas: 2
   powerups:
   - {fileID: 3671894683712545777, guid: 88fcbebb82cbd4448afe7a1541a9b26e, type: 3}
-  clips: []
+  clips:
+  - {fileID: 8300000, guid: 4f86d6953430f7a4abcd1a819517b5ca, type: 3}
+  - {fileID: 8300000, guid: 1c9677ef62b44544298587fcd1b9fac4, type: 3}
+  - {fileID: 8300000, guid: 94371af5fb6b22141827a3b4940455f8, type: 3}
+  - {fileID: 8300000, guid: b1499551325044643a80bb7351b98869, type: 3}
   sistema_particulas: {fileID: 8058904319160968083, guid: 11f27d4a21ff36a45be29ec80093f0b7, type: 3}
   upperStructureParent: {fileID: 0}
   probabilidad_powerup: 0.7
