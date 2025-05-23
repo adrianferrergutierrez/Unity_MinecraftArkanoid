@@ -9,6 +9,7 @@ public class Paddle : MonoBehaviour
     public float fuerza = 10.0f;
     
     public GameObject cristalPrefab;
+    public GameObject cristalMoradoPrefab;
     public GameObject bedrock_Prefab;
     public int cantidadBloquesMuro = 15; // Cantidad de bloques para cubrir la línea
     public float espacioEntreBloques = 1.01f; // Ajusta ligeramente para evitar huecos
@@ -75,16 +76,6 @@ void Update()
 
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Pelota"))
-        {
-            Vector3 direccion = collision.gameObject.transform.position - transform.position;
-            Rigidbody player = collision.gameObject.GetComponent<Rigidbody>();
-            player.AddForce(fuerza * direccion, ForceMode.Impulse);
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Manzana"))
@@ -92,12 +83,12 @@ void Update()
             Destroy(other.gameObject);
 
             GameManager.instance.ActivateMultiball();
-           
+
 
         }
         else if (other.gameObject.CompareTag("CristalPowerUp"))
         {
-            crearMuro();
+            crearMuro(cristalPrefab);
         }
         else if (other.gameObject.CompareTag("Redstonepowerup"))
         {
@@ -120,13 +111,24 @@ void Update()
             StartCoroutine(CountDownSecondsOro());
 
         }
-        else if (other.gameObject.CompareTag("Powerup_magma")) {
+        else if (other.gameObject.CompareTag("Powerup_magma"))
+        {
             GameManager.instance.powerball_change_state(true);
             StartCoroutine(CountDownSecondsMagma());
         }
         else if (other.gameObject.CompareTag("Powerup_cuarzo"))
         {
             crearCuarzoMuro();
+        }
+        else if (other.gameObject.CompareTag("Purple_glass_powerup")) {
+            crearMuro(cristalMoradoPrefab);
+        }
+        else if (other.gameObject.CompareTag("Hierro_powerup"))
+        {
+            GameManager.instance.activarIman(true);
+            render_diamante_pico.material.mainTexture = powerUpTextures[2];
+            GameManager.instance.iman_activado_atributo(true);
+            StartCoroutine(DesactivarIman());
         }
 
 
@@ -163,9 +165,21 @@ void Update()
         // powerUpIndicator.SetActive(false); //hacemos que el indiicador se ponga en desactivado para no verlo
 
     }
+    IEnumerator DesactivarIman()
+    {
+        yield return new WaitForSeconds(10);
+        desactivar_iman();
+
+    }
+
+    private void desactivar_iman() {
+        GameManager.instance.activarIman(false);
+        render_diamante_pico.material.mainTexture = powerUpTextures[1];
+        GameManager.instance.iman_activado_atributo(false);
+    }
 
 
-    private void crearMuro()
+    private void crearMuro(GameObject cristal)
     {
         if (cristalPrefab != null)
         {
@@ -184,7 +198,7 @@ void Update()
                     spawnPositionPala.y*1.1f + 1.0f,
                     spawnPositionPala.z + distanciaDelantePala // Ajusta la profundidad si es necesario
                 );
-                muro_god_mode[i] = Instantiate(cristalPrefab, posicionBloque, Quaternion.identity);
+                muro_god_mode[i] = Instantiate(cristal, posicionBloque, Quaternion.identity);
 
                 // Incrementa inicioX para el siguiente bloque (esto podría causar superposición)
                 // Una mejor manera es calcular la posición directamente usando el índice y el espacio

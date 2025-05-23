@@ -17,6 +17,8 @@ public class Ball3D : MonoBehaviour
     public Texture textura_powerball;
     private Texture textura_inicial;
     private Renderer pelotaRender; //esto lo hago para coger el render  de solola partede diamante delpico para  cmbiarla de color durante el tiempo quedure el powerup
+    private bool Iman = false;
+    private bool Inicio = false;
 
     void Start()
     {
@@ -30,13 +32,12 @@ public class Ball3D : MonoBehaviour
 
     void Update()
     {
-        if ( Input.GetKeyDown(KeyCode.Space))
+        if ( Input.GetKeyDown(KeyCode.Space) && (Iman||Inicio))
         {
             rb.AddForce(Vector3.forward * launchForce);
             launched = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.R)) transform.position = new Vector3(0, 10, 0);
 
 
         ultima_velocidad = rb.linearVelocity;
@@ -51,12 +52,12 @@ public class Ball3D : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-       // if (collision.gameObject.CompareTag("Endline"))
+        // if (collision.gameObject.CompareTag("Endline"))
         //{
-            // Reiniciar escena o vida
-          //  UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        // Reiniciar escena o vida
+        //  UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         //}
-       if ((collision.gameObject.CompareTag("Pared") || collision.gameObject.CompareTag("Bloque_powerup_random")|| collision.gameObject.CompareTag("Bloque_powerup_especifico")|| collision.gameObject.CompareTag("Bloque_nodrop") || collision.gameObject.CompareTag("Pelota")))
+        if ((collision.gameObject.CompareTag("Pared") || collision.gameObject.CompareTag("Bloque_powerup_random") || collision.gameObject.CompareTag("Coral_debuff") || collision.gameObject.CompareTag("Bloque_powerup_especifico") || collision.gameObject.CompareTag("Bloque_nodrop") || collision.gameObject.CompareTag("Wither") || collision.gameObject.CompareTag("Pelota")))
         {
             float velocidad = ultima_velocidad.magnitude;
             Vector3 direccion = Vector3.Reflect(ultima_velocidad.normalized, collision.contacts[0].normal);
@@ -69,6 +70,9 @@ public class Ball3D : MonoBehaviour
             }
             audio.PlayOneShot(clip);
         }
+        else if (collision.gameObject.CompareTag("Pala") && Iman) {
+            transform.position = collision.gameObject.transform.position + new Vector3(0.0f,1.0f,2.5f);
+        }
 
 
         
@@ -78,6 +82,11 @@ public class Ball3D : MonoBehaviour
     public bool get_state_powerball() {
         return power_ball;
     
+    }
+
+    public void Inicio_state(bool estado)
+    {
+        Inicio = estado;
     }
 
     public void change_powerball_state(bool estado) {
@@ -96,10 +105,16 @@ public class Ball3D : MonoBehaviour
 
     }
 
+    public void toggleIman(bool iman)
+    {
+        Iman = iman;
+    }
+    }
+
  
 
 
 
 
 
-}
+

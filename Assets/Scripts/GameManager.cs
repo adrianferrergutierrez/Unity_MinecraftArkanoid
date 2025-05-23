@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
      // Referencia a la pala para saber dónde spawnear la primera bola (opcional)
      private GameObject pala;
-     private Vector3 palaInitialSpawnOffset = new Vector3(0.5f, 1.0f, -3.0f); // Para calcular la posición de spawn de la bola
+     public Vector3 palaInitialSpawnOffset = new Vector3(0.5f, 1.0f, -3.0f); // Para calcular la posición de spawn de la bola
 
 
     //numero de vidas que tenemos, se mostrará en la ui a partir de este numero
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
    // public AudioSource musicSource;     // Aquí se reproduce la música
     public AudioClip[] musicClips;      // Lista de clips de música
     public AudioClip main_menu;
-
+    private bool iman_activado;
 
     void Awake()
     {
@@ -287,21 +287,19 @@ public class GameManager : MonoBehaviour
         {
             GameObject newBall = Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
             AddBall(newBall);
+            newBall.GetComponent<Ball3D>().Inicio_state(isInitialSpawn);
+            if (iman_activado) newBall.GetComponent<Ball3D>().toggleIman(true);
 
-            Ball3D ballScript = newBall.GetComponent<Ball3D>();
-            if (ballScript != null)
-            {
-                // Lanza si es multibola o si no es el spawn inicial (es decir, una bola de reemplazo tras perder una)
-                if (!isInitialSpawn || activeBalls.Count > 1)
-                {
-                    ballScript.launch(); // Asume que Ball3D tiene Launch()
-                }
-                // Si es isInitialSpawn y es la única bola, se esperará a LaunchFirstBallIfReady()
-            }
+
+
         }
         else Debug.LogError("¡Prefab de Bola no asignado!");
     }
 
+ public void iman_activado_atributo(bool iman)
+    {
+        iman_activado = iman;
+    }
 
     private void ClearAllBalls() // Nueva función utilitaria
     {
@@ -382,7 +380,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void ActivarNiebla()
+    public void ActivarNiebla(Color color, float intensity)
     {
         // Guardar valores originales
         fogWasEnabled = RenderSettings.fog;
@@ -391,8 +389,9 @@ public class GameManager : MonoBehaviour
 
         // Activar niebla negra
         RenderSettings.fog = true;
-        RenderSettings.fogColor = Color.black;
-        RenderSettings.fogDensity = 0.13f;
+        RenderSettings.fogColor = color;
+       
+        RenderSettings.fogDensity = intensity;
 
         StartCoroutine(DesactivarNieblaTrasTiempo());
     }
@@ -406,6 +405,14 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void activarIman(bool activacion)
+    {
+        foreach (GameObject ball in activeBalls)
+        {
+            Ball3D scriptball = ball.GetComponent<Ball3D>();
+            scriptball.toggleIman(activacion);
+        }
+    }
 
-
+   
 }

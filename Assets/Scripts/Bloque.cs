@@ -119,8 +119,13 @@ public class Bloque : MonoBehaviour
                     else if (CompareTag("Wither")) {
                         //aqui no baajmos el numero de bloques destruidos porque es un bloque "malo" que no pasa nada si no se destruye
                         GameManager.instance.SumarPuntos(-500);
-                        GameManager.instance.ActivarNiebla();
+                        GameManager.instance.ActivarNiebla(Color.black, 0.13f);
                     
+                    }
+                    else if (CompareTag("Coral_debuff"))
+                    {
+                        GameManager.instance.SumarPuntos(-500);
+                        GameManager.instance.ActivarNiebla(Color.magenta, 0.08f);
                     }
                     //ahora mismo tambien cuentan los bloques del muro
                     manager_escena.add_numero_bloques_destruidos(1);
