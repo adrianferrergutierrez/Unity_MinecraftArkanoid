@@ -151,9 +151,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidas: 3
-  powerups: []
-  clips: []
-  sistema_particulas: {fileID: 0}
+  powerups:
+  - {fileID: 7175665355478366981, guid: 44ae8ded5447bf6438fddfc060935854, type: 3}
+  clips:
+  - {fileID: 8300000, guid: 4f86d6953430f7a4abcd1a819517b5ca, type: 3}
+  - {fileID: 8300000, guid: 1c9677ef62b44544298587fcd1b9fac4, type: 3}
+  - {fileID: 8300000, guid: 94371af5fb6b22141827a3b4940455f8, type: 3}
+  - {fileID: 8300000, guid: b1499551325044643a80bb7351b98869, type: 3}
+  sistema_particulas: {fileID: 8661384930334052304, guid: 958f53c7e392c0a4d9614c0a691d742b, type: 3}
   upperStructureParent: {fileID: 0}
   probabilidad_powerup: 0.8
 --- !u!114 &7891055435766024974

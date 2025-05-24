@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
 
     //numero de vidas que tenemos, se mostrará en la ui a partir de este numero
-    private int vidas_player = 3;
+    public int vidas_player = 3;
     private Vector3 initialSpawnPosition;
     public int puntuacion = 0;
     private bool estado_oro = false;
@@ -391,6 +391,11 @@ public class GameManager : MonoBehaviour
         return vidas_player;
     }
 
+    public void setVidasPlayer(int vidas) {
+        vidas_player = vidas;
+        OnLivesChanged?.Invoke();
+
+    }
 
     public void ActivarNiebla(Color color, float intensity)
     {

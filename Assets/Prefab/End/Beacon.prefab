@@ -117,7 +117,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!65 &5510968470596896462
 BoxCollider:
@@ -153,9 +153,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidas: 3
-  powerups: []
-  clips: []
-  sistema_particulas: {fileID: 0}
+  powerups:
+  - {fileID: 52912819795057900, guid: f27d974720c0ce545bffc2b8cd8b970f, type: 3}
+  clips:
+  - {fileID: 8300000, guid: 8e1dd8b4cd6580f479325a3a912a2d7c, type: 3}
+  - {fileID: 8300000, guid: 832e37ba3649ad646a07a81f8b093ee1, type: 3}
+  - {fileID: 8300000, guid: 0232a527a89aa4341b8089fde6bf0a53, type: 3}
+  sistema_particulas: {fileID: 1794594400527357253, guid: b67c6ff7a4fc8294bb119c297045db91, type: 3}
   upperStructureParent: {fileID: 0}
   probabilidad_powerup: 1
 --- !u!114 &7360540493553106053

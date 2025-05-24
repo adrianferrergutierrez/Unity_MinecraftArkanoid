@@ -130,15 +130,19 @@ void Update()
         {
             crearCuarzoMuro();
         }
-        else if (other.gameObject.CompareTag("Purple_glass_powerup")) {
+        else if (other.gameObject.CompareTag("Purple_glass_powerup"))
+        {
             crearMuro(cristalMoradoPrefab);
         }
-       else if (other.gameObject.CompareTag("Hierro_powerup"))
+        else if (other.gameObject.CompareTag("Hierro_powerup"))
         {
             GameManager.instance.ActivarPowerUpIman(true);
             render_diamante_pico.material.mainTexture = powerUpTextures[2];
             StartCoroutine(CuentaAtrasIman(10.0f)); // Le pasamos la duración
             Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Faro_powerup")) {
+            GameManager.instance.setVidasPlayer(GameManager.instance.GetVidasPlayer() + 1);        
         }
 
 
