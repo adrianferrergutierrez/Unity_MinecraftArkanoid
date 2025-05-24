@@ -65,7 +65,7 @@ public class Ball3D : MonoBehaviour
 
         transform.parent = null; // La bola deja de ser hija
         rb.isKinematic = false; // Reactivamos las físicas
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.AddForce(direccionDeLanzamiento * launchForce);
 

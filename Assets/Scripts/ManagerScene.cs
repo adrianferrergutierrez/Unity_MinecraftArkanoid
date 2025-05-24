@@ -2,13 +2,16 @@
 using UnityEngine;
 using TMPro; // Para TextMeshProUGUI
 using System;
+using UnityEngine.UI;
 
 public class ManagerScene : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI livesText;
-    public int numero_bloques_destruibles_para_ganar;
-    public int numero_bloques_destruidos_para_ganer;
+    public Slider experienceBar;            // Arrastra tu Slider aquí
+    public TextMeshProUGUI levelNumberText; // Arrastra el texto del nivel aquí
+    private int totalBloquesDelNivel;
+    private int bloquesDestruidos;
     public int level_index;
 
 
@@ -17,11 +20,17 @@ public class ManagerScene : MonoBehaviour
     {
         if (GameManager.instance == null)
         {
+
             Debug.LogError("SceneUIManager no pudo encontrar GameManager.instance!");
             if (scoreText) scoreText.text = "Error: GM null";
             if (livesText) livesText.text = "Error: GM null";
             return;
         }
+
+        //contamos elnumero de blques qeu tenemos que destruir para ganar el nivel
+        totalBloquesDelNivel = FindObjectsByType<Bloque_destruible>(FindObjectsSortMode.None).Length;
+        bloquesDestruidos = 0;
+        ActualizarBarraExperiencia();
 
         // Nos subscruivbimos con esta notacion en C#, usamos el "patron observer"
         GameManager.instance.OnScoreChanged += UpdateScoreDisplay;
@@ -31,6 +40,12 @@ public class ManagerScene : MonoBehaviour
         // Actualizar la UI con los valores iniciales al cargar la escena
         UpdateScoreDisplay();
         UpdateLivesDisplay();
+
+        //actualizamos la barra
+        if (levelNumberText != null)
+        {
+            levelNumberText.text = (GameManager.instance.currentLevelIndex + 1).ToString();
+        }
         // UpdateBlocksDisplay();
     }
 
@@ -70,13 +85,33 @@ public class ManagerScene : MonoBehaviour
     }
 
 
-    public void add_numero_bloques_destruidos(int bloques)
+    public void RegistrarBloqueDestruido()
     {
-        numero_bloques_destruidos_para_ganer += bloques;
-        if (numero_bloques_destruidos_para_ganer >= numero_bloques_destruibles_para_ganar) {
-            //perimro enviamos nmuestor index acutal para poder actualizar y irnos al siguiente nivel tenemos que poner index - 1 porque el vector va de 0 a n-1
-            GameManager.instance.updateCurrentIndex(level_index);
+        bloquesDestruidos++;
+        ActualizarBarraExperiencia(); // ¡Actualizamos la barra!
+
+        if (bloquesDestruidos >= totalBloquesDelNivel)
+        {
+            // ¡Nivel completado!
+            Debug.Log("Nivel completado! Pasando al siguiente...");
             GameManager.instance.GoToNextLevel();
+        }
+    }
+
+    private void ActualizarBarraExperiencia()
+    {
+        if (experienceBar != null)
+        {
+            if (totalBloquesDelNivel > 0)
+            {
+                // El valor de un slider va de 0.0 a 1.0
+                // Calculamos la fracción de bloques destruidos.
+                experienceBar.value = (float)bloquesDestruidos / totalBloquesDelNivel;
+            }
+            else
+            {
+                experienceBar.value = 0; // Evitar división por cero
+            }
         }
     }
 

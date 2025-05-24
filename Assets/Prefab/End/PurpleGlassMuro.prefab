@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 39278494855e7ad40a97fd9c6e2ede90, type: 3}
       propertyPath: m_TagString
-      value: Bloque_powerup_random
+      value: GlassNoDrop
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

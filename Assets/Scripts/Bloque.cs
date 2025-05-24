@@ -14,7 +14,7 @@ public class Bloque : MonoBehaviour
     public AudioClip[] clips;
     //sistema de particulas
     public GameObject sistema_particulas;
-
+    
     private ManagerScene manager_escena;
 
     public Transform upperStructureParent;
@@ -50,9 +50,7 @@ public class Bloque : MonoBehaviour
 
             if (vidas == 0)
             {
-                //si tenemos el powerup de oro, sumamos por bloque destruido 400 puntos
-                if (GameManager.instance.get_state_oro()) GameManager.instance.SumarPuntos(400);
-                else GameManager.instance.SumarPuntos(100);
+               
                 //comportamiento especifico de los bloques centrales, donde primero hacen que los hijos dejen de ser sus hijos para no ser eliminados todos juntos
                 if (CompareTag("BloqueCentralNether"))
                 {
@@ -97,8 +95,12 @@ public class Bloque : MonoBehaviour
                             // Opcional: Habilitar otros scripts en los hijos si es necesario al liberarse
                         }
                         Destroy(upperStructureParent.gameObject);
-                        //Eliminacion(); DESCOMENTAR CUANDO FUNCIONEN LAS PARTICULASS DE DESTRUCCION PARA TODOS
-                        Destroy(gameObject);
+                        if (GameManager.instance.get_state_oro()) GameManager.instance.SumarPuntos(400);
+                        else GameManager.instance.SumarPuntos(100);
+                        manager_escena.RegistrarBloqueDestruido();
+                        Eliminacion(); 
+
+                        //Destroy(gameObject);
                     }
                 }
 
@@ -110,11 +112,18 @@ public class Bloque : MonoBehaviour
                     {
                         //le decimos al manager de la escena que lleva el contador de cuantos bloques se tienen que destruir en esta escena que hemos eliminado 1 
                         InstanciarPowerUp(0);
+                        manager_escena.RegistrarBloqueDestruido();
+                        if (GameManager.instance.get_state_oro()) GameManager.instance.SumarPuntos(400);
+                        else GameManager.instance.SumarPuntos(100);
+
                     }
                     else if (CompareTag("Bloque_powerup_random") && random < probabilidad_powerup)
                     {
                         //le decimos al manager de la escena que lleva el contador de cuantos bloques se tienen que destruir en esta escena que hemos eliminado 1 
                         InstanciarPowerUpAleatorio();
+                        manager_escena.RegistrarBloqueDestruido();
+                        if (GameManager.instance.get_state_oro()) GameManager.instance.SumarPuntos(400);
+                        else GameManager.instance.SumarPuntos(100);
                     }
                     else if (CompareTag("Wither")) {
                         //aqui no baajmos el numero de bloques destruidos porque es un bloque "malo" que no pasa nada si no se destruye
@@ -127,14 +136,8 @@ public class Bloque : MonoBehaviour
                         GameManager.instance.SumarPuntos(-500);
                         GameManager.instance.ActivarNiebla(Color.magenta, 0.08f);
                     }
-                    //ahora mismo tambien cuentan los bloques del muro
-                    manager_escena.add_numero_bloques_destruidos(1);
 
-                    //destroy game object provisional,esto se quitara cuando todos los bloques tengan ya las particulas y sonidos, si no da error
-
-                    // Destroy(gameObject);
-
-                    //return;
+             
 
                     Eliminacion();
                     }

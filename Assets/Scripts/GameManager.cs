@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     private string gameOverSceneName = "SceneGameOver";
     private string winSceneName = "SceneWin";
 
-    private int currentLevelIndex = 0; // Para rastrear el nivel actual
+    public int currentLevelIndex = 0; // Para rastrear el nivel actual
     private bool primeraBolaLanzadaDelNivel = false; // Para la lógica del primer lanzamiento
 
 
@@ -298,7 +298,6 @@ public class GameManager : MonoBehaviour
                     Paddle paddleScript = pala.GetComponent<Paddle>();
                     if (paddleScript != null)
                     {
-                        // ...y le decimos que se encargue de la bola.
                         paddleScript.AsignarBola(ballScript);
                     }
                 }

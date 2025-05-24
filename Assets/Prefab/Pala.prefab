@@ -140,6 +140,7 @@ MonoBehaviour:
   limit: 7
   fuerza: 0
   cristalPrefab: {fileID: 7867265982512607928, guid: c41c58984dc26a34db81e1f5dd999d93, type: 3}
+  cristalMoradoPrefab: {fileID: 0}
   bedrock_Prefab: {fileID: 6191961018851983224, guid: ff8dea0543b5eef4da5453c694880afc, type: 3}
   cantidadBloquesMuro: 15
   espacioEntreBloques: 1.1
@@ -148,6 +149,7 @@ MonoBehaviour:
   cabeza_pico: {fileID: 7422491994943072669}
   powerUpTextures: []
   cuarzo_prefab: {fileID: 0}
+  offsetBolaPegada: {x: 0, y: 1.35, z: -4.5}
 --- !u!135 &6138731382331296202
 SphereCollider:
   m_ObjectHideFlags: 0
