@@ -47,7 +47,9 @@ public class GameManager : MonoBehaviour
    // public AudioSource musicSource;     // Aquí se reproduce la música
     public AudioClip[] musicClips;      // Lista de clips de música
     public AudioClip main_menu;
-    private bool iman_activado;
+
+    private bool powerUpImanActivo = false;
+
 
     void Awake()
     {
@@ -251,7 +253,7 @@ public class GameManager : MonoBehaviour
         }
         Vector3 spawnPosition = pala.transform.position + pala.transform.TransformDirection(palaInitialSpawnOffset);
         Debug.LogError("Spawn position: " + spawnPosition);
-        InstantiateNewBall(spawnPosition, isInitialSpawn);
+        InstantiateNewBall(pala.transform.position, isInitialSpawn);
     }
     // Método llamado por el script de la manzana para activar la multibola (IGUAL QUE ANTES)
     public void ActivateMultiball()
@@ -280,25 +282,49 @@ public class GameManager : MonoBehaviour
             }}
         }
 
-    // Método auxiliar para instanciar una sola bola y añadirla al seguimiento (IGUAL QUE ANTES)
     private void InstantiateNewBall(Vector3 spawnPosition, bool isInitialSpawn)
     {
         if (ballPrefab != null)
         {
-            GameObject newBall = Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
-            AddBall(newBall);
-            newBall.GetComponent<Ball3D>().Inicio_state(isInitialSpawn);
-            if (iman_activado) newBall.GetComponent<Ball3D>().toggleIman(true);
+            GameObject newBallGO = Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
+            AddBall(newBallGO);
+            Ball3D ballScript = newBallGO.GetComponent<Ball3D>();
 
-
-
+            if (ballScript != null)
+            {
+                if (isInitialSpawn)
+                {
+                    // Si es la bola inicial, buscamos el script de la pala...
+                    Paddle paddleScript = pala.GetComponent<Paddle>();
+                    if (paddleScript != null)
+                    {
+                        // ...y le decimos que se encargue de la bola.
+                        paddleScript.AsignarBola(ballScript);
+                    }
+                }
+                else // Multibola
+                {
+                    ballScript.LanzarDesdePala(new Vector3(Random.Range(-0.5f, 0.5f), 0, 1).normalized);
+                }
+            }
         }
         else Debug.LogError("¡Prefab de Bola no asignado!");
     }
 
- public void iman_activado_atributo(bool iman)
+    public void ActivarPowerUpIman(bool estaActivo)
     {
-        iman_activado = iman;
+        powerUpImanActivo = estaActivo;
+    }
+
+    public bool EstaImanActivo()
+    {
+        return powerUpImanActivo;
+    }
+
+    // Renombramos tu "LaunchFirstBallIfReady" para que sea más claro
+    public void MarcarPrimeraBolaLanzada()
+    {
+        primeraBolaLanzadaDelNivel = true;
     }
 
     private void ClearAllBalls() // Nueva función utilitaria
@@ -338,19 +364,6 @@ public class GameManager : MonoBehaviour
 
     //el setup level solo calcula el numero de bloques HACE FALTA CAMBIAR EL TAAAAg
    
-    public void LaunchFirstBallIfReady()
-    {
-        if (IsCurrentSceneLevel() && !primeraBolaLanzadaDelNivel && activeBalls.Count == 1)
-        {
-            Ball3D ballScript = activeBalls[0].GetComponent<Ball3D>();
-            if (ballScript != null)
-            {
-                ballScript.launch();
-                primeraBolaLanzadaDelNivel = true;
-            }
-        }
-    }
-
 
     public void powerball_change_state(bool estado)
     {
@@ -405,14 +418,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void activarIman(bool activacion)
-    {
-        foreach (GameObject ball in activeBalls)
-        {
-            Ball3D scriptball = ball.GetComponent<Ball3D>();
-            scriptball.toggleIman(activacion);
-        }
-    }
+ 
 
    
 }

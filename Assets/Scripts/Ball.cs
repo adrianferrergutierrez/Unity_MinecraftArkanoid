@@ -17,14 +17,22 @@ public class Ball3D : MonoBehaviour
     public Texture textura_powerball;
     private Texture textura_inicial;
     private Renderer pelotaRender; //esto lo hago para coger el render  de solola partede diamante delpico para  cmbiarla de color durante el tiempo quedure el powerup
-    private bool Iman = false;
-    private bool Inicio = false;
 
-    void Start()
+
+
+    private bool estaPegada = false; // Estado principal para saber si est� pegada a la pala
+    private bool esBolaInicialSinLanzar = false; // Para la primera bola del nivel
+
+    void Awake()
     {
+        // Awake() se llama inmediatamente cuando se crea el objeto, ANTES que Start().
+        // Este es el lugar perfecto para obtener referencias a otros componentes del mismo objeto.
         rb = GetComponent<Rigidbody>();
         audio = GetComponent<AudioSource>();
-
+    }
+    void Start()
+    {
+        
         pelotaRender = gameObject.GetComponent<Renderer>();
         //guardamos la texutra inicial 
         textura_inicial = pelotaRender.material.mainTexture;
@@ -32,23 +40,40 @@ public class Ball3D : MonoBehaviour
 
     void Update()
     {
-        if ( Input.GetKeyDown(KeyCode.Space) && (Iman||Inicio))
+        // IMPORTANTE: Se elimina el Input.GetKeyDown(KeyCode.Space) de aqu�.
+        // La pala se encargar� ahora de la l�gica de lanzamiento.
+        if (!estaPegada)
         {
-            rb.AddForce(Vector3.forward * launchForce);
-            launched = true;
+            ultima_velocidad = rb.linearVelocity;
+            velocidad_actual = ultima_velocidad.magnitude;
         }
-
-
-
-        ultima_velocidad = rb.linearVelocity;
-        velocidad_actual = ultima_velocidad.magnitude;
     }
 
-    public void launch()
+    public void PegarseALaPala(Transform palaTransform, Vector3 offsetLocal)
     {
-        rb.AddForce(Vector3.forward * launchForce);
+        if (estaPegada) return;
 
+        transform.parent = palaTransform;
+        rb.isKinematic = true;
+        transform.localPosition = offsetLocal; // Posición LOCAL respecto a la pala
+        estaPegada = true;
     }
+
+    public void LanzarDesdePala(Vector3 direccionDeLanzamiento)
+    {
+        if (!estaPegada) return; // No se puede lanzar si no está pegada
+
+        transform.parent = null; // La bola deja de ser hija
+        rb.isKinematic = false; // Reactivamos las físicas
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.AddForce(direccionDeLanzamiento * launchForce);
+
+        estaPegada = false;
+        esBolaInicialSinLanzar = false;
+    }
+
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -70,24 +95,21 @@ public class Ball3D : MonoBehaviour
             }
             audio.PlayOneShot(clip);
         }
-        else if (collision.gameObject.CompareTag("Pala") && Iman) {
-            transform.position = collision.gameObject.transform.position + new Vector3(0.0f,1.0f,2.5f);
-        }
-
-
+       
         
     }
-    
+    public bool EstaPegada()
+    {
+        return estaPegada;
+    }
+
+
 
     public bool get_state_powerball() {
         return power_ball;
     
     }
 
-    public void Inicio_state(bool estado)
-    {
-        Inicio = estado;
-    }
 
     public void change_powerball_state(bool estado) {
         power_ball = estado;
@@ -105,11 +127,16 @@ public class Ball3D : MonoBehaviour
 
     }
 
-    public void toggleIman(bool iman)
+    public void ConfigurarEstadoInicial(bool esInicial)
     {
-        Iman = iman;
+        esBolaInicialSinLanzar = esInicial;
+        if (esBolaInicialSinLanzar)
+        {
+            estaPegada = true;
+            rb.isKinematic = true; // La bola inicial empieza sin físicas, esperando el lanzamiento
+        }
     }
-    }
+}
 
  
 

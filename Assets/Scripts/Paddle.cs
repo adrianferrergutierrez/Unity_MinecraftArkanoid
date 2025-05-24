@@ -38,6 +38,10 @@ public class Paddle : MonoBehaviour
 
     private Vector3 initialPaddlePosition;
 
+    private Ball3D bolaPegada = null; // Referencia a la bola que está pegada
+    public Vector3 offsetBolaPegada = new Vector3(0f, 1.35f, -4.3f);
+
+
     private void Start()
     {
 
@@ -67,6 +71,12 @@ void Update()
         {
             crearMuroGodMode();
             god_mode = !god_mode;
+        }
+        if (bolaPegada != null && Input.GetKeyDown(KeyCode.Space))
+        {
+            GameManager.instance.MarcarPrimeraBolaLanzada(); // Avisamos al GM
+            bolaPegada.LanzarDesdePala(Vector3.forward); // Lanzamos hacia adelante
+            bolaPegada = null; // Ya no hay bola pegada
         }
 
         Vector3 newPos = transform.position + new Vector3(move, 0, 0);
@@ -123,16 +133,51 @@ void Update()
         else if (other.gameObject.CompareTag("Purple_glass_powerup")) {
             crearMuro(cristalMoradoPrefab);
         }
-        else if (other.gameObject.CompareTag("Hierro_powerup"))
+       else if (other.gameObject.CompareTag("Hierro_powerup"))
         {
-            GameManager.instance.activarIman(true);
+            GameManager.instance.ActivarPowerUpIman(true);
             render_diamante_pico.material.mainTexture = powerUpTextures[2];
-            GameManager.instance.iman_activado_atributo(true);
-            StartCoroutine(DesactivarIman());
+            StartCoroutine(CuentaAtrasIman(10.0f)); // Le pasamos la duración
+            Destroy(other.gameObject);
         }
 
 
         Destroy(other.gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (GameManager.instance.EstaImanActivo() && collision.gameObject.CompareTag("Pelota"))
+        {
+            // Solo intentamos pegar una bola si no tenemos ya una.
+            if (bolaPegada == null)
+            {
+                Ball3D ballScript = collision.gameObject.GetComponent<Ball3D>();
+                if (ballScript != null)
+                {
+                    // Llamamos a nuestro nuevo método unificado
+                    PegarBola(ballScript);
+                }
+            }
+        }
+    }
+
+    // MÉTODO PARA EL SPAWN INICIAL (LLAMADO POR GAMEMANAGER)
+    public void AsignarBola(Ball3D bola)
+    {
+        // Llamamos al mismo método unificado para asegurar consistencia
+        PegarBola(bola);
+    }
+
+    // NUEVO MÉTODO PRIVADO Y UNIFICADO PARA PEGAR LA BOLA
+    private void PegarBola(Ball3D bola)
+    {
+        if (bola == null || bola.EstaPegada()) return; // Si no hay bola o ya está pegada, no hacemos nada
+
+        bolaPegada = bola; // Guardamos la referencia a nuestra nueva bola pegada
+
+        // Le decimos a la bola que se pegue usando NUESTRO offset
+        bola.PegarseALaPala(this.transform, offsetBolaPegada);
     }
 
     IEnumerator CountDownSeconds()
@@ -165,18 +210,7 @@ void Update()
         // powerUpIndicator.SetActive(false); //hacemos que el indiicador se ponga en desactivado para no verlo
 
     }
-    IEnumerator DesactivarIman()
-    {
-        yield return new WaitForSeconds(10);
-        desactivar_iman();
-
-    }
-
-    private void desactivar_iman() {
-        GameManager.instance.activarIman(false);
-        render_diamante_pico.material.mainTexture = powerUpTextures[1];
-        GameManager.instance.iman_activado_atributo(false);
-    }
+ 
 
 
     private void crearMuro(GameObject cristal)
@@ -210,6 +244,22 @@ void Update()
             Debug.LogError("No se ha asignado el Prefab del bloque de cristal al Paddle.");
         }
     }
+
+    IEnumerator CuentaAtrasIman(float duracion)
+    {
+        yield return new WaitForSeconds(duracion);
+
+        GameManager.instance.ActivarPowerUpIman(false);
+        render_diamante_pico.material.mainTexture = powerUpTextures[1]; // o la textura original
+
+        // Si al acabarse el tiempo todavía hay una bola pegada, la lanzamos
+        if (bolaPegada != null)
+        {
+            bolaPegada.LanzarDesdePala(transform.forward);
+            bolaPegada = null;
+        }
+    }
+
 
     private void crearMuroGodMode()
     {
