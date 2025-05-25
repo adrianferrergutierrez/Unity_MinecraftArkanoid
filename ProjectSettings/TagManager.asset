@@ -33,6 +33,7 @@ TagManager:
   - Purple_glass_powerup
   - Faro_powerup
   - Coral_debuff
+  - Diamante_powerup
   layers:
   - Default
   - TransparentFX
