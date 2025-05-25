@@ -47,9 +47,11 @@ public class GameManager : MonoBehaviour
     private bool primeraBolaLanzadaDelNivel = false; // Para la lógica del primer lanzamiento
 
 
-   // public AudioSource musicSource;     // Aquí se reproduce la música
+   public AudioSource musicSource;     // Aquí se reproduce la música
     public AudioClip[] musicClips;      // Lista de clips de música
     public AudioClip main_menu;
+    public AudioClip GameOver;
+    public AudioClip Winner;
 
     private bool powerUpImanActivo = false;
 
@@ -67,9 +69,32 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject); // Si ya hay uno, se destruye el duplicado
         }
+
+        musicSource = GetComponent<AudioSource>();
+
+    }
+    private void PlayMusic(AudioClip clipToPlay)
+    {
+        // Si no tenemos el componente AudioSource o el clip es nulo, no hacemos nada.
+        if (musicSource == null || clipToPlay == null)
+        {
+            Debug.LogWarning("MusicSource o el AudioClip es nulo. No se puede reproducir música.");
+            return;
+        }
+
+        // Para no reiniciar la música si ya está sonando la misma canción
+        // (por ejemplo, si se reinicia el nivel con "Retry")
+        if (musicSource.clip == clipToPlay)
+        {
+            return;
+        }
+
+        musicSource.clip = clipToPlay;
+        musicSource.Play();
     }
 
-    
+
+
     void OnEnable()
     {
         // Le estamos diciendo al SceneManager: "Oye, cada vez que anuncies que una escena ha terminado de cargarse(sceneLoaded), por favor, ejecuta también mi método llamado OnSceneLoaded.
@@ -130,6 +155,32 @@ public class GameManager : MonoBehaviour
         Debug.Log("Escena cargada: " + scene.name);
         pala = GameObject.FindGameObjectWithTag("Pala");
 
+
+        if (scene.name == mainMenuSceneName)
+        {
+            PlayMusic(main_menu);
+        }
+        else if (scene.name == gameOverSceneName)
+        {
+            PlayMusic(GameOver);
+        }
+        else if (scene.name == winSceneName)
+        {
+            PlayMusic(Winner);
+        }
+        else if (IsCurrentSceneLevel(scene.name))
+        {
+            // Nos aseguramos de que el índice del nivel sea válido para el array de música
+            if (currentLevelIndex >= 0 && currentLevelIndex < musicClips.Length)
+            {
+                PlayMusic(musicClips[currentLevelIndex]);
+            }
+            else
+            {
+                Debug.LogError("No hay clip de música para el nivel " + currentLevelIndex + ". Revisa el array 'musicClips' en el GameManager.");
+            }
+        }
+
         if (pala == null && IsCurrentSceneLevel(scene.name)) // Pasamos scene.name para la comprobación
         {
             Debug.LogError("¡ADVERTENCIA! No se encontró la pala ('Pala' tag) en la escena de nivel: " + scene.name);
@@ -188,26 +239,16 @@ public class GameManager : MonoBehaviour
 
  
 
-    public void RetryCurrentLevel()
-    {
-        // Opcional: Resetea vidas si quieres que cada reintento cueste el total de vidas del nivel
-        // vidas_player = 3; 
-        // OnLivesChanged?.Invoke();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Recarga la escena actual
-    }
 
     public void GoToMainMenu()
     {
         SceneManager.LoadScene(mainMenuSceneName);
-      //  musicSource.clip = main_menu;
-        //musicSource.Play();
     }
 
     private void HandleGameOver()
     {
         Debug.Log("GAME OVER");
         SceneManager.LoadScene(gameOverSceneName);
-      //  musicSource.Pause();
    
     }
 
@@ -215,7 +256,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("¡HAS GANADO!");
         SceneManager.LoadScene(winSceneName);
-        //musicSource.Pause();
     }
 
     public void GoToNextLevel()
@@ -224,8 +264,7 @@ public class GameManager : MonoBehaviour
         if (levelSceneNames != null && currentLevelIndex < levelSceneNames.Length)
         {
             SceneManager.LoadScene(levelSceneNames[currentLevelIndex]);
-            //musicSource.clip = musicClips[currentLevelIndex];
-           // musicSource.Play();
+           
         }
         else
         {
