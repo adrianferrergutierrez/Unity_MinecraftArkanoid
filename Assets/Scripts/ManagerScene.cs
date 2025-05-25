@@ -78,6 +78,11 @@
             throw new NotImplementedException();
         }
 
+    public float ratio_acabado_nivel()
+    {
+        if (totalBloquesDelNivel <= 0) return 0f; // O 1f si consideras que 0 bloques es nivel completo
+        return (float)bloquesDestruidos / totalBloquesDelNivel;
+    }
 
 
     public void RegistrarBloqueDestruido()
@@ -91,6 +96,35 @@
             Debug.Log("Nivel completado! Pasando al siguiente...");
           
             GameManager.instance.GoToNextLevel(); 
+        }
+    }
+    public void acabarNivel()
+    {
+        Debug.Log("Power-up de Experiencia recogido. Finalizando nivel...");
+
+        // Nos aseguramos de que los bloques destruidos igualen al total
+        // (o lo superen si totalBloquesDelNivel era 0)
+        if (totalBloquesDelNivel > 0)
+        {
+            bloquesDestruidos = totalBloquesDelNivel;
+        }
+        else
+        {
+            bloquesDestruidos = 0; 
+        }
+
+        ActualizarBarraExperiencia(); // ¡Importante! Actualiza la UI de la barra.
+
+        // Ahora comprobamos si se debe pasar de nivel (que debería ser siempre true ahora)
+        if (totalBloquesDelNivel == 0 || bloquesDestruidos >= totalBloquesDelNivel)
+        {
+            Debug.Log("Nivel completado por Power-up! Pasando al siguiente...");
+            GameManager.instance.GoToNextLevel();
+        }
+        else
+        {
+            // Este caso no debería ocurrir si hemos igualado los bloques. Es para depurar.
+            Debug.LogWarning("acabarNivel llamado, pero la condición de victoria no se cumplió. B:" + bloquesDestruidos + "/T:" + totalBloquesDelNivel);
         }
     }
 

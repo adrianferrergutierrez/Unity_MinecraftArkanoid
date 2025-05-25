@@ -15,6 +15,7 @@ public class Paddle : MonoBehaviour
     public float espacioEntreBloques = 1.01f; // Ajusta ligeramente para evitar huecos
     public float distanciaDelantePala = 0.5f;
 
+    private ManagerScene manager_escena;
 
     //cosas powerup redstone
     private bool redstone_powerup;
@@ -44,6 +45,7 @@ public class Paddle : MonoBehaviour
 
     private void Start()
     {
+        manager_escena = FindFirstObjectByType<ManagerScene>();
 
         render_diamante_pico = cabeza_pico.GetComponent<Renderer>();
         color_original = render_diamante_pico.material.color;
@@ -139,10 +141,13 @@ void Update()
             GameManager.instance.ActivarPowerUpIman(true);
             render_diamante_pico.material.mainTexture = powerUpTextures[2];
             StartCoroutine(CuentaAtrasIman(10.0f)); // Le pasamos la duración
-            Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Faro_powerup")) {
             GameManager.instance.setVidasPlayer(GameManager.instance.GetVidasPlayer() + 1);        
+        }
+        else if (other.gameObject.CompareTag("Experiencia"))
+        {
+            manager_escena.acabarNivel();
         }
 
 

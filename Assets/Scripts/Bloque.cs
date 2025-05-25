@@ -20,7 +20,7 @@ public class Bloque : MonoBehaviour
     public Transform upperStructureParent;
     private bool powerball;
 
-
+    public GameObject powerup_exp;
 
     // Probabilidades
     public float probabilidad_powerup;
@@ -118,6 +118,8 @@ public class Bloque : MonoBehaviour
                 else
                 {
                     float random = Random.value;
+                    //si estamos en los ultimos bloques le subimos la probabilidad de dropear el experiencia powerup, haciendo que pasemos de nivel 
+                    if (manager_escena.ratio_acabado_nivel() >= 0.95f) probabilidad_powerup = 0.5f;
 
                     if (CompareTag("Bloque_powerup_especifico") && random < probabilidad_powerup)
                     {
@@ -157,18 +159,22 @@ public class Bloque : MonoBehaviour
 
     private void InstanciarPowerUp(int index)
     {
-        if (index >= 0 && index < powerups.Length && powerups[index] != null)
+        if ((index >= 0 && index < powerups.Length && powerups[index] != null) && manager_escena.ratio_acabado_nivel() < 0.95f)
         {
             Instantiate(powerups[index], transform.position, powerups[index].transform.rotation);
         }
+        else Instantiate(powerup_exp, transform.position, powerup_exp.transform.rotation);
     }
 
     private void InstanciarPowerUpAleatorio()
     {
         if (powerups.Length == 0) return;
-
-        int index = Random.Range(0, powerups.Length);
-        InstanciarPowerUp(index);
+        if (manager_escena.ratio_acabado_nivel() >= 0.95f) {
+            Instantiate(powerup_exp, transform.position, powerup_exp.transform.rotation);
+        }
+        else {
+            int index = Random.Range(0, powerups.Length);
+            InstanciarPowerUp(index); }
     }
 
     //funcion que se usara cuando tengamos todas las particulas funcionando

@@ -111,6 +111,21 @@ public class Ball3D : MonoBehaviour
     }
 
 
+    public void LanzarComoNuevaBola(Vector3 direccionDeLanzamiento)
+    {
+        // Este método NO comprueba si la bola estaba pegada.
+        // Es para forzar el lanzamiento de una bola recién creada.
+        transform.parent = null;
+        rb.isKinematic = false; // Aseguramos que la física esté activa
+        rb.linearVelocity = Vector3.zero; // Usamos .velocity, que es la forma moderna de .linearVelocity
+        rb.angularVelocity = Vector3.zero;
+        rb.AddForce(direccionDeLanzamiento * launchForce, ForceMode.Impulse);
+
+        // Reseteamos los estados por si acaso
+        estaPegada = false;
+        esBolaInicialSinLanzar = false;
+    }
+
     public void change_powerball_state(bool estado) {
         power_ball = estado;
         if (estado) {

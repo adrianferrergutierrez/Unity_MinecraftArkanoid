@@ -23,10 +23,13 @@ public class GameManager : MonoBehaviour
     private bool estado_oro = false;
 
 
-    //fog
-    private bool fogWasEnabled;
-    private Color originalFogColor;
-    private float originalFogDensity;
+    private bool trueOriginalFogWasEnabled;
+    private Color trueOriginalFogColor;
+    private float trueOriginalFogDensity;
+    private bool isDebuffFogCurrentlyActive = false; // Para saber si ya hay un debuff de niebla activo
+
+    private Coroutine activeFogDebuffCoroutine = null; // Para mantener una referencia a la corutina activa
+
 
 
     //eventos
@@ -346,7 +349,7 @@ public class GameManager : MonoBehaviour
             {
                 if (isInitialSpawn)
                 {
-                    // Si es la bola inicial, buscamos el script de la pala...
+                    // Esta parte está bien, la pala se encarga de la bola inicial
                     Paddle paddleScript = pala.GetComponent<Paddle>();
                     if (paddleScript != null)
                     {
@@ -355,7 +358,8 @@ public class GameManager : MonoBehaviour
                 }
                 else // Multibola
                 {
-                    ballScript.LanzarDesdePala(new Vector3(Random.Range(-0.5f, 0.5f), 0, 1).normalized);
+                    // ¡Llamamos al NUEVO método en lugar de a LanzarDesdePala!
+                    ballScript.LanzarComoNuevaBola(new Vector3(Random.Range(-0.5f, 0.5f), 0, 1).normalized);
                 }
             }
         }
@@ -449,32 +453,47 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void ActivarNiebla(Color color, float intensity)
+    public void ActivarNiebla(Color debuffColor, float debuffIntensity)
     {
-        // Guardar valores originales
-        fogWasEnabled = RenderSettings.fog;
-        originalFogColor = RenderSettings.fogColor;
-        originalFogDensity = RenderSettings.fogDensity;
+        // Si no había ya un debuff de niebla activo, guardamos el estado actual REAL del juego
+        if (!isDebuffFogCurrentlyActive)
+        {
+            trueOriginalFogWasEnabled = RenderSettings.fog;
+            trueOriginalFogColor = RenderSettings.fogColor;
+            trueOriginalFogDensity = RenderSettings.fogDensity;
+        }
 
-        // Activar niebla negra
+        isDebuffFogCurrentlyActive = true; // Marcamos que un debuff de niebla está activo
+
+        // Aplicamos la nueva niebla del debuff
         RenderSettings.fog = true;
-        RenderSettings.fogColor = color;
-       
-        RenderSettings.fogDensity = intensity;
+        RenderSettings.fogColor = debuffColor;
+        RenderSettings.fogDensity = debuffIntensity;
 
-        StartCoroutine(DesactivarNieblaTrasTiempo());
+        // Si ya hay una corutina de desactivación de niebla corriendo, la paramos.
+        // Esto es para "resetear" el contador si se activa otro debuff de niebla.
+        if (activeFogDebuffCoroutine != null)
+        {
+            StopCoroutine(activeFogDebuffCoroutine);
+        }
+
+        // Iniciamos (o reiniciamos) la corutina para desactivar la niebla después de 5 segundos.
+        activeFogDebuffCoroutine = StartCoroutine(DesactivarNieblaTrasTiempo());
     }
 
     IEnumerator DesactivarNieblaTrasTiempo()
     {
         yield return new WaitForSeconds(5);
-        RenderSettings.fog = fogWasEnabled;
-        RenderSettings.fogColor = originalFogColor;
-        RenderSettings.fogDensity = originalFogDensity;
 
+        // Cuando la corutina termina, restauramos a los valores ORIGINALES que guardamos al principio.
+        RenderSettings.fog = trueOriginalFogWasEnabled;
+        RenderSettings.fogColor = trueOriginalFogColor;
+        RenderSettings.fogDensity = trueOriginalFogDensity;
+
+        isDebuffFogCurrentlyActive = false; // Ya no hay un debuff de niebla activo
+        activeFogDebuffCoroutine = null; // Limpiamos la referencia a la corutina
     }
 
- 
 
-   
+
 }
