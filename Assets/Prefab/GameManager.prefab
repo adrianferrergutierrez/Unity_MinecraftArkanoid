@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3702502308829247230, guid: eb836ef097bdce44bac25acfc70eb9a1, type: 3}
+      propertyPath: creditsMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: f702183e4b3022843a6b2a4ab35aec13, type: 3}
     - target: {fileID: 4617614073117396377, guid: eb836ef097bdce44bac25acfc70eb9a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

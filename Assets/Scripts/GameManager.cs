@@ -32,16 +32,22 @@ public class GameManager : MonoBehaviour
 
 
 
+
+
     //eventos
     public delegate void GameStateChanged(); // Un tipo de delegado para eventos simples
     public event GameStateChanged OnScoreChanged;
     public event GameStateChanged OnLivesChanged;
 
     //escenas
+
+
     private string[] levelSceneNames = { "Scene1", "Scene2", "Scene3", "Scene4", "Scene5" };
     private string mainMenuSceneName = "SceneMainMenu";
     private string gameOverSceneName = "SceneGameOver";
     private string winSceneName = "SceneWin";
+    public string creditsSceneName = "SceneCredits"; 
+
 
     public int currentLevelIndex = 0; // Para rastrear el nivel actual
     private bool primeraBolaLanzadaDelNivel = false; // Para la lógica del primer lanzamiento
@@ -52,6 +58,7 @@ public class GameManager : MonoBehaviour
     public AudioClip main_menu;
     public AudioClip GameOver;
     public AudioClip Winner;
+    public AudioClip creditsMusic; 
 
     private bool powerUpImanActivo = false;
 
@@ -156,18 +163,11 @@ public class GameManager : MonoBehaviour
         pala = GameObject.FindGameObjectWithTag("Pala");
 
 
-        if (scene.name == mainMenuSceneName)
-        {
-            PlayMusic(main_menu);
-        }
-        else if (scene.name == gameOverSceneName)
-        {
-            PlayMusic(GameOver);
-        }
-        else if (scene.name == winSceneName)
-        {
-            PlayMusic(Winner);
-        }
+        if (scene.name == mainMenuSceneName) { PlayMusic(main_menu); } // Asumiendo que main_menu es main_menu_music
+        else if (scene.name == gameOverSceneName) { PlayMusic(GameOver); } // Asumiendo que GameOver es gameOverMusic
+        else if (scene.name == winSceneName) { PlayMusic(Winner); } // Para la pantalla de victoria
+        else if (scene.name == creditsSceneName) { PlayMusic(creditsMusic); } // Para la pantalla de créditos
+
         else if (IsCurrentSceneLevel(scene.name))
         {
             // Nos aseguramos de que el índice del nivel sea válido para el array de música
@@ -219,6 +219,11 @@ public class GameManager : MonoBehaviour
 
         OnScoreChanged?.Invoke();
         OnLivesChanged?.Invoke();
+    }
+
+    public void GoToCreditsScreen()
+    {
+        SceneManager.LoadScene(creditsSceneName);
     }
 
 
