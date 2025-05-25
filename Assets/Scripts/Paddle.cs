@@ -43,6 +43,12 @@ public class Paddle : MonoBehaviour
     public Vector3 offsetBolaPegada = new Vector3(0f, 1.35f, -4.3f);
 
 
+    public float enlargeDuration = 10.0f;
+
+    public float enlargeFactor = 1.5f;
+    private bool powerup_hacerse_grande = false;
+    private Vector3 EscalaOriginal; //loponemos para el powerup de hacerse grande para pioder volver al tamaño anterior
+
     private void Start()
     {
         manager_escena = FindFirstObjectByType<ManagerScene>();
@@ -52,8 +58,9 @@ public class Paddle : MonoBehaviour
         initialPaddlePosition = transform.position;
         redstone_powerup = false;
         muro_god_mode = new GameObject[cantidadBloquesMuro];
+        EscalaOriginal = transform.localScale;
 
-}
+    }
 
 void Update()
     {
@@ -87,6 +94,29 @@ void Update()
         //redstone_powerUpIndicator.transform.position = transform.position + new Vector3(0.0f, -0.5f, 0.0f);
 
     }
+    public void ActivateEnlarge()
+    {
+        if (!powerup_hacerse_grande) 
+        {
+            transform.localScale = new Vector3(EscalaOriginal.x * enlargeFactor, EscalaOriginal.y, EscalaOriginal.z);
+            powerup_hacerse_grande = true;
+            StartCoroutine(RevertPaddleSizeCoroutine());
+        }
+        else // Si ya está agrandada, quizás solo reiniciamos el temporizador
+        {
+            StopCoroutine("RevertPaddleSizeCoroutine"); // Detiene la corrutina anterior
+            StartCoroutine(RevertPaddleSizeCoroutine()); // Inicia una nueva
+        }
+    }
+
+    IEnumerator RevertPaddleSizeCoroutine()
+    {
+        yield return new WaitForSeconds(enlargeDuration);
+        transform.localScale = EscalaOriginal; // Vuelve a la escala original
+        powerup_hacerse_grande = false;
+    }
+
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -142,12 +172,16 @@ void Update()
             render_diamante_pico.material.mainTexture = powerUpTextures[2];
             StartCoroutine(CuentaAtrasIman(10.0f)); // Le pasamos la duración
         }
-        else if (other.gameObject.CompareTag("Faro_powerup")) {
-            GameManager.instance.setVidasPlayer(GameManager.instance.GetVidasPlayer() + 1);        
+        else if (other.gameObject.CompareTag("Faro_powerup"))
+        {
+            GameManager.instance.setVidasPlayer(GameManager.instance.GetVidasPlayer() + 1);
         }
         else if (other.gameObject.CompareTag("Experiencia"))
         {
             manager_escena.acabarNivel();
+        }
+        else if (other.gameObject.CompareTag("Diamante_powerup")) {
+            ActivateEnlarge();
         }
 
 

@@ -10988,26 +10988,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pala
       objectReference: {fileID: 0}
-    - target: {fileID: 5832202821856802237, guid: ed92e4738b227f541aba93636ce53a9f, type: 3}
-      propertyPath: cristalMoradoPrefab
-      value: 
-      objectReference: {fileID: 826251320674458309, guid: c895101625dff524088384b0f337e850, type: 3}
-    - target: {fileID: 5832202821856802237, guid: ed92e4738b227f541aba93636ce53a9f, type: 3}
-      propertyPath: powerUpTextures.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5832202821856802237, guid: ed92e4738b227f541aba93636ce53a9f, type: 3}
-      propertyPath: 'powerUpTextures.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2800000, guid: c7c5f008e2a94f4478e68d2ed885370a, type: 3}
-    - target: {fileID: 5832202821856802237, guid: ed92e4738b227f541aba93636ce53a9f, type: 3}
-      propertyPath: 'powerUpTextures.Array.data[1]'
-      value: 
-      objectReference: {fileID: 2800000, guid: 29eaa3b8e81409548beddac973f03cd1, type: 3}
-    - target: {fileID: 5832202821856802237, guid: ed92e4738b227f541aba93636ce53a9f, type: 3}
-      propertyPath: 'powerUpTextures.Array.data[2]'
-      value: 
-      objectReference: {fileID: 2800000, guid: 1b3812b7037cb7b43b51ed36bb9788b2, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

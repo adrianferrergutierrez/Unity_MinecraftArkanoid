@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a654d33ed662f8144a5ea4b1c3856009, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.0021279
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a654d33ed662f8144a5ea4b1c3856009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.987
+      value: -0.96
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a654d33ed662f8144a5ea4b1c3856009, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -21.97
+      value: -22.001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a654d33ed662f8144a5ea4b1c3856009, type: 3}
       propertyPath: m_LocalRotation.w
@@ -60,6 +60,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4683669308469848369, guid: a654d33ed662f8144a5ea4b1c3856009, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3d7ad75058209634cb7631364ca30856, type: 2}
+    - target: {fileID: -1461304994638716399, guid: a654d33ed662f8144a5ea4b1c3856009, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bee2b2a8ebd1af84abb3bded1d602995, type: 2}
     - target: {fileID: -516098083770646512, guid: a654d33ed662f8144a5ea4b1c3856009, type: 3}
       propertyPath: m_Name
       value: cabeza_pico
@@ -140,16 +148,21 @@ MonoBehaviour:
   limit: 7
   fuerza: 0
   cristalPrefab: {fileID: 7867265982512607928, guid: c41c58984dc26a34db81e1f5dd999d93, type: 3}
-  cristalMoradoPrefab: {fileID: 0}
+  cristalMoradoPrefab: {fileID: 826251320674458309, guid: c895101625dff524088384b0f337e850, type: 3}
   bedrock_Prefab: {fileID: 6191961018851983224, guid: ff8dea0543b5eef4da5453c694880afc, type: 3}
   cantidadBloquesMuro: 15
   espacioEntreBloques: 1.1
   distanciaDelantePala: 1
   redstone_powerUpIndicator: {fileID: 0}
   cabeza_pico: {fileID: 7422491994943072669}
-  powerUpTextures: []
-  cuarzo_prefab: {fileID: 0}
-  offsetBolaPegada: {x: 0, y: 1.4, z: -4.5}
+  powerUpTextures:
+  - {fileID: 2800000, guid: c7c5f008e2a94f4478e68d2ed885370a, type: 3}
+  - {fileID: 2800000, guid: ede4371df6100dd408c9c40ffcd4a602, type: 3}
+  - {fileID: 2800000, guid: 1b3812b7037cb7b43b51ed36bb9788b2, type: 3}
+  cuarzo_prefab: {fileID: 5252313766855254684, guid: 401f4e36ac6d8c3498ac65bf2adc1e4a, type: 3}
+  offsetBolaPegada: {x: 0, y: 1.4, z: -5}
+  enlargeDuration: 10
+  enlargeFactor: 1.5
 --- !u!135 &6138731382331296202
 SphereCollider:
   m_ObjectHideFlags: 0

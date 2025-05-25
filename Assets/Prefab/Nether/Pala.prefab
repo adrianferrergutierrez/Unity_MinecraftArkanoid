@@ -175,16 +175,21 @@ MonoBehaviour:
   limit: 7
   fuerza: 0
   cristalPrefab: {fileID: 7867265982512607928, guid: c41c58984dc26a34db81e1f5dd999d93, type: 3}
-  cristalMoradoPrefab: {fileID: 0}
+  cristalMoradoPrefab: {fileID: 826251320674458309, guid: c895101625dff524088384b0f337e850, type: 3}
   bedrock_Prefab: {fileID: 6191961018851983224, guid: ff8dea0543b5eef4da5453c694880afc, type: 3}
   cantidadBloquesMuro: 15
   espacioEntreBloques: 1.1
   distanciaDelantePala: 1
   redstone_powerUpIndicator: {fileID: 0}
   cabeza_pico: {fileID: 4198472167954869231}
-  powerUpTextures: []
+  powerUpTextures:
+  - {fileID: 2800000, guid: c7c5f008e2a94f4478e68d2ed885370a, type: 3}
+  - {fileID: 2800000, guid: 29eaa3b8e81409548beddac973f03cd1, type: 3}
+  - {fileID: 2800000, guid: 1b3812b7037cb7b43b51ed36bb9788b2, type: 3}
   cuarzo_prefab: {fileID: 5252313766855254684, guid: 401f4e36ac6d8c3498ac65bf2adc1e4a, type: 3}
   offsetBolaPegada: {x: 0, y: 1.4, z: -5}
+  enlargeDuration: 10
+  enlargeFactor: 1.5
 --- !u!135 &8702744356579671428
 SphereCollider:
   m_ObjectHideFlags: 0
