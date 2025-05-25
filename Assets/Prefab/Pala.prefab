@@ -149,7 +149,7 @@ MonoBehaviour:
   cabeza_pico: {fileID: 7422491994943072669}
   powerUpTextures: []
   cuarzo_prefab: {fileID: 0}
-  offsetBolaPegada: {x: 0, y: 1.35, z: -4.5}
+  offsetBolaPegada: {x: 0, y: 1.4, z: -4.5}
 --- !u!135 &6138731382331296202
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -79,42 +79,95 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded; // Desuscribirse
     }
 
+    void Update()
+    {
+        CheckDebugLevelLoadKeys();
+    }
+
+    private void CheckDebugLevelLoadKeys()
+    {
+        // Asumimos que Scene1 es el nivel 0, Scene2 el 1, etc.
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { LoadLevelByIndex(0, true); } // Tecla 1 para Scene1
+        if (Input.GetKeyDown(KeyCode.Alpha2)) { LoadLevelByIndex(1, true); } // Tecla 2 para Scene2
+        if (Input.GetKeyDown(KeyCode.Alpha3)) { LoadLevelByIndex(2, true); } // Tecla 3 para Scene3
+        if (Input.GetKeyDown(KeyCode.Alpha4)) { LoadLevelByIndex(3, true); } // Tecla 4 para Scene4
+        if (Input.GetKeyDown(KeyCode.Alpha5)) { LoadLevelByIndex(4, true); } // Tecla 5 para Scene5
+    }
+
+    public void LoadLevelByIndex(int levelIndex, bool isDebugLoad)
+    {
+        if (levelSceneNames == null || levelIndex < 0 || levelIndex >= levelSceneNames.Length)
+        {
+            Debug.LogError("Índice de nivel " + levelIndex + " es inválido o 'levelSceneNames' no está configurado.");
+            return;
+        }
+
+        Debug.LogWarning("Cargando nivel por índice: " + levelIndex + " (Escena: " + levelSceneNames[levelIndex] + "), Debug: " + isDebugLoad);
+
+        currentLevelIndex = levelIndex; // Establecemos el índice actual
+
+        if (isDebugLoad)
+        {
+            puntuacion = 0;
+            vidas_player = 3; // O tu valor inicial de vidas
+                              // Aquí puedes añadir cualquier otro reseteo específico del modo debug
+        }
+
+        primeraBolaLanzadaDelNivel = false; // Siempre se resetea al cargar un nivel
+
+        // Notificamos a la UI para que se actualice (aunque la escena va a cambiar)
+        OnScoreChanged?.Invoke();
+        OnLivesChanged?.Invoke();
+
+        SceneManager.LoadScene(levelSceneNames[levelIndex]);
+    }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.LogError("Escena cargada: " + scene.name);
-        //buscamios la pala para spawnear la bola delante de la pala
-        pala = GameObject.FindGameObjectWithTag("Pala"); // Busca la pala en la nueva escena
+        Debug.Log("Escena cargada: " + scene.name);
+        pala = GameObject.FindGameObjectWithTag("Pala");
 
-        if (pala == null && IsCurrentSceneLevel())
+        if (pala == null && IsCurrentSceneLevel(scene.name)) // Pasamos scene.name para la comprobación
         {
             Debug.LogError("¡ADVERTENCIA! No se encontró la pala ('Pala' tag) en la escena de nivel: " + scene.name);
         }
 
-        // Lógica para cuando se carga una escena de nivel
+        // --- LÓGICA ACTUALIZADA PARA DETERMINAR currentLevelIndex ---
+        int foundIndex = System.Array.IndexOf(levelSceneNames, scene.name);
+        if (foundIndex != -1)
+        {
+            // Si la escena cargada está en nuestra lista de niveles, actualizamos el índice.
+            currentLevelIndex = foundIndex;
+            Debug.Log("GameManager: Nivel actual establecido al índice " + currentLevelIndex + " (" + scene.name + ")");
+        }
+        // Si no se encuentra (ej. es el menú, game over), currentLevelIndex no cambia o
+        // podrías asignarle un valor especial como -1 si necesitas saber que no es un nivel.
+
         if (IsCurrentSceneLevel(scene.name))
         {
-            activeBalls.Clear(); // Limpia bolas de niveles anteriores
+            activeBalls.Clear();
             primeraBolaLanzadaDelNivel = false;
-          
+            // Aquí podrías llamar a un ManagerScene.SetupLevel() si necesitas que la escena se configure.
+
             if (vidas_player > 0)
             {
-                RespawnBall(true); // True indica que es el spawn inicial del nivel
+                RespawnBall(true);
             }
             else
             {
-                // Si por alguna razón llegamos a un nivel sin vidas, vamos a Game Over
                 HandleGameOver();
             }
         }
         else
         {
-            // Si no es una escena de nivel (menú, game over, etc.), limpiamos las bolas activas
             ClearAllBalls();
         }
-        // Asegurar que la UI se actualice al cargar cualquier escena (si el SceneUIManager está presente)
+
         OnScoreChanged?.Invoke();
         OnLivesChanged?.Invoke();
     }
+
+
     public void StartGameFromMenu()
     {
         puntuacion = 0;
@@ -130,10 +183,7 @@ public class GameManager : MonoBehaviour
         else Debug.LogError("No hay escenas de nivel configuradas!");
     }
 
-    public void updateCurrentIndex(int index)
-    {
-        currentLevelIndex = index;
-    }
+ 
 
     public void RetryCurrentLevel()
     {
@@ -244,16 +294,18 @@ public class GameManager : MonoBehaviour
     {
         if (pala == null)
         {
-            pala = GameObject.FindGameObjectWithTag("Pala"); // Intento extra por si acaso
+            pala = GameObject.FindGameObjectWithTag("Pala");
             if (pala == null)
             {
                 Debug.LogError("No se puede respawnear la bola, la pala es nula y no se encontró.");
                 return;
             }
         }
+        // Calculamos la posición de spawn usando el offset
         Vector3 spawnPosition = pala.transform.position + pala.transform.TransformDirection(palaInitialSpawnOffset);
-        Debug.LogError("Spawn position: " + spawnPosition);
-        InstantiateNewBall(pala.transform.position, isInitialSpawn);
+        Debug.Log("Posición de spawn calculada: " + spawnPosition);
+        // Usamos la spawnPosition calculada
+        InstantiateNewBall(spawnPosition, isInitialSpawn);
     }
     // Método llamado por el script de la manzana para activar la multibola (IGUAL QUE ANTES)
     public void ActivateMultiball()
