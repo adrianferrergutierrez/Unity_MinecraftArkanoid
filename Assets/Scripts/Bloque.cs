@@ -14,10 +14,13 @@ public class Bloque : MonoBehaviour
     public AudioClip[] clips;
     //sistema de particulas
     public GameObject sistema_particulas;
+    
+    private ManagerScene manager_escena;
+
     public Transform upperStructureParent;
     private bool powerball;
 
-
+    public GameObject powerup_exp;
 
     // Probabilidades
     public float probabilidad_powerup;
@@ -28,7 +31,7 @@ public class Bloque : MonoBehaviour
 
     void Start()
     {
-
+        manager_escena = FindFirstObjectByType<ManagerScene>();
     }
 
     // Update is called once per frame
@@ -51,12 +54,25 @@ public class Bloque : MonoBehaviour
 
             if (vidas == 0)
             {
-                //si tenemos el powerup de oro, sumamos por bloque destruido 400 puntos
-                if (GameManager.instance.get_state_oro()) GameManager.instance.SumarPuntos(400);
-                else GameManager.instance.SumarPuntos(100);
+                bool esBloqueContableParaGanar = GetComponent<Bloque_destruible>() != null;
+
+                if (esBloqueContableParaGanar)
+                {
+                    if (manager_escena != null)
+                    {
+                        manager_escena.RegistrarBloqueDestruido();
+                        if (GameManager.instance.get_state_oro()) GameManager.instance.SumarPuntos(400);
+                        else GameManager.instance.SumarPuntos(100);
+                    }
+                    // Puedes dar unos puntos base por destruir cualquier bloque contable aquí
+                    // GameManager.instance.SumarPuntos(10); 
+                }
+
                 //comportamiento especifico de los bloques centrales, donde primero hacen que los hijos dejen de ser sus hijos para no ser eliminados todos juntos
                 if (CompareTag("BloqueCentralNether"))
                 {
+                    //le decimos al manager de la escena que lleva el contador de cuantos bloques se tienen que destruir en esta escena que hemos eliminado 1 
+
                     Debug.Log("Bloque Central Nether destruido. Liberando estructura superior.");
 
                     // Verifica si tenemos la referencia al padre de la estructura superior
@@ -96,34 +112,47 @@ public class Bloque : MonoBehaviour
                             // Opcional: Habilitar otros scripts en los hijos si es necesario al liberarse
                         }
                         Destroy(upperStructureParent.gameObject);
-                        //Eliminacion(); DESCOMENTAR CUANDO FUNCIONEN LAS PARTICULASS DE DESTRUCCION PARA TODOS
-                        Destroy(gameObject);
+               
+                        Eliminacion(); 
+
+                        //Destroy(gameObject);
                     }
                 }
 
                 else
                 {
                     float random = Random.value;
+                    //si estamos en los ultimos bloques le subimos la probabilidad de dropear el experiencia powerup, haciendo que pasemos de nivel 
+                    if (manager_escena.ratio_acabado_nivel() >= 0.95f) probabilidad_powerup = 0.5f;
 
                     if (CompareTag("Bloque_powerup_especifico") && random < probabilidad_powerup)
                     {
+                        //le decimos al manager de la escena que lleva el contador de cuantos bloques se tienen que destruir en esta escena que hemos eliminado 1 
                         InstanciarPowerUp(0);
+                      
+
                     }
                     else if (CompareTag("Bloque_powerup_random") && random < probabilidad_powerup)
                     {
+                        //le decimos al manager de la escena que lleva el contador de cuantos bloques se tienen que destruir en esta escena que hemos eliminado 1 
                         InstanciarPowerUpAleatorio();
+                
                     }
                     else if (CompareTag("Wither")) {
-                       GameManager.instance.ActivarNiebla();
+                        //aqui no baajmos el numero de bloques destruidos porque es un bloque "malo" que no pasa nada si no se destruye
+                        GameManager.instance.SumarPuntos(-500);
+                        GameManager.instance.ActivarNiebla(Color.black, 0.13f);
                     
                     }
-                        //destroy game object provisional,esto se quitara cuando todos los bloques tengan ya las particulas y sonidos, si no da error
+                    else if (CompareTag("Coral_debuff"))
+                    {
+                        GameManager.instance.SumarPuntos(-500);
+                        GameManager.instance.ActivarNiebla(Color.magenta, 0.08f);
+                    }
 
-                        Destroy(gameObject);
+             
 
-                        return;
-
-                        Eliminacion();
+                    Eliminacion();
                     }
                 }
             }
@@ -134,18 +163,22 @@ public class Bloque : MonoBehaviour
 
     private void InstanciarPowerUp(int index)
     {
-        if (index >= 0 && index < powerups.Length && powerups[index] != null)
+        if ((index >= 0 && index < powerups.Length && powerups[index] != null) && manager_escena.ratio_acabado_nivel() < 0.95f)
         {
             Instantiate(powerups[index], transform.position, powerups[index].transform.rotation);
         }
+        else Instantiate(powerup_exp, transform.position, powerup_exp.transform.rotation);
     }
 
     private void InstanciarPowerUpAleatorio()
     {
         if (powerups.Length == 0) return;
-
-        int index = Random.Range(0, powerups.Length);
-        InstanciarPowerUp(index);
+        if (manager_escena.ratio_acabado_nivel() >= 0.95f) {
+            Instantiate(powerup_exp, transform.position, powerup_exp.transform.rotation);
+        }
+        else {
+            int index = Random.Range(0, powerups.Length);
+            InstanciarPowerUp(index); }
     }
 
     //funcion que se usara cuando tengamos todas las particulas funcionando

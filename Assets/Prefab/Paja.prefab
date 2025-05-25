@@ -81,6 +81,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 847dd9abfef673345aeb8fc782158749, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8536917290124583304}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 847dd9abfef673345aeb8fc782158749, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4119070073609060143}
   m_SourcePrefab: {fileID: 100100000, guid: 847dd9abfef673345aeb8fc782158749, type: 3}
 --- !u!1 &6353096195450814167 stripped
 GameObject:
@@ -160,3 +163,15 @@ MonoBehaviour:
   sistema_particulas: {fileID: 3770911306593305050, guid: 0e304c2bc0cce56479c77f13a479b5d7, type: 3}
   upperStructureParent: {fileID: 0}
   probabilidad_powerup: 0.1
+--- !u!114 &-4119070073609060143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6353096195450814167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 133e106578a1e454992bf3b73738950c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

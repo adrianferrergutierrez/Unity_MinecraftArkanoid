@@ -28,6 +28,11 @@ TagManager:
   - Powerup_cuarzo
   - Bloque_nodrop
   - Wither
+  - Experiencia
+  - Hierro_powerup
+  - Purple_glass_powerup
+  - Faro_powerup
+  - Coral_debuff
   layers:
   - Default
   - TransparentFX
