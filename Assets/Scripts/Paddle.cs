@@ -43,11 +43,18 @@ public class Paddle : MonoBehaviour
     public Vector3 offsetBolaPegada = new Vector3(0f, 1.35f, -4.3f);
 
 
-    public float enlargeDuration = 10.0f;
+    public Transform visualesPala; // Arrastra aquí el objeto hijo "Visuales_Pala"
 
+    public float enlargeDuration = 10.0f;
     public float enlargeFactor = 1.5f;
+
     private bool powerup_hacerse_grande = false;
-    private Vector3 EscalaOriginal; //loponemos para el powerup de hacerse grande para pioder volver al tamaño anterior
+    private Vector3 escalaVisualOriginal;
+    private Vector3 tamanoColliderOriginal;
+    private BoxCollider paddleCollider;
+
+
+
 
     private void Start()
     {
@@ -58,8 +65,15 @@ public class Paddle : MonoBehaviour
         initialPaddlePosition = transform.position;
         redstone_powerup = false;
         muro_god_mode = new GameObject[cantidadBloquesMuro];
-        EscalaOriginal = transform.localScale;
-
+        if (visualesPala != null)
+        {
+            escalaVisualOriginal = visualesPala.localScale;
+        }
+        paddleCollider = GetComponent<BoxCollider>();
+        if (paddleCollider != null)
+        {
+            tamanoColliderOriginal = paddleCollider.size;
+        }
     }
 
 void Update()
@@ -96,23 +110,40 @@ void Update()
     }
     public void ActivateEnlarge()
     {
-        if (!powerup_hacerse_grande) 
+        // Asegúrate de tener referencias antes de usarlas
+        if (visualesPala == null || paddleCollider == null)
         {
-            transform.localScale = new Vector3(EscalaOriginal.x * enlargeFactor, EscalaOriginal.y, EscalaOriginal.z);
+            Debug.LogError("No se han asignado las referencias de 'visualesPala' o no se encontró el BoxCollider.");
+            return;
+        }
+
+        if (!powerup_hacerse_grande)
+        {
+            // Agrandamos solo los visuales y el collider, no el objeto raíz
+            visualesPala.localScale = new Vector3(escalaVisualOriginal.x * enlargeFactor, escalaVisualOriginal.y, escalaVisualOriginal.z);
+            paddleCollider.size = new Vector3(tamanoColliderOriginal.x * enlargeFactor, tamanoColliderOriginal.y, tamanoColliderOriginal.z);
             powerup_hacerse_grande = true;
-            StartCoroutine(RevertPaddleSizeCoroutine());
         }
-        else // Si ya está agrandada, quizás solo reiniciamos el temporizador
-        {
-            StopCoroutine("RevertPaddleSizeCoroutine"); // Detiene la corrutina anterior
-            StartCoroutine(RevertPaddleSizeCoroutine()); // Inicia una nueva
-        }
+
+        // Detenemos cualquier corrutina anterior y empezamos una nueva para reiniciar el temporizador
+        StopCoroutine("RevertPaddleSizeCoroutine");
+        StartCoroutine("RevertPaddleSizeCoroutine");
     }
 
     IEnumerator RevertPaddleSizeCoroutine()
     {
         yield return new WaitForSeconds(enlargeDuration);
-        transform.localScale = EscalaOriginal; // Vuelve a la escala original
+
+        // Volvemos a los tamaños y escalas originales
+        if (visualesPala != null)
+        {
+            visualesPala.localScale = escalaVisualOriginal;
+        }
+        if (paddleCollider != null)
+        {
+            paddleCollider.size = tamanoColliderOriginal;
+        }
+
         powerup_hacerse_grande = false;
     }
 

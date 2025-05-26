@@ -42,10 +42,7 @@ public class Bloque : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(CompareTag("debug"))
-        {
-            Debug.Log("Debug: Bloque colisionado con " + collision.gameObject.name);
-        }
+      
         if (collision.gameObject.CompareTag("Pelota"))
         {
             Ball3D pelota_script = collision.gameObject.GetComponent<Ball3D>();

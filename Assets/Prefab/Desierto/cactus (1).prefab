@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cactus (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d95ed58e688e6ee46b12ba1d2c58dad3, type: 3}
+      propertyPath: m_TagString
+      value: Bloque_powerup_random
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -77,6 +81,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d95ed58e688e6ee46b12ba1d2c58dad3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6310138896701895460}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d95ed58e688e6ee46b12ba1d2c58dad3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1013117377284332395}
   m_SourcePrefab: {fileID: 100100000, guid: d95ed58e688e6ee46b12ba1d2c58dad3, type: 3}
 --- !u!1 &8105932687051603870 stripped
 GameObject:
@@ -144,6 +151,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidas: 1
-  powerups: []
-  clips: []
-  sistema_particulas: {fileID: 0}
+  powerups:
+  - {fileID: 1168960774798359845, guid: cb410f8ea66c1e94abf9b5a7e9a8a34c, type: 3}
+  - {fileID: 9047881310053280188, guid: 827dc2242f441d6499bcfe696b07668b, type: 3}
+  - {fileID: 2056165667348826043, guid: dab97bad6a1cc954886c94cc16391d85, type: 3}
+  - {fileID: 1075407149815071947, guid: dd0b04bcec4eba64c9e64094abbca344, type: 3}
+  - {fileID: 5899845481673564092, guid: 7d80a52aa1a2d664a955f25377068866, type: 3}
+  - {fileID: 6961218713003385424, guid: 5ccc30c896344924399282bbd5823e6d, type: 3}
+  - {fileID: 7175665355478366981, guid: 44ae8ded5447bf6438fddfc060935854, type: 3}
+  - {fileID: 52912819795057900, guid: f27d974720c0ce545bffc2b8cd8b970f, type: 3}
+  - {fileID: 3671894683712545777, guid: 88fcbebb82cbd4448afe7a1541a9b26e, type: 3}
+  - {fileID: 6224043760082905517, guid: 00322ada00fee2e4eb8fefc1658cfa03, type: 3}
+  clips:
+  - {fileID: 8300000, guid: e1eb77cad15f7754b836184d226f6365, type: 3}
+  - {fileID: 8300000, guid: 279dd172d4c5b884aba3c5e72c7bac6d, type: 3}
+  - {fileID: 8300000, guid: 9b1ef7ff2229de841bd7763886ff9107, type: 3}
+  - {fileID: 8300000, guid: 4aa74a2017b907948bf79e5de360a339, type: 3}
+  sistema_particulas: {fileID: 5235373941160248186, guid: 6b889d9a4eb857546aa5344520d3fb01, type: 3}
+  upperStructureParent: {fileID: 0}
+  powerup_exp: {fileID: 3157227506630947841, guid: 99bb2ba4797950c45943658701bad09f, type: 3}
+  probabilidad_powerup: 0.1
+--- !u!114 &1013117377284332395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8105932687051603870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 133e106578a1e454992bf3b73738950c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

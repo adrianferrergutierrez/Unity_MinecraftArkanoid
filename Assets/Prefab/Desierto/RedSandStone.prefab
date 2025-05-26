@@ -111,12 +111,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidas: 3
-  powerups: []
-  clips: []
-  sistema_particulas: {fileID: 0}
+  powerups:
+  - {fileID: 9047881310053280188, guid: 827dc2242f441d6499bcfe696b07668b, type: 3}
+  - {fileID: 1168960774798359845, guid: cb410f8ea66c1e94abf9b5a7e9a8a34c, type: 3}
+  - {fileID: 2056165667348826043, guid: dab97bad6a1cc954886c94cc16391d85, type: 3}
+  - {fileID: 1075407149815071947, guid: dd0b04bcec4eba64c9e64094abbca344, type: 3}
+  - {fileID: 6224043760082905517, guid: 00322ada00fee2e4eb8fefc1658cfa03, type: 3}
+  - {fileID: 3671894683712545777, guid: 88fcbebb82cbd4448afe7a1541a9b26e, type: 3}
+  - {fileID: 6961218713003385424, guid: 5ccc30c896344924399282bbd5823e6d, type: 3}
+  - {fileID: 7175665355478366981, guid: 44ae8ded5447bf6438fddfc060935854, type: 3}
+  - {fileID: 52912819795057900, guid: f27d974720c0ce545bffc2b8cd8b970f, type: 3}
+  - {fileID: 5899845481673564092, guid: 7d80a52aa1a2d664a955f25377068866, type: 3}
+  clips:
+  - {fileID: 8300000, guid: 4f86d6953430f7a4abcd1a819517b5ca, type: 3}
+  - {fileID: 8300000, guid: 1c9677ef62b44544298587fcd1b9fac4, type: 3}
+  - {fileID: 8300000, guid: 94371af5fb6b22141827a3b4940455f8, type: 3}
+  - {fileID: 8300000, guid: b1499551325044643a80bb7351b98869, type: 3}
+  sistema_particulas: {fileID: 5565373221803036397, guid: 40ec3faeb146e6346b990e5e331119b3, type: 3}
   upperStructureParent: {fileID: 0}
-  powerup_exp: {fileID: 0}
-  probabilidad_powerup: 0
+  powerup_exp: {fileID: 3157227506630947841, guid: 99bb2ba4797950c45943658701bad09f, type: 3}
+  probabilidad_powerup: 0.1
 --- !u!114 &1739358310299607434
 MonoBehaviour:
   m_ObjectHideFlags: 0
