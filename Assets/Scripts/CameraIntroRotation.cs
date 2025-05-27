@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class CameraIntroRotation : MonoBehaviour
 {
-    public Transform targetToOrbit; // El centro de la escena
-    public float duration = 5f;     // Tiempo total de rotación
-    public float rotationSpeed = 30f;
-    public Vector3 finalOffset = new Vector3(0, 5, -10); // Posición final fija respecto al centro
+    public Transform targetToOrbit; // Centro de la escena
+    public float duration = 5f;     // Duración total
+    public Vector3 finalOffset = new Vector3(0, 5, -10); // Posición final deseada
 
     private float timer = 0f;
     private bool rotating = true;
-    private Vector3 initialOffset;
-    private Quaternion finalRotation;
+
+    private Vector3 startPosition;
+    private Quaternion startRotation;
+    private Vector3 endPosition;
+    private Quaternion endRotation;
 
     void Start()
     {
@@ -21,8 +23,13 @@ public class CameraIntroRotation : MonoBehaviour
             return;
         }
 
-        initialOffset = transform.position - targetToOrbit.position;
-        finalRotation = Quaternion.LookRotation(targetToOrbit.position - (targetToOrbit.position + finalOffset));
+        // Guardar posición y rotación iniciales
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+
+        // Calcular posición y rotación finales
+        endPosition = targetToOrbit.position + finalOffset;
+        endRotation = Quaternion.LookRotation(targetToOrbit.position - endPosition);
     }
 
     void Update()
@@ -30,21 +37,15 @@ public class CameraIntroRotation : MonoBehaviour
         if (!rotating) return;
 
         timer += Time.deltaTime;
+        float t = Mathf.Clamp01(timer / duration);
 
-        if (timer < duration)
-        {
-            float angle = rotationSpeed * Time.deltaTime;
-            initialOffset = Quaternion.AngleAxis(angle, Vector3.up) * initialOffset;
-            transform.position = targetToOrbit.position + initialOffset;
-            transform.LookAt(targetToOrbit.position);
-        }
-        else
+        // Interpolación suave
+        transform.position = Vector3.Slerp(startPosition, endPosition, t);
+        transform.rotation = Quaternion.Slerp(startRotation, endRotation, t);
+
+        if (t >= 1f)
         {
             rotating = false;
-
-            // Posición y rotación finales fijas
-            transform.position = targetToOrbit.position + finalOffset;
-            transform.rotation = finalRotation;
         }
     }
 }

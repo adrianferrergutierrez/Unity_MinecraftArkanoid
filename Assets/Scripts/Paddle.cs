@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
-    public float speed = 10f;
+    public float speed = 20f;
     public float limit = 7f;
     public float fuerza = 10.0f;
     
