@@ -211,8 +211,12 @@ void Update()
         {
             manager_escena.acabarNivel();
         }
-        else if (other.gameObject.CompareTag("Diamante_powerup")) {
+        else if (other.gameObject.CompareTag("Diamante_powerup"))
+        {
             ActivateEnlarge();
+        }
+        else if (other.gameObject.CompareTag("Lapis")) { 
+            for (int i = 0; i < 5;++i) manager_escena.RegistrarBloqueDestruido(); //sumamos en 5 el numero de bloques desturidos, mejorando la experiencia!!
         }
 
 
