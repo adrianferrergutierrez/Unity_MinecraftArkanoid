@@ -219,6 +219,29 @@ public class GameManager : MonoBehaviour
 
         OnScoreChanged?.Invoke();
         OnLivesChanged?.Invoke();
+        if (IsCurrentSceneLevel(scene.name))
+        {
+            GameObject cam = Camera.main?.gameObject;
+            if (cam != null)
+            {
+                CameraIntroRotation rot = cam.GetComponent<CameraIntroRotation>();
+                if (rot == null)
+                {
+                    rot = cam.AddComponent<CameraIntroRotation>();
+                }
+
+                GameObject center = GameObject.Find("SceneCenter"); // Asegúrate de tener un objeto con este nombre
+                if (center != null)
+                {
+                    rot.targetToOrbit = center.transform;
+                }
+                else
+                {
+                    Debug.LogWarning("No se encontró 'SceneCenter' en la escena.");
+                }
+            }
+        }
+
     }
 
     public void GoToCreditsScreen()
