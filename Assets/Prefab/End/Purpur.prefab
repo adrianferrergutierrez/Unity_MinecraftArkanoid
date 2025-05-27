@@ -162,6 +162,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b1499551325044643a80bb7351b98869, type: 3}
   sistema_particulas: {fileID: 2012393309088774830, guid: 689138a44f49647448a81aaedc04a5bc, type: 3}
   upperStructureParent: {fileID: 0}
+  powerup_exp: {fileID: 3157227506630947841, guid: 99bb2ba4797950c45943658701bad09f, type: 3}
   probabilidad_powerup: 0.1
 --- !u!114 &7373142637879655672
 MonoBehaviour:

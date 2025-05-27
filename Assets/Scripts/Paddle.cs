@@ -47,8 +47,10 @@ public class Paddle : MonoBehaviour
 
     public float enlargeDuration = 10.0f;
     public float enlargeFactor = 1.5f;
+    public float shrinkFactor = 0.5f;
 
     private bool powerup_hacerse_grande = false;
+    private bool powerup_hacerse_pequena = false;
     private Vector3 escalaVisualOriginal;
     private Vector3 tamanoColliderOriginal;
     private BoxCollider paddleCollider;
@@ -110,22 +112,48 @@ void Update()
     }
     public void ActivateEnlarge()
     {
-        // Asegúrate de tener referencias antes de usarlas
         if (visualesPala == null || paddleCollider == null)
         {
-            Debug.LogError("No se han asignado las referencias de 'visualesPala' o no se encontró el BoxCollider.");
+            Debug.LogError("No se han asignado las referencias de 'visualesPala' o el BoxCollider.");
             return;
         }
 
-        if (!powerup_hacerse_grande)
+        // Si estaba encogida, desactivamos ese efecto
+        if (powerup_hacerse_pequena)
         {
-            // Agrandamos solo los visuales y el collider, no el objeto raíz
-            visualesPala.localScale = new Vector3(escalaVisualOriginal.x * enlargeFactor, escalaVisualOriginal.y, escalaVisualOriginal.z);
-            paddleCollider.size = new Vector3(tamanoColliderOriginal.x * enlargeFactor, tamanoColliderOriginal.y, tamanoColliderOriginal.z);
-            powerup_hacerse_grande = true;
+            StopCoroutine("RevertShrinkCoroutine");
+            powerup_hacerse_pequena = false;
         }
 
-        // Detenemos cualquier corrutina anterior y empezamos una nueva para reiniciar el temporizador
+        // Aplicamos directamente el tamaño grande
+        visualesPala.localScale = new Vector3(escalaVisualOriginal.x * enlargeFactor, escalaVisualOriginal.y, escalaVisualOriginal.z);
+        paddleCollider.size = new Vector3(tamanoColliderOriginal.x * enlargeFactor, tamanoColliderOriginal.y, tamanoColliderOriginal.z);
+        powerup_hacerse_grande = true;
+
+        StopCoroutine("RevertPaddleSizeCoroutine");
+        StartCoroutine("RevertPaddleSizeCoroutine");
+    }
+
+    public void ActivateShrink()
+    {
+        if (visualesPala == null || paddleCollider == null)
+        {
+            Debug.LogError("No se han asignado las referencias de 'visualesPala' o el BoxCollider.");
+            return;
+        }
+
+        // Si estaba agrandada, desactivamos ese efecto
+        if (powerup_hacerse_grande)
+        {
+            StopCoroutine("RevertPaddleSizeCoroutine");
+            powerup_hacerse_grande = false;
+        }
+
+        // Aplicamos directamente el tamaño pequeño
+        visualesPala.localScale = new Vector3(escalaVisualOriginal.x * shrinkFactor, escalaVisualOriginal.y, escalaVisualOriginal.z);
+        paddleCollider.size = new Vector3(tamanoColliderOriginal.x * shrinkFactor, tamanoColliderOriginal.y, tamanoColliderOriginal.z);
+        powerup_hacerse_pequena = true;
+
         StopCoroutine("RevertPaddleSizeCoroutine");
         StartCoroutine("RevertPaddleSizeCoroutine");
     }
@@ -145,6 +173,7 @@ void Update()
         }
 
         powerup_hacerse_grande = false;
+        powerup_hacerse_pequena = false; // Aseguramos que ambos estados se resetean
     }
 
 
@@ -213,6 +242,10 @@ void Update()
         }
         else if (other.gameObject.CompareTag("Diamante_powerup")) {
             ActivateEnlarge();
+        }
+        else if (other.gameObject.CompareTag("Powerup_shrink"))
+        {
+            ActivateShrink();
         }
 
 

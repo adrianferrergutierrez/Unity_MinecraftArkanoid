@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d95ed58e688e6ee46b12ba1d2c58dad3, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d95ed58e688e6ee46b12ba1d2c58dad3, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d95ed58e688e6ee46b12ba1d2c58dad3, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d95ed58e688e6ee46b12ba1d2c58dad3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -62,11 +62,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d95ed58e688e6ee46b12ba1d2c58dad3, type: 3}
       propertyPath: m_Name
-      value: cactus (1)
+      value: cactus_powerup
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d95ed58e688e6ee46b12ba1d2c58dad3, type: 3}
       propertyPath: m_TagString
-      value: Bloque_powerup_especifico
+      value: Powerup_shrink
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -80,10 +80,7 @@ PrefabInstance:
       addedObject: {fileID: 4635010205510764266}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d95ed58e688e6ee46b12ba1d2c58dad3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6310138896701895460}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d95ed58e688e6ee46b12ba1d2c58dad3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1013117377284332395}
+      addedObject: {fileID: -114034624197880344}
   m_SourcePrefab: {fileID: 100100000, guid: d95ed58e688e6ee46b12ba1d2c58dad3, type: 3}
 --- !u!1 &8105932687051603870 stripped
 GameObject:
@@ -112,10 +109,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 122
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!65 &4635010205510764266
 BoxCollider:
@@ -132,13 +129,13 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6310138896701895460
+--- !u!114 &-114034624197880344
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,30 +144,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8105932687051603870}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acfd0fe888eaf964e9aa05eb3052c1de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vidas: 1
-  powerups:
-  - {fileID: 8105932687051603870, guid: 000b9de6a49377345aae41d4729a914a, type: 3}
-  clips:
-  - {fileID: 8300000, guid: e1eb77cad15f7754b836184d226f6365, type: 3}
-  - {fileID: 8300000, guid: 279dd172d4c5b884aba3c5e72c7bac6d, type: 3}
-  - {fileID: 8300000, guid: 9b1ef7ff2229de841bd7763886ff9107, type: 3}
-  - {fileID: 8300000, guid: 4aa74a2017b907948bf79e5de360a339, type: 3}
-  sistema_particulas: {fileID: 5235373941160248186, guid: 6b889d9a4eb857546aa5344520d3fb01, type: 3}
-  upperStructureParent: {fileID: 0}
-  powerup_exp: {fileID: 3157227506630947841, guid: 99bb2ba4797950c45943658701bad09f, type: 3}
-  probabilidad_powerup: 1
---- !u!114 &1013117377284332395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8105932687051603870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 133e106578a1e454992bf3b73738950c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1578b52df04864f4bb4d594a87cd2f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
