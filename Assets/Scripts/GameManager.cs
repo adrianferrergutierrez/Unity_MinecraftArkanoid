@@ -159,49 +159,83 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Escena cargada: " + scene.name);
+        Debug.Log("OnSceneLoaded para escena: " + scene.name); // Log para saber que se ejecuta
         pala = GameObject.FindGameObjectWithTag("Pala");
 
-
-        if (scene.name == mainMenuSceneName) { PlayMusic(main_menu); } // Asumiendo que main_menu es main_menu_music
-        else if (scene.name == gameOverSceneName) { PlayMusic(GameOver); } // Asumiendo que GameOver es gameOverMusic
-        else if (scene.name == winSceneName) { PlayMusic(Winner); } // Para la pantalla de victoria
-        else if (scene.name == creditsSceneName) { PlayMusic(creditsMusic); } // Para la pantalla de créditos
-
-        else if (IsCurrentSceneLevel(scene.name))
-        {
-            // Nos aseguramos de que el índice del nivel sea válido para el array de música
-            if (currentLevelIndex >= 0 && currentLevelIndex < musicClips.Length)
-            {
-                PlayMusic(musicClips[currentLevelIndex]);
-            }
-            else
-            {
-                Debug.LogError("No hay clip de música para el nivel " + currentLevelIndex + ". Revisa el array 'musicClips' en el GameManager.");
-            }
-        }
-
-        if (pala == null && IsCurrentSceneLevel(scene.name)) // Pasamos scene.name para la comprobación
-        {
-            Debug.LogError("¡ADVERTENCIA! No se encontró la pala ('Pala' tag) en la escena de nivel: " + scene.name);
-        }
-
-        // --- LÓGICA ACTUALIZADA PARA DETERMINAR currentLevelIndex ---
+        // --- PASO 1: DETERMINAR currentLevelIndex PRIMERO ---
         int foundIndex = System.Array.IndexOf(levelSceneNames, scene.name);
         if (foundIndex != -1)
         {
-            // Si la escena cargada está en nuestra lista de niveles, actualizamos el índice.
+            // Si la escena cargada está en nuestra lista de niveles, actualizamos el índice global.
             currentLevelIndex = foundIndex;
             Debug.Log("GameManager: Nivel actual establecido al índice " + currentLevelIndex + " (" + scene.name + ")");
         }
-        // Si no se encuentra (ej. es el menú, game over), currentLevelIndex no cambia o
-        // podrías asignarle un valor especial como -1 si necesitas saber que no es un nivel.
+        // else {
+        // Opcional: Si la escena no es un nivel (menú, gameover, etc.),
+        // podrías poner currentLevelIndex a un valor como -1 para indicarlo.
+        // currentLevelIndex = -1; // Por ejemplo
+        // }
+
+
+        // --- PASO 2: LÓGICA PARA CAMBIAR LA MÚSICA (AHORA USA EL currentLevelIndex CORRECTO) ---
+        if (scene.name == mainMenuSceneName)
+        {
+            PlayMusic(main_menu); // Asegúrate que 'main_menu' (AudioClip) esté asignado en el Inspector
+        }
+        else if (scene.name == gameOverSceneName)
+        {
+            PlayMusic(GameOver); // Asegúrate que 'GameOver' (AudioClip) esté asignado
+        }
+        else if (scene.name == winSceneName)
+        {
+            PlayMusic(Winner);   // Asegúrate que 'Winner' (AudioClip) esté asignado
+        }
+        else if (scene.name == creditsSceneName)
+        {
+            PlayMusic(creditsMusic); // Asegúrate que 'creditsMusic' (AudioClip) esté asignado
+        }
+        else if (IsCurrentSceneLevel(scene.name)) // Comprueba si es una escena de nivel
+        {
+            // 'currentLevelIndex' ya ha sido actualizado arriba si la escena es un nivel reconocido.
+            if (this.currentLevelIndex >= 0 && this.currentLevelIndex < musicClips.Length)
+            {
+                if (musicClips[this.currentLevelIndex] != null)
+                {
+                    PlayMusic(musicClips[this.currentLevelIndex]);
+                }
+                else
+                {
+                    Debug.LogError("AudioClip es nulo en musicClips para el nivel " + this.currentLevelIndex +
+                                   ". Revisa las asignaciones en el GameManager.");
+                    if (musicSource != null) musicSource.Stop(); // Detener música si no hay clip
+                }
+            }
+            else
+            {
+                Debug.LogError("Índice de nivel " + this.currentLevelIndex +
+                               " fuera de rango para 'musicClips' (tamaño: " + musicClips.Length +
+                               ") o la escena de nivel no actualizó currentLevelIndex correctamente.");
+                if (musicSource != null) musicSource.Stop(); // Detener música
+            }
+        }
+        else
+        {
+            // Si no es ninguna de las escenas especiales ni un nivel reconocido del array,
+            // podrías detener la música o poner una música por defecto.
+            Debug.LogWarning("Escena '" + scene.name + "' no tiene música específica asignada. Deteniendo música.");
+            if (musicSource != null) musicSource.Stop();
+        }
+
+        // --- PASO 3: RESTO DE LA LÓGICA DE OnSceneLoaded ---
+        if (pala == null && IsCurrentSceneLevel(scene.name))
+        {
+            Debug.LogError("¡ADVERTENCIA! No se encontró la pala ('Pala' tag) en la escena de nivel: " + scene.name);
+        }
 
         if (IsCurrentSceneLevel(scene.name))
         {
             activeBalls.Clear();
             primeraBolaLanzadaDelNivel = false;
-            // Aquí podrías llamar a un ManagerScene.SetupLevel() si necesitas que la escena se configure.
 
             if (vidas_player > 0)
             {

@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: creditsMusic
       value: 
       objectReference: {fileID: 8300000, guid: f702183e4b3022843a6b2a4ab35aec13, type: 3}
+    - target: {fileID: 3702502308829247230, guid: eb836ef097bdce44bac25acfc70eb9a1, type: 3}
+      propertyPath: 'musicClips.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: a9428b14968f432458392bcc0ca49126, type: 3}
+    - target: {fileID: 3702502308829247230, guid: eb836ef097bdce44bac25acfc70eb9a1, type: 3}
+      propertyPath: 'musicClips.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: dea8990c238e91048965b1eeac28a688, type: 3}
     - target: {fileID: 4617614073117396377, guid: eb836ef097bdce44bac25acfc70eb9a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -54,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4631718853619841360, guid: eb836ef097bdce44bac25acfc70eb9a1, type: 3}
       propertyPath: m_Name
-      value: GameManager Variant
+      value: GameManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

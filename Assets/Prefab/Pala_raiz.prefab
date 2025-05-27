@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8034520043874632599}
   - component: {fileID: 3006058592154549125}
   - component: {fileID: 3659097805701889061}
+  - component: {fileID: 5815800025093187887}
   m_Layer: 0
   m_Name: cabeza_pico
   m_TagString: Untagged
@@ -109,6 +110,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4493585093827132993, guid: a654d33ed662f8144a5ea4b1c3856009, type: 3}
+--- !u!114 &5815800025093187887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2235051561907510466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e4f2ea7b196f4145bc9a4d1b4e5ab33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2292563186689538392
 GameObject:
   m_ObjectHideFlags: 0
