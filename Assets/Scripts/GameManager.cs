@@ -62,6 +62,8 @@ public class GameManager : MonoBehaviour
 
     private bool powerUpImanActivo = false;
 
+    private const string HighScoreKey = "MaxPuntuacion";
+
 
     void Awake()
     {
@@ -310,6 +312,8 @@ public class GameManager : MonoBehaviour
     private void HandleGameOver()
     {
         Debug.Log("GAME OVER");
+        CheckAndSaveHighScore();
+
         SceneManager.LoadScene(gameOverSceneName);
    
     }
@@ -317,6 +321,8 @@ public class GameManager : MonoBehaviour
     private void HandleWinGame()
     {
         Debug.Log("¡HAS GANADO!");
+        CheckAndSaveHighScore();
+
         SceneManager.LoadScene(winSceneName);
     }
 
@@ -609,6 +615,20 @@ public class GameManager : MonoBehaviour
 
         isDebuffFogCurrentlyActive = false; // Ya no hay un debuff de niebla activo
         activeFogDebuffCoroutine = null; // Limpiamos la referencia a la corutina
+    }
+
+    private void CheckAndSaveHighScore()
+    {
+        // Cargamos el récord actual. Si no existe, es 0.
+        int currentHighScore = PlayerPrefs.GetInt(HighScoreKey, 0);
+
+        // Si la puntuación de la partida es mayor que el récord, lo guardamos.
+        if (puntuacion > currentHighScore)
+        {
+            PlayerPrefs.SetInt(HighScoreKey, puntuacion);
+            PlayerPrefs.Save(); // Guarda los cambios en el disco.
+            Debug.Log("¡NUEVO RÉCORD GUARDADO!: " + puntuacion);
+        }
     }
 
 
