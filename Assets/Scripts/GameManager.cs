@@ -413,58 +413,74 @@ public class GameManager : MonoBehaviour
     }
     // Método llamado por el script de la manzana para activar la multibola (IGUAL QUE ANTES)
     public void ActivateMultiball()
+    {
+        int maxBalls = 5; // Límite máximo de bolas en la escena
+        if (activeBalls.Count >= maxBalls)
         {
-        if (activeBalls.Count <= 5) { 
-            Debug.LogError("¡Holaaa!");
-
-            List<Vector3> positionsToSpawn = new List<Vector3>();
-            foreach (GameObject ball in activeBalls)
-            {
-                if (ball != null)
-                {
-                    positionsToSpawn.Add(ball.transform.position);
-                }
-            }
-
-            if (positionsToSpawn.Count == 0)
-            {
-                Debug.LogWarning("Multibola activada, pero no se encontraron bolas existentes para duplicar.");
-                return;
-            }
-
-            foreach (Vector3 spawnPos in positionsToSpawn)
-            {
-                InstantiateNewBall(spawnPos, false);// Reutilizamos el método auxiliar
-            }}
+            Debug.Log("Límite de bolas alcanzado. No se crearán más.");
+            return;
         }
 
-    private void InstantiateNewBall(Vector3 spawnPosition, bool isInitialSpawn)
+        
+        List<GameObject> currentBallsToDuplicate = new List<GameObject>(activeBalls);
+
+        foreach (GameObject originalBallGO in currentBallsToDuplicate)
+        {
+            // Volvemos a comprobar el límite dentro del bucle por si duplicamos varias bolas a la vez
+            if (activeBalls.Count >= maxBalls)
+            {
+                break; // Salimos del bucle si alcanzamos el límite
+            }
+
+            if (originalBallGO != null)
+            {
+                Rigidbody originalRb = originalBallGO.GetComponent<Rigidbody>();
+                if (originalRb != null)
+                {
+                    // CAMBIO: Calculamos una posición de spawn LIGERAMENTE al lado de la original.
+                    Vector3 spawnOffset = new Vector3(0.3f, 0, 0); // Un pequeño desplazamiento en X
+                    Vector3 spawnPosition = originalBallGO.transform.position + spawnOffset;
+
+                    // CAMBIO: Obtenemos la velocidad de la bola original para pasársela a la nueva.
+                    Vector3 originalVelocity = originalRb.linearVelocity;
+
+                    // Llamamos a nuestro método modificado para crear y lanzar la bola
+                    InstantiateNewBall(spawnPosition, false, originalVelocity);
+                }
+            }
+        }
+    }
+
+    private void InstantiateNewBall(Vector3 spawnPosition, bool isInitialSpawn, Vector3 initialVelocity = default)
     {
         if (ballPrefab != null)
         {
             GameObject newBallGO = Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
-            AddBall(newBallGO);
+            AddBall(newBallGO); // Esto añade la nueva bola a la lista activeBalls
             Ball3D ballScript = newBallGO.GetComponent<Ball3D>();
 
             if (ballScript != null)
             {
                 if (isInitialSpawn)
                 {
-                    // Esta parte está bien, la pala se encarga de la bola inicial
+                    // Lógica para la primera bola del nivel (esto se queda igual)
                     Paddle paddleScript = pala.GetComponent<Paddle>();
                     if (paddleScript != null)
                     {
                         paddleScript.AsignarBola(ballScript);
                     }
                 }
-                else // Multibola
+                else // Multibola (ya no es un spawn inicial)
                 {
-                    // ¡Llamamos al NUEVO método en lugar de a LanzarDesdePala!
-                    ballScript.LanzarComoNuevaBola(new Vector3(Random.Range(-0.5f, 0.5f), 0, 1).normalized);
+                    // CAMBIO: ¡Llamamos a un nuevo método en Ball3D para lanzarla como un duplicado!
+                    ballScript.LaunchAsDuplicate(initialVelocity);
                 }
             }
         }
-        else Debug.LogError("¡Prefab de Bola no asignado!");
+        else
+        {
+            Debug.LogError("¡Prefab de Bola no asignado en el GameManager!");
+        }
     }
 
     public void ActivarPowerUpIman(bool estaActivo)

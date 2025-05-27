@@ -113,15 +113,35 @@ public class Ball3D : MonoBehaviour
 
     public void LanzarComoNuevaBola(Vector3 direccionDeLanzamiento)
     {
-        // Este método NO comprueba si la bola estaba pegada.
-        // Es para forzar el lanzamiento de una bola recién creada.
+        // Este método ahora solo se usa para lanzar una bola desde la pala
+        // o en situaciones donde se necesite una dirección específica.
         transform.parent = null;
-        rb.isKinematic = false; // Aseguramos que la física esté activa
-        rb.linearVelocity = Vector3.zero; // Usamos .velocity, que es la forma moderna de .linearVelocity
+        rb.isKinematic = false;
+        rb.linearVelocity = Vector3.zero; // Usamos .velocity, es más directo que .linearVelocity
         rb.angularVelocity = Vector3.zero;
-        rb.AddForce(direccionDeLanzamiento * launchForce, ForceMode.Impulse);
+        rb.AddForce(direccionDeLanzamiento * launchForce, ForceMode.Impulse); // Impulse es mejor para un "golpe" instantáneo
 
-        // Reseteamos los estados por si acaso
+        estaPegada = false;
+        esBolaInicialSinLanzar = false;
+    }
+    public void LaunchAsDuplicate(Vector3 originalVelocity)
+    {
+        // Este método es específicamente para las bolas duplicadas.
+        transform.parent = null;
+        rb.isKinematic = false; // Aseguramos que las físicas estén activas.
+
+        // Para que no sea un clon perfecto, añadimos una pequeña variación a la dirección.
+        Vector3 slightVariation = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), 0).normalized * 1.5f;
+
+        // Asignamos la velocidad de la bola original + nuestra pequeña variación.
+        rb.linearVelocity = originalVelocity + slightVariation;
+
+        // Aseguramos que la nueva bola no tenga una velocidad demasiado baja.
+        if (rb.linearVelocity.magnitude < velocidad_minima)
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * velocidad_minima;
+        }
+
         estaPegada = false;
         esBolaInicialSinLanzar = false;
     }
@@ -151,6 +171,8 @@ public class Ball3D : MonoBehaviour
             rb.isKinematic = true; // La bola inicial empieza sin físicas, esperando el lanzamiento
         }
     }
+
+ 
 }
 
  
