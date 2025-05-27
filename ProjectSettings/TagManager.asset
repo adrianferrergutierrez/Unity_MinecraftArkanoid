@@ -35,6 +35,7 @@ TagManager:
   - Coral_debuff
   - Diamante_powerup
   - Lapis
+  - Powerup_shrink
   layers:
   - Default
   - TransparentFX

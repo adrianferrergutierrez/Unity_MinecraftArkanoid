@@ -133,6 +133,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b1499551325044643a80bb7351b98869, type: 3}
   sistema_particulas: {fileID: 8058904319160968083, guid: 11f27d4a21ff36a45be29ec80093f0b7, type: 3}
   upperStructureParent: {fileID: 0}
+  powerup_exp: {fileID: 3157227506630947841, guid: 99bb2ba4797950c45943658701bad09f, type: 3}
   probabilidad_powerup: 0.7
 --- !u!54 &2720076602810180768
 Rigidbody:

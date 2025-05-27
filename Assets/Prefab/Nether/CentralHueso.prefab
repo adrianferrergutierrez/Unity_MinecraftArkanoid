@@ -128,6 +128,7 @@ MonoBehaviour:
   - {fileID: 3671894683712545777, guid: 88fcbebb82cbd4448afe7a1541a9b26e, type: 3}
   - {fileID: 6224043760082905517, guid: 00322ada00fee2e4eb8fefc1658cfa03, type: 3}
   - {fileID: 2056165667348826043, guid: dab97bad6a1cc954886c94cc16391d85, type: 3}
+  - {fileID: 9047881310053280188, guid: 827dc2242f441d6499bcfe696b07668b, type: 3}
   clips:
   - {fileID: 8300000, guid: 4d437c831c7929d45bced6b98d801765, type: 3}
   - {fileID: 8300000, guid: f3f5f3b29bcffdb478e9b2f34644ff72, type: 3}
@@ -136,6 +137,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9973406f03a890d45befb98301d16022, type: 3}
   sistema_particulas: {fileID: 7463931512946730270, guid: 1a18ea1287d99a04ea4e8055fb0cdb56, type: 3}
   upperStructureParent: {fileID: 0}
+  powerup_exp: {fileID: 3157227506630947841, guid: 99bb2ba4797950c45943658701bad09f, type: 3}
   probabilidad_powerup: 0.1
 --- !u!54 &2608662545382006672
 Rigidbody:
