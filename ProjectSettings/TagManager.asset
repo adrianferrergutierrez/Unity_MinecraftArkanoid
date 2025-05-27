@@ -34,6 +34,7 @@ TagManager:
   - Faro_powerup
   - Coral_debuff
   - Diamante_powerup
+  - Lapis
   layers:
   - Default
   - TransparentFX
