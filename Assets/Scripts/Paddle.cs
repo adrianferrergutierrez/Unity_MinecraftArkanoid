@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Paddle : MonoBehaviour
@@ -7,48 +6,32 @@ public class Paddle : MonoBehaviour
     public float speed = 20f;
     public float limit = 7f;
     public float fuerza = 10.0f;
-    
     public GameObject cristalPrefab;
     public GameObject cristalMoradoPrefab;
     public GameObject bedrock_Prefab;
     public int cantidadBloquesMuro = 15; // Cantidad de bloques para cubrir la línea
     public float espacioEntreBloques = 1.01f; // Ajusta ligeramente para evitar huecos
     public float distanciaDelantePala = 0.5f;
-
     private ManagerScene manager_escena;
-
-    //cosas powerup redstone
     private bool redstone_powerup;
     private bool oro_powerup;
-
     public GameObject redstone_powerUpIndicator;
-
     public GameObject cabeza_pico; //cojo el gameobject yno directamenteelmesh render porque por alguna  razon se borraba
     private Renderer render_diamante_pico; //esto lo hago para coger el render  de solola partede diamante delpico para  cmbiarla de color durante el tiempo quedure el powerup
     private Color color_original;
-
-
     //el indice 0 es la nueva, y la 1 la vieja
     public Texture[] powerUpTextures;
     private bool god_mode = false;
     private GameObject[] muro_god_mode;
-
-    //Powerup cuarzo, el funcionamiento del power up es que se va creando un muro de cuarzo en posiciones donde no se ha creado un muro antes
     private int index_posicion_muro = 0;
     public GameObject cuarzo_prefab;
-
     private Vector3 initialPaddlePosition;
-
-    private Ball3D bolaPegada = null; // Referencia a la bola que está pegada
+    private Ball3D bolaPegada = null; 
     public Vector3 offsetBolaPegada = new Vector3(0f, 1.35f, -4.3f);
-
-
-    public Transform visualesPala; // Arrastra aquí el objeto hijo "Visuales_Pala"
-
+    public Transform visualesPala; 
     public float enlargeDuration = 10.0f;
     public float enlargeFactor = 1.5f;
     public float shrinkFactor = 0.5f;
-
     private bool powerup_hacerse_grande = false;
     private bool powerup_hacerse_pequena = false;
     private Vector3 escalaVisualOriginal;
@@ -107,7 +90,6 @@ void Update()
         Vector3 newPos = transform.position + new Vector3(move, 0, 0);
         newPos.x = Mathf.Clamp(newPos.x, -limit, limit);
         transform.position = newPos;
-        //redstone_powerUpIndicator.transform.position = transform.position + new Vector3(0.0f, -0.5f, 0.0f);
 
     }
     public void ActivateEnlarge()
@@ -195,21 +177,15 @@ void Update()
         else if (other.gameObject.CompareTag("Redstonepowerup"))
         {
             redstone_powerup = true;
-            //el powerup indicator deberiamos ponerlo en true aqui
             render_diamante_pico.material.color = Color.red;
-
             StartCoroutine(CountDownSeconds());
-
-
         }
         else if (other.gameObject.CompareTag("Powerup_oro"))
         {
             oro_powerup = true;
-
-            //ponemos nueva textura
+            //nueva textura
             render_diamante_pico.material.mainTexture = powerUpTextures[0];
             GameManager.instance.change_oro_state(true);
-
             StartCoroutine(CountDownSecondsOro());
 
         }
@@ -284,9 +260,7 @@ void Update()
     private void PegarBola(Ball3D bola)
     {
         if (bola == null || bola.EstaPegada()) return; // Si no hay bola o ya está pegada, no hacemos nada
-
         bolaPegada = bola; // Guardamos la referencia a nuestra nueva bola pegada
-
         // Le decimos a la bola que se pegue usando NUESTRO offset
         bola.PegarseALaPala(this.transform, offsetBolaPegada);
     }
@@ -296,20 +270,15 @@ void Update()
         yield return new WaitForSeconds(7); //hacemos lo que seria un waitpid o parecido
         redstone_powerup = false; //ponemos a false cuando pasemos los 7 segundos que sera cuando salgamos el wait 
         render_diamante_pico.material.color = Color.white;
-
-        // powerUpIndicator.SetActive(false); //hacemos que el indiicador se ponga en desactivado para no verlo
-
     }
 
 
     IEnumerator CountDownSecondsOro()
     {
-        yield return new WaitForSeconds(7); //hacemos lo que seria un waitpid o parecido
-        oro_powerup = false; //ponemos a false cuando pasemos los 7 segundos que sera cuando salgamos el wait 
-                             //quitamos la textura
+        yield return new WaitForSeconds(7); 
+        oro_powerup = false;
         render_diamante_pico.material.mainTexture = powerUpTextures[1];
         GameManager.instance.change_oro_state(false);
-        // powerUpIndicator.SetActive(false); //hacemos que el indiicador se ponga en desactivado para no verlo
 
     }
 
@@ -317,9 +286,6 @@ void Update()
     {
         yield return new WaitForSeconds(5); //hacemos lo que seria un waitpid o parecido
         GameManager.instance.powerball_change_state(false);
-
-        // powerUpIndicator.SetActive(false); //hacemos que el indiicador se ponga en desactivado para no verlo
-
     }
  
 
@@ -394,9 +360,6 @@ void Update()
                 if (god_mode) muro_god_mode[i] = Instantiate(bedrock_Prefab, posicionBloque, Quaternion.identity);
                 else Destroy(muro_god_mode[i]);
 
-                // Incrementa inicioX para el siguiente bloque (esto podría causar superposición)
-                // Una mejor manera es calcular la posición directamente usando el índice y el espacio
-                // inicioX += espacioEntreBloques; // No es necesario aquí
             }
         }
         else
@@ -424,8 +387,7 @@ void Update()
                 ++index_posicion_muro;
             if (index_posicion_muro >= cantidadBloquesMuro) index_posicion_muro = 0; //reiniciamos la sequencia
 
-                  
-                }
+                 }
             
  
     }

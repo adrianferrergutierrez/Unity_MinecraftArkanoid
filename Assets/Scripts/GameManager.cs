@@ -173,32 +173,26 @@ public class GameManager : MonoBehaviour
             Debug.Log("GameManager: Nivel actual establecido al índice " + currentLevelIndex + " (" + scene.name + ")");
         }
         // else {
-        // Opcional: Si la escena no es un nivel (menú, gameover, etc.),
-        // podrías poner currentLevelIndex a un valor como -1 para indicarlo.
-        // currentLevelIndex = -1; // Por ejemplo
-        // }
+       
 
-
-        // --- PASO 2: LÓGICA PARA CAMBIAR LA MÚSICA (AHORA USA EL currentLevelIndex CORRECTO) ---
         if (scene.name == mainMenuSceneName)
         {
-            PlayMusic(main_menu); // Asegúrate que 'main_menu' (AudioClip) esté asignado en el Inspector
+            PlayMusic(main_menu);
         }
         else if (scene.name == gameOverSceneName)
         {
-            PlayMusic(GameOver); // Asegúrate que 'GameOver' (AudioClip) esté asignado
+            PlayMusic(GameOver); 
         }
         else if (scene.name == winSceneName)
         {
-            PlayMusic(Winner);   // Asegúrate que 'Winner' (AudioClip) esté asignado
+            PlayMusic(Winner);  
         }
         else if (scene.name == creditsSceneName)
         {
-            PlayMusic(creditsMusic); // Asegúrate que 'creditsMusic' (AudioClip) esté asignado
+            PlayMusic(creditsMusic);
         }
         else if (IsCurrentSceneLevel(scene.name)) // Comprueba si es una escena de nivel
         {
-            // 'currentLevelIndex' ya ha sido actualizado arriba si la escena es un nivel reconocido.
             if (this.currentLevelIndex >= 0 && this.currentLevelIndex < musicClips.Length)
             {
                 if (musicClips[this.currentLevelIndex] != null)
@@ -222,8 +216,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // Si no es ninguna de las escenas especiales ni un nivel reconocido del array,
-            // podrías detener la música o poner una música por defecto.
+            
             Debug.LogWarning("Escena '" + scene.name + "' no tiene música específica asignada. Deteniendo música.");
             if (musicSource != null) musicSource.Stop();
         }
@@ -289,7 +282,7 @@ public class GameManager : MonoBehaviour
     public void StartGameFromMenu()
     {
         puntuacion = 0;
-        vidas_player = 3; // O tu valor inicial de vidas
+        vidas_player = 3; 
         currentLevelIndex = 0;
         primeraBolaLanzadaDelNivel = false;
         OnScoreChanged?.Invoke();
@@ -311,7 +304,6 @@ public class GameManager : MonoBehaviour
 
     private void HandleGameOver()
     {
-        Debug.Log("GAME OVER");
         CheckAndSaveHighScore();
 
         SceneManager.LoadScene(gameOverSceneName);
@@ -320,7 +312,6 @@ public class GameManager : MonoBehaviour
 
     private void HandleWinGame()
     {
-        Debug.Log("¡HAS GANADO!");
         CheckAndSaveHighScore();
 
         SceneManager.LoadScene(winSceneName);
@@ -359,7 +350,6 @@ public class GameManager : MonoBehaviour
         puntuacion += puntos;
         OnScoreChanged?.Invoke();
 
-        //miramos si el numero de bloques que faltan del nivel esta completo o no
     }
 
     public void ReiniciarPuntos()
@@ -443,14 +433,9 @@ public class GameManager : MonoBehaviour
                 Rigidbody originalRb = originalBallGO.GetComponent<Rigidbody>();
                 if (originalRb != null)
                 {
-                    // CAMBIO: Calculamos una posición de spawn LIGERAMENTE al lado de la original.
                     Vector3 spawnOffset = new Vector3(0.3f, 0, 0); // Un pequeño desplazamiento en X
                     Vector3 spawnPosition = originalBallGO.transform.position + spawnOffset;
-
-                    // CAMBIO: Obtenemos la velocidad de la bola original para pasársela a la nueva.
                     Vector3 originalVelocity = originalRb.linearVelocity;
-
-                    // Llamamos a nuestro método modificado para crear y lanzar la bola
                     InstantiateNewBall(spawnPosition, false, originalVelocity);
                 }
             }
@@ -469,7 +454,6 @@ public class GameManager : MonoBehaviour
             {
                 if (isInitialSpawn)
                 {
-                    // Lógica para la primera bola del nivel (esto se queda igual)
                     Paddle paddleScript = pala.GetComponent<Paddle>();
                     if (paddleScript != null)
                     {
@@ -478,7 +462,6 @@ public class GameManager : MonoBehaviour
                 }
                 else // Multibola (ya no es un spawn inicial)
                 {
-                    // CAMBIO: ¡Llamamos a un nuevo método en Ball3D para lanzarla como un duplicado!
                     ballScript.LaunchAsDuplicate(initialVelocity);
                 }
             }
@@ -499,22 +482,20 @@ public class GameManager : MonoBehaviour
         return powerUpImanActivo;
     }
 
-    // Renombramos tu "LaunchFirstBallIfReady" para que sea más claro
     public void MarcarPrimeraBolaLanzada()
     {
         primeraBolaLanzadaDelNivel = true;
     }
 
-    private void ClearAllBalls() // Nueva función utilitaria
+    private void ClearAllBalls() 
     {
-        foreach (GameObject ball in new List<GameObject>(activeBalls)) // Copia para modificar la colección
+        foreach (GameObject ball in new List<GameObject>(activeBalls)) 
         {
             if (ball != null) Destroy(ball);
         }
         activeBalls.Clear();
     }
 
-    // Reemplaza tu destruccion_bola()
     public void HandleBallLost(GameObject bola)
     {
         if (bola != null && activeBalls.Contains(bola))
@@ -540,7 +521,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //el setup level solo calcula el numero de bloques HACE FALTA CAMBIAR EL TAAAAg
    
 
     public void powerball_change_state(bool estado)
@@ -627,7 +607,6 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt(HighScoreKey, puntuacion);
             PlayerPrefs.Save(); // Guarda los cambios en el disco.
-            Debug.Log("¡NUEVO RÉCORD GUARDADO!: " + puntuacion);
         }
     }
 

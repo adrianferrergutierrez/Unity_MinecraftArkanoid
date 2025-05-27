@@ -2,12 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//cogemos la libreria especifica de las escenas
 using UnityEngine.SceneManagement;
-//importamos una nueva LIBRERIA, tenemos las funciones y clases de Text MEsh Pro
 using TMPro;
-
-//libreria qyue nois permite interactuar direcamente con el boton
 using UnityEngine.UI;
 
 public class Creditos : MonoBehaviour

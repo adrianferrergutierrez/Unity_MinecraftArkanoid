@@ -4,40 +4,20 @@ using UnityEngine;
 
 public class Bloque : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public int vidas = 3;
- 
-
     public GameObject[] powerups;
-    //para los objetos que solo tienen un drop ponemos el unico item y hacemos que se dopee el item [0]. Si queremos aleatorio hacemos que se haga random entre el numero de items que tiene el array.
-
     public AudioClip[] clips;
-    //sistema de particulas
     public GameObject sistema_particulas;
-    
     private ManagerScene manager_escena;
-
     public Transform upperStructureParent;
     private bool powerball;
-
     public GameObject powerup_exp;
-
-    // Probabilidades
     public float probabilidad_powerup;
-
-    
-
 
 
     void Start()
     {
         manager_escena = FindFirstObjectByType<ManagerScene>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -61,17 +41,13 @@ public class Bloque : MonoBehaviour
                         if (GameManager.instance.get_state_oro()) GameManager.instance.SumarPuntos(400);
                         else GameManager.instance.SumarPuntos(100);
                     }
-                    // Puedes dar unos puntos base por destruir cualquier bloque contable aquí
-                    // GameManager.instance.SumarPuntos(10); 
+                   
                 }
 
                 //comportamiento especifico de los bloques centrales, donde primero hacen que los hijos dejen de ser sus hijos para no ser eliminados todos juntos
                 if (CompareTag("BloqueCentralNether"))
                 {
                     //le decimos al manager de la escena que lleva el contador de cuantos bloques se tienen que destruir en esta escena que hemos eliminado 1 
-
-                    Debug.Log("Bloque Central Nether destruido. Liberando estructura superior.");
-
                     // Verifica si tenemos la referencia al padre de la estructura superior
                     if (upperStructureParent != null)
                     {

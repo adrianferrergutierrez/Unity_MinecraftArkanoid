@@ -1,6 +1,5 @@
-    // SceneUIManager.cs
     using UnityEngine;
-    using TMPro; // Para TextMeshProUGUI
+    using TMPro; 
     using System;
     using UnityEngine.UI;
 
@@ -8,8 +7,8 @@
     {
         public TextMeshProUGUI scoreText;
         public TextMeshProUGUI livesText;
-        public Slider experienceBar;            // Arrastra tu Slider aquí
-        public TextMeshProUGUI levelNumberText; // Arrastra el texto del nivel aquí
+        public Slider experienceBar;            
+        public TextMeshProUGUI levelNumberText; 
         public int totalBloquesDelNivel;
         public int bloquesDestruidos;
         public int level_index;
@@ -80,7 +79,7 @@
 
     public float ratio_acabado_nivel()
     {
-        if (totalBloquesDelNivel <= 0) return 0f; // O 1f si consideras que 0 bloques es nivel completo
+        if (totalBloquesDelNivel <= 0) return 0f; 
         return (float)bloquesDestruidos / totalBloquesDelNivel;
     }
 
@@ -92,15 +91,12 @@
 
         // Añadimos una comprobación para evitar pasar de nivel si no había bloques que destruir
         if (totalBloquesDelNivel > 0 && bloquesDestruidos >= totalBloquesDelNivel)
-        {
-            Debug.Log("Nivel completado! Pasando al siguiente...");
-          
+        {          
             GameManager.instance.GoToNextLevel(); 
         }
     }
     public void acabarNivel()
     {
-        Debug.Log("Power-up de Experiencia recogido. Finalizando nivel...");
 
         // Nos aseguramos de que los bloques destruidos igualen al total
         // (o lo superen si totalBloquesDelNivel era 0)
@@ -118,14 +114,9 @@
         // Ahora comprobamos si se debe pasar de nivel (que debería ser siempre true ahora)
         if (totalBloquesDelNivel == 0 || bloquesDestruidos >= totalBloquesDelNivel)
         {
-            Debug.Log("Nivel completado por Power-up! Pasando al siguiente...");
             GameManager.instance.GoToNextLevel();
         }
-        else
-        {
-            // Este caso no debería ocurrir si hemos igualado los bloques. Es para depurar.
-            Debug.LogWarning("acabarNivel llamado, pero la condición de victoria no se cumplió. B:" + bloquesDestruidos + "/T:" + totalBloquesDelNivel);
-        }
+     
     }
 
     private void ActualizarBarraExperiencia()
@@ -144,31 +135,4 @@
                 }
             }
         }
-
-        // void UpdateBlocksDisplay() { /* Lógica para actualizar texto de bloques */ }
-
-
-        // --- Métodos para botones (ejemplos que llamarían al GameManager) ---
-        // Estos métodos los conectarías a los OnClick() de tus botones en el Inspector de Unity
-
-        /* public void BotonPausaPresionado()
-         {
-             // GameManager.instance.PausarJuego(); // Si GameManager tuviera un método PausarJuego()
-             Debug.Log("Botón Pausa presionado (lógica de pausa no implementada en GM)");
-         }
-
-         public void BotonReintentarNivelPresionado()
-         {
-             if (GameManager.instance != null) GameManager.instance.RetryCurrentLevel();
-         }
-
-         public void BotonVolverAlMenuPresionado()
-         {
-             if (GameManager.instance != null) GameManager.instance.GoToMainMenu();
-         }
-
-         public void BotonEmpezarJuegoPresionado() // Para el botón en el menú principal
-         {
-             if (GameManager.instance != null) GameManager.instance.StartGameFromMenu();
-         }*/
     }
