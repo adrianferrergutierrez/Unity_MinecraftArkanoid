@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BrazoDerecho
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: root
+    m_Weight: 1
+  - m_Path: root/body_main
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_left
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_left/arm_left.001
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_left/arm_left.002
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_left/leftArm
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_left/leftArm/leftItem
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_right
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_right/arm_right.001
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_right/arm_right.002
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_right/rightArm
+    m_Weight: 0
+  - m_Path: root/body_main/body_ext/body/arms/arm_right/rightArm/rightItem
+    m_Weight: 0
+  - m_Path: root/body_main/body_ext/body/arms/arm_right/root_item
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_right/root_item/root_item.001
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_right/root_item/root_item.002
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_right/root_item/root_item.003
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_right/root_item/root_item.004
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/arms/arm_right/root_item/root_item.005
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/body.001
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/body.002
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/body.003
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/head_ext
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/head_ext/head
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/head_ext/head/ears
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/head_ext/head/ears/ear_left
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/head_ext/head/ears/ear_left/ear_left.001
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/head_ext/head/ears/ear_right
+    m_Weight: 0
+  - m_Path: root/body_main/body_ext/body/head_ext/head/ears/ear_right/ear_right.001
+    m_Weight: 0
+  - m_Path: root/body_main/body_ext/body/head_ext/head/head.001
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/head_ext/head/head.002
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/head_ext/head/head.003
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/head_ext/head/head.004
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/head_ext/head/head.005
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/body/head_ext/head/head.006
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/legs
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/legs/leg_left
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/legs/leg_left/leg_left.001
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/legs/leg_left/leg_left.002
+    m_Weight: 1
+  - m_Path: root/body_main/body_ext/legs/leg_right
+    m_Weight: 0
+  - m_Path: root/body_main/body_ext/legs/leg_right/leg_right.001
+    m_Weight: 0
+  - m_Path: root/body_main/body_ext/legs/leg_right/leg_right.002
+    m_Weight: 0
