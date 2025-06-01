@@ -1,0 +1,359 @@
+fileFormatVersion: 2
+guid: 30519fdc12916c24a8c1ee3978db93b6
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: e3866656256e9664d9c175d7363ef588, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.005
+    second: {fileID: 2100000, guid: c7ba304c10fac1543941b5a1d8737e7a, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: Armature
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: PelvisL
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: LLeg1
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Head1
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: LClavice
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: LArm1
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: HeadL
+      humanName: LeftEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: REar
+      humanName: RightEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Piglin@Nervously Look Around(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: Piglin@Nervously Look Around(Clone)
+      position: {x: 2.0994964, y: 1.1868374, z: -0.064166784}
+      rotation: {x: -0.6056734, y: -0.33822587, z: 0.3631917, w: 0.62197655}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Root
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: PelvisL
+      parentName: Root
+      position: {x: -0, y: 0.024, z: 0}
+      rotation: {x: 0.7880496, y: -0.36738655, z: -0.46877342, w: -0.15574487}
+      scale: {x: 1, y: 1, z: 1}
+    - name: LLeg1
+      parentName: PelvisL
+      position: {x: -0, y: 0.004, z: 0}
+      rotation: {x: 0.26301318, y: 0.48058382, z: 0.090701886, w: 0.83164686}
+      scale: {x: 1, y: 1, z: 1}
+    - name: LLeg_end
+      parentName: LLeg1
+      position: {x: -0, y: 0.024, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: PelvisR
+      parentName: Root
+      position: {x: -0, y: 0.024, z: 0}
+      rotation: {x: 0.64422613, y: -0.39728025, z: -0.35696533, w: 0.5474641}
+      scale: {x: 1, y: 1, z: 1}
+    - name: RLeg1
+      parentName: PelvisR
+      position: {x: -0, y: 0.004, z: 0}
+      rotation: {x: 0.72348434, y: -0.01786213, z: -0.023170624, w: 0.6897206}
+      scale: {x: 1, y: 1, z: 1}
+    - name: RLeg_end
+      parentName: RLeg1
+      position: {x: -0, y: 0.024, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Spine
+      parentName: Root
+      position: {x: -0, y: 0.024, z: 0}
+      rotation: {x: -0.0614816, y: 0.06385022, z: -0.50245816, w: 0.8600459}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head1
+      parentName: Spine
+      position: {x: -0, y: 0.024, z: 0}
+      rotation: {x: 0.21680354, y: -0.006290659, z: -0.004043869, w: 0.97618663}
+      scale: {x: 1, y: 1, z: 1}
+    - name: HeadL
+      parentName: Head1
+      position: {x: -0, y: 0.007999997, z: 0}
+      rotation: {x: -0.5953707, y: -0.005865874, z: 0.023782073, w: 0.8030777}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: LEar
+      parentName: HeadL
+      position: {x: -0, y: 0.01077033, z: 5.9604643e-10}
+      rotation: {x: -0.6870964, y: 0, z: -0, w: 0.7265663}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: LEar_end
+      parentName: LEar
+      position: {x: -0, y: 0.01, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: HeadR
+      parentName: Head1
+      position: {x: -0, y: 0.007999997, z: 0}
+      rotation: {x: 0.5606289, y: -0, z: -0, w: 0.8280672}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: REar
+      parentName: HeadR
+      position: {x: -1.4210854e-16, y: 0.01077033, z: -5.9604643e-10}
+      rotation: {x: 0.6870964, y: -0, z: -0, w: 0.7265663}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: REar_end
+      parentName: REar
+      position: {x: -0, y: 0.01, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: LClavice
+      parentName: Spine
+      position: {x: -0, y: 0.024, z: 0}
+      rotation: {x: 0.7618573, y: -0.57573634, z: -0.14763165, w: -0.25749984}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: LArm1
+      parentName: LClavice
+      position: {x: 3.5527135e-16, y: 0.012649114, z: -0.0000000023841857}
+      rotation: {x: 0.021834724, y: -0.22403249, z: 0.115835205, w: 0.96742696}
+      scale: {x: 1, y: 1, z: 1}
+    - name: LArm_end
+      parentName: LArm1
+      position: {x: -0, y: 0.02, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: RClavice
+      parentName: Spine
+      position: {x: -0, y: 0.024, z: 0}
+      rotation: {x: 0.9219164, y: -0.2701022, z: -0.23036742, w: -0.15506701}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: RArm1
+      parentName: RClavice
+      position: {x: -1.2079227e-15, y: 0.012649114, z: 0.0000000023841857}
+      rotation: {x: -0.586027, y: 0.2157446, z: -0.0013550922, w: 0.78104085}
+      scale: {x: 1, y: 1, z: 1}
+    - name: RArm_end
+      parentName: RArm1
+      position: {x: -0, y: 0.02, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Body
+      parentName: Piglin@Nervously Look Around(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 40, y: 80, z: 120.00001}
+    - name: EarL
+      parentName: Piglin@Nervously Look Around(Clone)
+      position: {x: -0, y: 1.8999999, z: -1}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 40, y: 10, z: 50}
+    - name: EarR
+      parentName: Piglin@Nervously Look Around(Clone)
+      position: {x: -0, y: 1.8999999, z: 1}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 40, y: 10, z: 50}
+    - name: Head
+      parentName: Piglin@Nervously Look Around(Clone)
+      position: {x: -0, y: 2.0000002, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 80, y: 100, z: 80}
+    - name: LArm
+      parentName: Piglin@Nervously Look Around(Clone)
+      position: {x: -0, y: 0, z: -1.2}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 40, y: 40, z: 120.00001}
+    - name: LLeg
+      parentName: Piglin@Nervously Look Around(Clone)
+      position: {x: -0, y: -2.4, z: -0.39999998}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 40, y: 40, z: 120.00001}
+    - name: Nose
+      parentName: Piglin@Nervously Look Around(Clone)
+      position: {x: -0.9, y: 1.6000001, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 10, y: 40, z: 40}
+    - name: RArm
+      parentName: Piglin@Nervously Look Around(Clone)
+      position: {x: -1.9422277, y: 0.38346457, z: -1.007883}
+      rotation: {x: -0.38900527, y: -0.1986532, z: -0.5904871, w: 0.6786286}
+      scale: {x: 40, y: 40, z: 120.00001}
+    - name: RLeg
+      parentName: Piglin@Nervously Look Around(Clone)
+      position: {x: -0, y: -2.4, z: 0.39999998}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 40, y: 40, z: 120.00001}
+    - name: TuskL
+      parentName: Piglin@Nervously Look Around(Clone)
+      position: {x: -0.9, y: 1.3999999, z: -0.5}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 10, y: 10, z: 20}
+    - name: TuskR
+      parentName: Piglin@Nervously Look Around(Clone)
+      position: {x: -0.9, y: 1.3999999, z: 0.5}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 10, y: 10, z: 20}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

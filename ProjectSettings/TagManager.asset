@@ -19,6 +19,23 @@ TagManager:
   - Cofre
   - Tronco
   - Paja
+  - BloqueCentralNether
+  - Destroy
+  - Bloque_powerup_random
+  - Bloque_powerup_especifico
+  - Powerup_oro
+  - Powerup_magma
+  - Powerup_cuarzo
+  - Bloque_nodrop
+  - Wither
+  - Experiencia
+  - Hierro_powerup
+  - Purple_glass_powerup
+  - Faro_powerup
+  - Coral_debuff
+  - Diamante_powerup
+  - Lapis
+  - Powerup_shrink
   layers:
   - Default
   - TransparentFX
