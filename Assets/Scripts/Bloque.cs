@@ -13,11 +13,14 @@ public class Bloque : MonoBehaviour
     private bool powerball;
     public GameObject powerup_exp;
     public float probabilidad_powerup;
-
+    
 
     void Start()
     {
         manager_escena = FindFirstObjectByType<ManagerScene>();
+    }
+    public int get_vidas() {
+        return vidas;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -157,7 +160,7 @@ public class Bloque : MonoBehaviour
     //funcion que se usara cuando tengamos todas las particulas funcionando
     private void Eliminacion()
     {
-        GameObject particlesInstance = Instantiate(sistema_particulas, transform.position, Quaternion.identity);
+            GameObject particlesInstance = Instantiate(sistema_particulas, transform.position, Quaternion.identity);
         AudioSource audio = particlesInstance.GetComponent<AudioSource>();
         ParticleSystem particulas = particlesInstance.GetComponent<ParticleSystem>();
         particulas.Play();

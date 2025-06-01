@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfd0fe888eaf964e9aa05eb3052c1de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vidas: 2
+  vidas: 1
   powerups:
   - {fileID: 2056165667348826043, guid: dab97bad6a1cc954886c94cc16391d85, type: 3}
   - {fileID: 5899845481673564092, guid: 7d80a52aa1a2d664a955f25377068866, type: 3}
