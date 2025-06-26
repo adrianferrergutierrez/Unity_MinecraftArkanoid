@@ -1,7 +1,7 @@
 
 # Unity MinecraftArkanoid
 
-Project developed during the 6th Trimester for the Games (https://www.fib.upc.edu/en/studies/bachelors-degrees/bachelor-degree-informatics-engineering/curriculum/syllabus/VJ) subject. It was implemented using Unity and coded in C#, applying concepts and elements learned throughout the course. The game is only in Spanish yet.
+Project developed during the 6th Trimester for the Games (https://www.fib.upc.edu/en/studies/bachelors-degrees/bachelor-degree-informatics-engineering/curriculum/syllabus/VJ) subject. It was implemented using Unity and coded in C#, applying concepts and elements learned throughout the course. The game is only in Spanish yet. There is a 'Memory' PDF report that details the game's development and explains how each block and power-up works. However, it's only available in Catalan yet.
 
 ## Members of the team
 
